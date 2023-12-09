@@ -7,6 +7,7 @@
     "dev": "next dev",
     "format": "prettier --write . --ignore-unknown",
     "lint": "next lint",
+    "prepare": "is-ci || husky install",
     "start": "next start"
   },
   "prettier": "@vercel/style-guide/prettier",
@@ -23,6 +24,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "eslint-plugin-perfectionist": "^2.5.0",
+    "husky": "^8.0.3",
+    "is-ci": "^3.0.1",
     "prettier": "^3.1.0",
     "typescript": "^5"
   }
