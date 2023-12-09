@@ -1,5 +1,4 @@
 // @ts-check
-// Ensures that all environment variables are present and valid.
 
 import { z } from 'zod';
 
@@ -19,7 +18,7 @@ const getGitSha = () => {
 };
 
 const envSchema = z.object({
-  GIT_SHA: z.string().min(1).default(getGitSha()),
+  GIT_SHA: z.string().min(7).default(getGitSha()),
 });
 
 const envValidation = envSchema.safeParse(process.env);
