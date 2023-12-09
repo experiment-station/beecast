@@ -28,5 +28,4 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      if: steps.pnpm-cache.outputs.cache-hit != 'true'
-      run: pnpm install --frozen-lockfile --prefer-offline
+      run: pnpm install --frozen-lockfile
