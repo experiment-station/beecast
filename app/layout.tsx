@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 
-import { Theme, ThemePanel } from '@radix-ui/themes';
-import '@radix-ui/themes/styles.css';
+import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
   description: 'Welcome, welcome, welcome!',
@@ -11,12 +10,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <Theme>
-          {children}
-          <ThemePanel />
-        </Theme>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
