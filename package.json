@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build-storybook": "storybook build",
     "dev": "next dev",
     "format": "prettier --write . --ignore-unknown",
     "lint": "eslint .",
     "prepare": "is-ci || husky install",
-    "start": "next start"
+    "start": "next start",
+    "storybook": "storybook dev -p 6006"
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
@@ -21,6 +23,14 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
+    "@storybook/addon-essentials": "^7.6.4",
+    "@storybook/addon-interactions": "^7.6.4",
+    "@storybook/addon-links": "^7.6.4",
+    "@storybook/addon-onboarding": "^1.0.9",
+    "@storybook/blocks": "^7.6.4",
+    "@storybook/nextjs": "^7.6.4",
+    "@storybook/react": "^7.6.4",
+    "@storybook/test": "^7.6.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -28,10 +38,12 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "eslint-plugin-perfectionist": "^2.5.0",
+    "eslint-plugin-storybook": "^0.6.15",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.0",
+    "storybook": "^7.6.4",
     "typescript": "^5"
   }
 }
