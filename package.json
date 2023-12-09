@@ -22,6 +22,7 @@
     "@vercel/style-guide": "^5.1.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "eslint-plugin-perfectionist": "^2.5.0",
     "prettier": "^3.1.0",
     "typescript": "^5"
   }
