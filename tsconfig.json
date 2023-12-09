@@ -26,15 +26,14 @@
   "include": [
     ".eslintrc.cjs",
     ".next/types/**/*.ts",
-    ".storybook/**/*",
-    "*.config.js",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "*.config.cjs",
+    "*.config.mjs",
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts",
     "env.mjs",
-    "next.config.mjs",
-    "lint-staged.config.cjs",
-    "commitlint.config.cjs"
+    "next-env.d.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -7,18 +7,15 @@ const getGitSha = () => {
     return process.env.VERCEL_GIT_COMMIT_SHA;
   }
 
-  try {
-    return require('node:child_process')
-      .execSync('git rev-parse HEAD')
-      .toString()
-      .trim();
-  } catch (error) {
-    return 'unknown';
+  if (process.env.GITHUB_SHA) {
+    return process.env.GITHUB_SHA;
   }
+
+  return 'dev';
 };
 
 const envSchema = z.object({
-  GIT_SHA: z.string().min(7).default(getGitSha()),
+  GIT_SHA: z.string().min(1).default(getGitSha()),
 });
 
 const envValidation = envSchema.safeParse(process.env);
