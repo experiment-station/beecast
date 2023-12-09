@@ -13,6 +13,7 @@ module.exports = {
     require.resolve('@vercel/style-guide/eslint/next'),
     'plugin:perfectionist/recommended-natural',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     project,
   },
