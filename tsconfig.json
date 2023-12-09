@@ -20,15 +20,17 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "baseUrl": "."
   },
   "include": [
-    "next-env.d.ts",
+    ".eslintrc.cjs",
+    ".next/types/**/*.ts",
+    ".storybook/**/*",
+    "*.config.js",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".eslintrc.cjs",
-    "*.config.js"
+    "next-env.d.ts"
   ],
   "exclude": ["node_modules"]
 }
