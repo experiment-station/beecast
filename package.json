@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "prepare": "is-ci || husky install",
     "start": "next start",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "typecheck": "tsc --noEmit"
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
