@@ -35,6 +35,7 @@ module.exports = {
     'import/no-default-export': 'off',
     'import/no-duplicates': 'error',
     'import/order': 'off',
+    'no-console': 'off',
   },
   settings: {
     'import/resolver': {

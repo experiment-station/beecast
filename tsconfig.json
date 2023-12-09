@@ -30,7 +30,8 @@
     "*.config.js",
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "env.mjs"
   ],
   "exclude": ["node_modules"]
 }
