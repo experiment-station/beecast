@@ -4,7 +4,6 @@ const project = resolve(__dirname, 'tsconfig.json');
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  root: true,
   extends: [
     require.resolve('@vercel/style-guide/eslint/node'),
     require.resolve('@vercel/style-guide/eslint/browser'),
@@ -13,16 +12,11 @@ module.exports = {
     require.resolve('@vercel/style-guide/eslint/next'),
     'plugin:perfectionist/recommended-natural',
   ],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     project,
   },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project,
-      },
-    },
-  },
+  root: true,
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/consistent-type-imports': 'error',
@@ -40,5 +34,12 @@ module.exports = {
     'import/no-default-export': 'off',
     'import/no-duplicates': 'error',
     'import/order': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project,
+      },
+    },
   },
 };
