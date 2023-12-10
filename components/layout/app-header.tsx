@@ -80,40 +80,38 @@ function AppHeaderActionsGuest() {
 
 export function AppHeader(props: Props) {
   return (
-    <header className="sticky">
-      <Flex direction="column" gap="4" mt="4">
-        <AppContent>
-          <Flex align="center" justify="between">
-            <Flex align="center" asChild gap="2">
-              <Link
-                href="/"
-                style={{
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              >
-                <Image
-                  alt="beecast.ai logo"
-                  height="48"
-                  src="/beecast.png"
-                  style={{ display: 'block' }}
-                  width="48"
-                />
+    <Flex direction="column" gap="4" py="4">
+      <AppContent>
+        <Flex align="center" justify="between">
+          <Flex align="center" asChild gap="2">
+            <Link
+              href="/"
+              style={{
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              <Image
+                alt="beecast.ai logo"
+                height="48"
+                src="/beecast.png"
+                style={{ display: 'block' }}
+                width="48"
+              />
 
-                <Heading size="5" weight="medium">
-                  Beecast
-                </Heading>
-              </Link>
-            </Flex>
-
-            {props.variant === 'authenticated' ? (
-              <AppHeaderActionsAuthenticated {...props} />
-            ) : (
-              <AppHeaderActionsGuest />
-            )}
+              <Heading size="5" weight="medium">
+                Beecast
+              </Heading>
+            </Link>
           </Flex>
-        </AppContent>
-      </Flex>
-    </header>
+
+          {props.variant === 'authenticated' ? (
+            <AppHeaderActionsAuthenticated {...props} />
+          ) : (
+            <AppHeaderActionsGuest />
+          )}
+        </Flex>
+      </AppContent>
+    </Flex>
   );
 }
