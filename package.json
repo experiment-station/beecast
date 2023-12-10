@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "prepare": "is-ci || husky install",
     "start": "next start",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "typecheck": "tsc --noEmit"
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
@@ -44,5 +45,6 @@
     "prettier": "^3.1.0",
     "storybook": "^7.6.4",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@8.12.0"
 }
