@@ -18,7 +18,7 @@ const FOOTER_SERVICE_LINKS = [
 
 const FOOTER_SOCIAL_LINKS = [
   {
-    href: 'https://github.com/okanisildar/beecast',
+    href: 'https://github.com/experiment-station/beecast',
     icon: <GitHubLogoIcon />,
     title: 'GitHub',
   },
