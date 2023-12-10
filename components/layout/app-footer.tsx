@@ -5,7 +5,7 @@ import React from 'react';
 import { AppContent } from './app-content';
 
 // @TODO: replace with real links: SUPA-27
-const FOOTER_COMPANY_LINKS = [
+const FOOTER_SERVICE_LINKS = [
   {
     href: 'https://experiment.st',
     label: 'Privacy policy',
@@ -42,14 +42,14 @@ export function AppFooter() {
           </Text>
 
           <Flex align="center" gap="1">
-            {FOOTER_COMPANY_LINKS.map((link) => (
+            {FOOTER_SERVICE_LINKS.map((link) => (
               <React.Fragment key={link.href}>
                 <Link color="gray" href={link.href} size="2" target="_blank">
                   {link.label}
                 </Link>
 
                 {link !==
-                FOOTER_COMPANY_LINKS[FOOTER_COMPANY_LINKS.length - 1] ? (
+                FOOTER_SERVICE_LINKS[FOOTER_SERVICE_LINKS.length - 1] ? (
                   <Text size="2">·</Text>
                 ) : null}
               </React.Fragment>
