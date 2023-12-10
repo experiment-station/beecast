@@ -1,12 +1,11 @@
 import type { PropsWithChildren } from 'react';
 
-import { Theme, ThemePanel } from '@radix-ui/themes';
+import { Theme } from '@radix-ui/themes';
 
 export function RadixThemesProvider({ children }: PropsWithChildren) {
   return (
-    <Theme>
+    <Theme accentColor="amber" appearance="dark" grayColor="sand">
       {children}
-      <ThemePanel />
     </Theme>
   );
 }
