@@ -2,7 +2,6 @@ import { ArrowRightIcon, PersonIcon } from '@radix-ui/react-icons';
 import {
   Avatar,
   Button,
-  Container,
   DropdownMenu,
   Flex,
   Heading,
@@ -10,6 +9,8 @@ import {
 } from '@radix-ui/themes';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { AppContent } from './app-content';
 
 type Props =
   | {
@@ -81,13 +82,7 @@ export function AppHeader(props: Props) {
   return (
     <header className="sticky">
       <Flex direction="column" gap="4" mt="4">
-        <Container
-          px={{
-            initial: '6',
-            lg: '0',
-          }}
-          size="4"
-        >
+        <AppContent>
           <Flex align="center" justify="between">
             <Flex align="center" asChild gap="2">
               <Link
@@ -117,7 +112,7 @@ export function AppHeader(props: Props) {
               <AppHeaderActionsGuest />
             )}
           </Flex>
-        </Container>
+        </AppContent>
       </Flex>
     </header>
   );

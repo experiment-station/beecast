@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from 'react';
 
-import { Container } from '@radix-ui/themes';
+import { Box } from '@radix-ui/themes';
 
+import { AppContent } from './app-content';
 import { AppHeader } from './app-header';
 
 export function AppLayout({ children }: PropsWithChildren) {
@@ -9,16 +10,9 @@ export function AppLayout({ children }: PropsWithChildren) {
     <>
       <AppHeader variant="guest" />
 
-      <Container
-        my="6"
-        px={{
-          initial: '6',
-          lg: '0',
-        }}
-        size="4"
-      >
-        {children}
-      </Container>
+      <AppContent>
+        <Box my="6">{children}</Box>
+      </AppContent>
     </>
   );
 }
