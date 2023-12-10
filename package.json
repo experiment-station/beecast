@@ -11,14 +11,13 @@
     "prepare": "is-ci || husky install",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
-    "typecheck": "tsc --noEmit",
     "supabase:login": "supabase login",
-    "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/database.ts"
+    "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/database.ts",
+    "typecheck": "tsc --noEmit"
   },
   "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
     "@radix-ui/themes": "^2.0.2",
-    "@supabase/auth-helpers-nextjs": "^0.8.7",
     "@supabase/ssr": "^0.0.10",
     "@supabase/supabase-js": "^2.39.0",
     "next": "14.0.4",
