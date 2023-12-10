@@ -19,7 +19,8 @@
     "next": "14.0.4",
     "next-themes": "1.0.0-beta.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",

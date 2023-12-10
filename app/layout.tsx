@@ -6,7 +6,7 @@ import '@/components/theme-provider/styles.css';
 
 export const metadata: Metadata = {
   description: 'Welcome, welcome, welcome!',
-  title: 'pod1612',
+  title: 'beecast',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

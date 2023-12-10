@@ -26,10 +26,13 @@
   "include": [
     ".eslintrc.cjs",
     ".next/types/**/*.ts",
-    ".storybook/**/*",
-    "*.config.js",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "*.config.cjs",
+    "*.config.mjs",
     "**/*.ts",
     "**/*.tsx",
+    "env.mjs",
     "next-env.d.ts"
   ],
   "exclude": ["node_modules"]
