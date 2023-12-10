@@ -18,6 +18,83 @@ export type Database = {
       [_ in never]: never;
     };
     Tables: {
+      account: {
+        Insert: {
+          ai_credit?: null | number;
+          avatar_url?: null | string;
+          created_at?: string;
+          display_name?: null | string;
+          id?: number;
+          provider_refresh_token?: null | string;
+          provider_token: string;
+          user: string;
+        };
+        Relationships: [
+          {
+            columns: ['user'];
+            foreignKeyName: 'account_user_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          },
+        ];
+        Row: {
+          ai_credit: null | number;
+          avatar_url: null | string;
+          created_at: string;
+          display_name: null | string;
+          id: number;
+          provider_refresh_token: null | string;
+          provider_token: string;
+          user: string;
+        };
+        Update: {
+          ai_credit?: null | number;
+          avatar_url?: null | string;
+          created_at?: string;
+          display_name?: null | string;
+          id?: number;
+          provider_refresh_token?: null | string;
+          provider_token?: string;
+          user?: string;
+        };
+      };
+      account_show_relation: {
+        Insert: {
+          account: number;
+          created_at?: string;
+          id?: number;
+          show: number;
+        };
+        Relationships: [
+          {
+            columns: ['account'];
+            foreignKeyName: 'account_show_relation_account_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'account';
+          },
+          {
+            columns: ['show'];
+            foreignKeyName: 'account_show_relation_show_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'show';
+          },
+        ];
+        Row: {
+          account: number;
+          created_at: string;
+          id: number;
+          show: number;
+        };
+        Update: {
+          account?: number;
+          created_at?: string;
+          id?: number;
+          show?: number;
+        };
+      };
       episode: {
         Insert: {
           audio_url: string;
@@ -90,7 +167,7 @@ export type Database = {
             foreignKeyName: 'episode_content_user_fkey';
             isOneToOne: false;
             referencedColumns: ['id'];
-            referencedRelation: 'user';
+            referencedRelation: 'account';
           },
         ];
         Row: {
@@ -132,7 +209,7 @@ export type Database = {
             foreignKeyName: 'episode_progress_user_fkey';
             isOneToOne: false;
             referencedColumns: ['id'];
-            referencedRelation: 'user';
+            referencedRelation: 'account';
           },
         ];
         Row: {
@@ -189,75 +266,6 @@ export type Database = {
           spotify_id?: string;
           title?: string;
           total_episode?: null | number;
-        };
-      };
-      user: {
-        Insert: {
-          ai_credit?: null | number;
-          avatar?: null | string;
-          created_at?: string;
-          email?: null | string;
-          id?: number;
-          password?: null | string;
-          provider_token?: null | string;
-          username?: null | string;
-        };
-        Relationships: [];
-        Row: {
-          ai_credit: null | number;
-          avatar: null | string;
-          created_at: string;
-          email: null | string;
-          id: number;
-          password: null | string;
-          provider_token: null | string;
-          username: null | string;
-        };
-        Update: {
-          ai_credit?: null | number;
-          avatar?: null | string;
-          created_at?: string;
-          email?: null | string;
-          id?: number;
-          password?: null | string;
-          provider_token?: null | string;
-          username?: null | string;
-        };
-      };
-      user_show_relation: {
-        Insert: {
-          created_at?: string;
-          id?: number;
-          show: number;
-          user: number;
-        };
-        Relationships: [
-          {
-            columns: ['show'];
-            foreignKeyName: 'user_show_relation_show_fkey';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'show';
-          },
-          {
-            columns: ['user'];
-            foreignKeyName: 'user_show_relation_user_fkey';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'user';
-          },
-        ];
-        Row: {
-          created_at: string;
-          id: number;
-          show: number;
-          user: number;
-        };
-        Update: {
-          created_at?: string;
-          id?: number;
-          show?: number;
-          user?: number;
         };
       };
     };
