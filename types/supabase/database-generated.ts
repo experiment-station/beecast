@@ -1,91 +1,66 @@
 export type Json =
-  | { [key: string]: Json | undefined }
-  | Json[]
+  | string
+  | number
   | boolean
   | null
-  | number
-  | string;
+  | { [key: string]: Json | undefined }
+  | Json[];
 
-export type Database = {
+export interface Database {
   public: {
-    CompositeTypes: {
-      [_ in never]: never;
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    Functions: {
-      [_ in never]: never;
-    };
     Tables: {
       account: {
-        Insert: {
-          ai_credit?: null | number;
-          avatar_url?: null | string;
-          created_at?: string;
-          display_name?: null | string;
-          id?: number;
-          provider_refresh_token?: null | string;
+        Row: {
+          ai_credit: number | null;
+          avatar_url: string | null;
+          created_at: string;
+          display_name: string | null;
+          id: number;
+          provider_refresh_token: string | null;
           provider_token: string;
           user: string;
         };
-        Relationships: [
-          {
-            columns: ['user'];
-            foreignKeyName: 'account_user_fkey';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'users';
-          },
-        ];
-        Row: {
-          ai_credit: null | number;
-          avatar_url: null | string;
-          created_at: string;
-          display_name: null | string;
-          id: number;
-          provider_refresh_token: null | string;
+        Insert: {
+          ai_credit?: number | null;
+          avatar_url?: string | null;
+          created_at?: string;
+          display_name?: string | null;
+          id?: number;
+          provider_refresh_token?: string | null;
           provider_token: string;
           user: string;
         };
         Update: {
-          ai_credit?: null | number;
-          avatar_url?: null | string;
+          ai_credit?: number | null;
+          avatar_url?: string | null;
           created_at?: string;
-          display_name?: null | string;
+          display_name?: string | null;
           id?: number;
-          provider_refresh_token?: null | string;
+          provider_refresh_token?: string | null;
           provider_token?: string;
           user?: string;
         };
-      };
-      account_show_relation: {
-        Insert: {
-          account: number;
-          created_at?: string;
-          id?: number;
-          show: number;
-        };
         Relationships: [
           {
-            columns: ['account'];
-            foreignKeyName: 'account_show_relation_account_fkey';
+            foreignKeyName: 'account_user_fkey';
+            columns: ['user'];
             isOneToOne: false;
+            referencedRelation: 'users';
             referencedColumns: ['id'];
-            referencedRelation: 'account';
-          },
-          {
-            columns: ['show'];
-            foreignKeyName: 'account_show_relation_show_fkey';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'show';
           },
         ];
+      };
+      account_show_relation: {
         Row: {
           account: number;
           created_at: string;
           id: number;
+          show: number;
+        };
+        Insert: {
+          account: number;
+          created_at?: string;
+          id?: number;
           show: number;
         };
         Update: {
@@ -94,130 +69,130 @@ export type Database = {
           id?: number;
           show?: number;
         };
-      };
-      episode: {
-        Insert: {
-          audio_url: string;
-          created_at?: string;
-          description?: null | string;
-          duration: number;
-          episode_number: number;
-          id?: number;
-          images?: null | string[];
-          podcast_index_guid: string;
-          show: number;
-          size?: null | number;
-          title: string;
-        };
         Relationships: [
           {
-            columns: ['show'];
-            foreignKeyName: 'episode_show_fkey';
+            foreignKeyName: 'account_show_relation_account_fkey';
+            columns: ['account'];
             isOneToOne: false;
+            referencedRelation: 'account';
             referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_show_relation_show_fkey';
+            columns: ['show'];
+            isOneToOne: false;
             referencedRelation: 'show';
+            referencedColumns: ['id'];
           },
         ];
+      };
+      episode: {
         Row: {
           audio_url: string;
           created_at: string;
-          description: null | string;
+          description: string | null;
           duration: number;
           episode_number: number;
           id: number;
-          images: null | string[];
+          images: string[] | null;
           podcast_index_guid: string;
           show: number;
-          size: null | number;
+          size: number | null;
+          title: string;
+        };
+        Insert: {
+          audio_url: string;
+          created_at?: string;
+          description?: string | null;
+          duration: number;
+          episode_number: number;
+          id?: number;
+          images?: string[] | null;
+          podcast_index_guid: string;
+          show: number;
+          size?: number | null;
           title: string;
         };
         Update: {
           audio_url?: string;
           created_at?: string;
-          description?: null | string;
+          description?: string | null;
           duration?: number;
           episode_number?: number;
           id?: number;
-          images?: null | string[];
+          images?: string[] | null;
           podcast_index_guid?: string;
           show?: number;
-          size?: null | number;
+          size?: number | null;
           title?: string;
-        };
-      };
-      episode_content: {
-        Insert: {
-          created_at?: string;
-          episode: number;
-          id?: number;
-          text_summary?: null | string;
-          transcription?: null | string;
-          user: number;
         };
         Relationships: [
           {
-            columns: ['episode'];
-            foreignKeyName: 'episode_content_episode_fkey';
+            foreignKeyName: 'episode_show_fkey';
+            columns: ['show'];
             isOneToOne: false;
+            referencedRelation: 'show';
             referencedColumns: ['id'];
-            referencedRelation: 'episode';
-          },
-          {
-            columns: ['user'];
-            foreignKeyName: 'episode_content_user_fkey';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'account';
           },
         ];
+      };
+      episode_content: {
         Row: {
           created_at: string;
           episode: number;
           id: number;
-          text_summary: null | string;
-          transcription: null | string;
+          text_summary: string | null;
+          transcription: string | null;
+          user: number;
+        };
+        Insert: {
+          created_at?: string;
+          episode: number;
+          id?: number;
+          text_summary?: string | null;
+          transcription?: string | null;
           user: number;
         };
         Update: {
           created_at?: string;
           episode?: number;
           id?: number;
-          text_summary?: null | string;
-          transcription?: null | string;
+          text_summary?: string | null;
+          transcription?: string | null;
           user?: number;
-        };
-      };
-      episode_progress: {
-        Insert: {
-          at: number;
-          created_at?: string;
-          episode: number;
-          finished?: boolean;
-          id?: number;
-          user: number;
         };
         Relationships: [
           {
+            foreignKeyName: 'episode_content_episode_fkey';
             columns: ['episode'];
-            foreignKeyName: 'episode_progress_episode_fkey';
             isOneToOne: false;
-            referencedColumns: ['id'];
             referencedRelation: 'episode';
+            referencedColumns: ['id'];
           },
           {
+            foreignKeyName: 'episode_content_user_fkey';
             columns: ['user'];
-            foreignKeyName: 'episode_progress_user_fkey';
             isOneToOne: false;
-            referencedColumns: ['id'];
             referencedRelation: 'account';
+            referencedColumns: ['id'];
           },
         ];
+      };
+      episode_progress: {
         Row: {
           at: number;
           created_at: string;
           episode: number;
           finished: boolean;
           id: number;
+          user: number;
+        };
+        Insert: {
+          at: number;
+          created_at?: string;
+          episode: number;
+          finished?: boolean;
+          id?: number;
           user: number;
         };
         Update: {
@@ -228,57 +203,82 @@ export type Database = {
           id?: number;
           user?: number;
         };
+        Relationships: [
+          {
+            foreignKeyName: 'episode_progress_episode_fkey';
+            columns: ['episode'];
+            isOneToOne: false;
+            referencedRelation: 'episode';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'episode_progress_user_fkey';
+            columns: ['user'];
+            isOneToOne: false;
+            referencedRelation: 'account';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       show: {
-        Insert: {
-          created_at?: string;
-          description?: null | string;
-          id?: number;
-          images?: null | string[];
-          language?: null | string;
-          podcast_index_guid: string;
-          publisher: string;
-          spotify_id: string;
-          title: string;
-          total_episode?: null | number;
-        };
-        Relationships: [];
         Row: {
           created_at: string;
-          description: null | string;
+          description: string | null;
           id: number;
-          images: null | string[];
-          language: null | string;
+          images: string[] | null;
+          language: string | null;
           podcast_index_guid: string;
           publisher: string;
           spotify_id: string;
           title: string;
-          total_episode: null | number;
+          total_episode: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          images?: string[] | null;
+          language?: string | null;
+          podcast_index_guid: string;
+          publisher: string;
+          spotify_id: string;
+          title: string;
+          total_episode?: number | null;
         };
         Update: {
           created_at?: string;
-          description?: null | string;
+          description?: string | null;
           id?: number;
-          images?: null | string[];
-          language?: null | string;
+          images?: string[] | null;
+          language?: string | null;
           podcast_index_guid?: string;
           publisher?: string;
           spotify_id?: string;
           title?: string;
-          total_episode?: null | number;
+          total_episode?: number | null;
         };
+        Relationships: [];
       };
     };
     Views: {
       [_ in never]: never;
     };
+    Functions: {
+      [_ in never]: never;
+    };
+    Enums: {
+      [_ in never]: never;
+    };
+    CompositeTypes: {
+      [_ in never]: never;
+    };
   };
-};
+}
 
 export type Tables<
   PublicTableNameOrOptions extends
-    | { schema: keyof Database }
-    | keyof (Database['public']['Tables'] & Database['public']['Views']),
+    | keyof (Database['public']['Tables'] & Database['public']['Views'])
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions['schema']]['Tables'] &
         Database[PublicTableNameOrOptions['schema']]['Views'])
@@ -302,8 +302,8 @@ export type Tables<
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | { schema: keyof Database }
-    | keyof Database['public']['Tables'],
+    | keyof Database['public']['Tables']
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
@@ -323,8 +323,8 @@ export type TablesInsert<
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | { schema: keyof Database }
-    | keyof Database['public']['Tables'],
+    | keyof Database['public']['Tables']
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions['schema']]['Tables']
     : never = never,
@@ -344,8 +344,8 @@ export type TablesUpdate<
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | { schema: keyof Database }
-    | keyof Database['public']['Enums'],
+    | keyof Database['public']['Enums']
+    | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions['schema']]['Enums']
     : never = never,

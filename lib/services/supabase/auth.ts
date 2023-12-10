@@ -1,4 +1,4 @@
-import type { Database } from '@/types/database';
+import type { Database } from '@/types/supabase/database';
 import type { CookieOptions } from '@supabase/ssr';
 import type { NextRequest } from 'next/server';
 

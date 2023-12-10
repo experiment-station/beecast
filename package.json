@@ -12,7 +12,7 @@
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "supabase:login": "supabase login",
-    "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/database.ts",
+    "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/supabase/database-generated.ts",
     "typecheck": "tsc --noEmit"
   },
   "prettier": "@vercel/style-guide/prettier",
