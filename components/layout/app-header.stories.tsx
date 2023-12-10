@@ -10,7 +10,7 @@ export const Authenticated: StoryObj<typeof AppHeader> = {
   render: () => (
     <AppHeader
       user={{
-        avatarURL: '/beecast.png',
+        avatarURL: '/logo.png',
         credits: 10,
         username: 'Mr. Bee',
       }}
