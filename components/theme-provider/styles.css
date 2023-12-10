@@ -3,12 +3,3 @@
 body {
   margin: 0;
 }
-.radix-themes {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-footer {
-  margin-top: auto;
-}

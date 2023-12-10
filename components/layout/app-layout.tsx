@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import { Box } from '@radix-ui/themes';
+import { Box, Flex } from '@radix-ui/themes';
 
 import { AppContent } from './app-content';
 import { AppFooter } from './app-footer';
@@ -8,7 +8,12 @@ import { AppHeader } from './app-header';
 
 export function AppLayout({ children }: PropsWithChildren) {
   return (
-    <>
+    <Flex
+      direction="column"
+      style={{
+        minHeight: '100vh',
+      }}
+    >
       <header className="sticky">
         <AppHeader variant="guest" />
       </header>
@@ -19,9 +24,9 @@ export function AppLayout({ children }: PropsWithChildren) {
         </AppContent>
       </main>
 
-      <footer>
+      <footer style={{ marginTop: 'auto' }}>
         <AppFooter />
       </footer>
-    </>
+    </Flex>
   );
 }
