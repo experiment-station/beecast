@@ -15,11 +15,13 @@ const getGitSha = () => {
 };
 
 const envSchema = z.object({
+  DEEPGRAM_API_KEY: z.string().min(1),
   GIT_SHA: z.string().min(1).default(getGitSha()),
   NEXT_PUBLIC_PODCAST_INDEX_API_KEY: z.string().min(1),
   NEXT_PUBLIC_PODCAST_INDEX_SECRET: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
   NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
+  OPENAI_API_KEY: z.string().min(1),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
   SUPABASE_URL: z.string().min(1),
 });
