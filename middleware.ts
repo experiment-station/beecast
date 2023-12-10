@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 
-import { getSupabaseAuthSession } from '@/lib/supabase/auth';
+import { getSupabaseAuthSession } from '@/lib/services/supabase/auth';
 import { NextResponse } from 'next/server';
 
 const publicRoutes = ['/'];
