@@ -4,6 +4,7 @@ import React from 'react';
 
 import { AppContent } from './app-content';
 
+// @TODO: replace with real links: SUPA-27
 const FOOTER_COMPANY_LINKS = [
   {
     href: 'https://experiment.st',
