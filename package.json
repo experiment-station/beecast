@@ -12,7 +12,7 @@
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "supabase:login": "supabase login",
-    "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/database.ts",
+    "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/supabase/database-generated.ts",
     "typecheck": "tsc --noEmit"
   },
   "prettier": "@vercel/style-guide/prettier",
@@ -50,6 +50,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.0",
     "storybook": "^7.6.4",
+    "supabase": "^1.115.5",
     "typescript": "^5"
   },
   "packageManager": "pnpm@8.12.0"

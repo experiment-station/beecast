@@ -1,5 +1,5 @@
 'use client';
-import type { Database } from '@/types/database';
+import type { Database } from '@/types/supabase/database';
 
 import { env } from '@/env.mjs';
 import { createBrowserClient } from '@supabase/ssr';
