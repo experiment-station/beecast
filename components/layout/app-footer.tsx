@@ -4,14 +4,13 @@ import React from 'react';
 
 import { AppContent } from './app-content';
 
-// @TODO: replace with real links: SUPA-27
 const FOOTER_SERVICE_LINKS = [
   {
-    href: 'https://experiment.st',
+    href: '/privacy-policy',
     label: 'Privacy policy',
   },
   {
-    href: 'https://experiment.st',
+    href: '/terms-of-service',
     label: 'Terms of service',
   },
 ] as const;
