@@ -1,6 +1,6 @@
 import { env } from '@/env.mjs';
 import { createClient as createDeepgramClient } from '@deepgram/sdk';
-import OpenAI from 'openai';
+import { OpenAI } from 'openai';
 
 const transcribeAudio = async (fileURL: string) => {
   const deepgram = createDeepgramClient(env.DEEPGRAM_API_KEY);
@@ -31,6 +31,18 @@ const summarizeTranscript = async (transcript: string) => {
   });
 
   const response = await openai.chat.completions.create({
+    messages: [
+      {
+        content: 'Summarize the following transcript:',
+        role: 'system',
+      },
+      {
+        content: transcript,
+        role: 'system',
+      },
+    ],
     model: 'gpt-3.5-turbo',
   });
+
+  return response.choices[0].message.content;
 };
