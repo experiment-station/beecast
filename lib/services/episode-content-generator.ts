@@ -50,7 +50,7 @@ const summarizeTranscript = async ({
         role: 'system',
       },
     ],
-    model: 'gpt-3.5-turbo',
+    model: 'gpt-3.5-turbo-1106',
   });
 
   return response.choices[0].message.content;
@@ -64,6 +64,7 @@ export const generateEpisodeContent = async ({
   episodeId: Tables<'episode'>['id'];
 }) => {
   const initialAiCredits = await validateAccountAICredits(accountId);
+
   const updatedAiCredits = await updateAccountAICredits(
     accountId,
     initialAiCredits - 1,
@@ -96,7 +97,7 @@ export const generateEpisodeContent = async ({
       .insert({
         episode: episodeId,
         text_summary: summary,
-        transcript,
+        transcription: transcript,
         user: accountId,
       })
       .select('*')
