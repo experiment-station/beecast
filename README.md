@@ -8,6 +8,13 @@
   <p>
     Your hard-working AI podcast companion.
   </p>
+  
+  <p>
+    <a href="https://supabase.io" target="_blank"><img src="https://shields.io/badge/supabase-black?logo=supabase"></a>
+    <a href="https://vercel.com" target="_blank"><img src="https://img.shields.io/badge/Vercel-black?style=flat&logo=Vercel&logoColor=white"></a>
+    <a href="https://conventionalcommits.org" target="_blank"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196" ></a>
+    <img src="https://img.shields.io/github/license/experiment-station/beecast">
+  </p>
 </div>
 
 <br />
@@ -18,7 +25,9 @@
 
 ## Introduction
 
-Beecast is a simple yet effective tool designed to integrate with your Spotify account, enhancing your podcast experience with accessible transcriptions and summarizations. Our aim is to provide a user-friendly platform that simplifies the way people interact with their favorite podcasts, especially for those looking to consume content in a more efficient manner.
+Beecast is a simple yet effective tool designed to integrate with your Spotify account, enhancing your podcast experience with accessible transcriptions and summarizations. 
+
+Our aim is to provide a user-friendly platform that simplifies the way people interact with their favorite podcasts, especially for those looking to consume content in a more efficient manner.
 
 ## How it works
 
