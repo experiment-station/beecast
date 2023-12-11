@@ -18,7 +18,8 @@ export interface Database {
           id: number;
           provider_refresh_token: string | null;
           provider_token: string;
-          user: string;
+          spotify_id: string;
+          user_id: string;
         };
         Insert: {
           ai_credit?: number | null;
@@ -28,7 +29,8 @@ export interface Database {
           id?: number;
           provider_refresh_token?: string | null;
           provider_token: string;
-          user: string;
+          spotify_id: string;
+          user_id: string;
         };
         Update: {
           ai_credit?: number | null;
@@ -38,12 +40,20 @@ export interface Database {
           id?: number;
           provider_refresh_token?: string | null;
           provider_token?: string;
-          user?: string;
+          spotify_id?: string;
+          user_id?: string;
         };
         Relationships: [
           {
             foreignKeyName: 'account_user_fkey';
-            columns: ['user'];
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'account_user_id_fkey';
+            columns: ['user_id'];
             isOneToOne: false;
             referencedRelation: 'users';
             referencedColumns: ['id'];
@@ -169,13 +179,6 @@ export interface Database {
             referencedRelation: 'episode';
             referencedColumns: ['id'];
           },
-          {
-            foreignKeyName: 'episode_content_user_fkey';
-            columns: ['user'];
-            isOneToOne: false;
-            referencedRelation: 'account';
-            referencedColumns: ['id'];
-          },
         ];
       };
       episode_progress: {
@@ -209,13 +212,6 @@ export interface Database {
             columns: ['episode'];
             isOneToOne: false;
             referencedRelation: 'episode';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'episode_progress_user_fkey';
-            columns: ['user'];
-            isOneToOne: false;
-            referencedRelation: 'account';
             referencedColumns: ['id'];
           },
         ];
