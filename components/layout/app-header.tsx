@@ -1,16 +1,9 @@
 import { ArrowRightIcon, PersonIcon } from '@radix-ui/react-icons';
-import {
-  Avatar,
-  Button,
-  DropdownMenu,
-  Flex,
-  Heading,
-  Text,
-} from '@radix-ui/themes';
-import Image from 'next/image';
+import { Avatar, Button, DropdownMenu, Flex, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 
 import { AppContent } from './app-content';
+import { AppHeaderLogo } from './app-header-logo';
 
 type Props =
   | {
@@ -83,27 +76,7 @@ export function AppHeader(props: Props) {
     <Flex direction="column" gap="4" py="4">
       <AppContent>
         <Flex align="center" justify="between">
-          <Flex align="center" asChild gap="2">
-            <Link
-              href="/"
-              style={{
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              <Image
-                alt="beecast logo"
-                height="48"
-                src="/logo.png"
-                style={{ display: 'block' }}
-                width="48"
-              />
-
-              <Heading size="5" weight="medium">
-                Beecast
-              </Heading>
-            </Link>
-          </Flex>
+          <AppHeaderLogo />
 
           {props.variant === 'authenticated' ? (
             <AppHeaderActionsAuthenticated {...props} />
