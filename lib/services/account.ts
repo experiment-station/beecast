@@ -14,6 +14,22 @@ const getUserId = async () => {
   return userQuery.data.user.id;
 };
 
+export const getAccountId = async () => {
+  const supabase = createSupabaseServerClient(cookies());
+
+  const accountQuery = await supabase
+    .from('account')
+    .select('id')
+    .eq('user_id', await getUserId())
+    .single();
+
+  if (accountQuery.error) {
+    throw new Error(accountQuery.error.message);
+  }
+
+  return accountQuery.data.id;
+};
+
 export const fetchAccountAICredits = async () => {
   const supabase = createSupabaseServerClient(cookies());
 

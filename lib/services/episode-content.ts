@@ -4,7 +4,11 @@ import { env } from '@/env.mjs';
 import { createClient as createDeepgramClient } from '@deepgram/sdk';
 import { OpenAI } from 'openai';
 
-import { updateAccountAICredits, validateAccountAICredits } from './account';
+import {
+  getAccountId,
+  updateAccountAICredits,
+  validateAccountAICredits,
+} from './account';
 import { createSupabaseServiceClient } from './supabase/service';
 
 const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
@@ -57,18 +61,12 @@ const summarizeTranscript = async ({
 };
 
 export const generateEpisodeContent = async ({
-  accountId,
   episodeId,
 }: {
-  accountId: Tables<'account'>['id'];
   episodeId: Tables<'episode'>['id'];
 }) => {
-  const initialAiCredits = await validateAccountAICredits(accountId);
-
-  const updatedAiCredits = await updateAccountAICredits(
-    accountId,
-    initialAiCredits - 1,
-  );
+  const initialAiCredits = await validateAccountAICredits();
+  const updatedAiCredits = await updateAccountAICredits(initialAiCredits - 1);
 
   try {
     const supabase = createSupabaseServiceClient();
@@ -94,11 +92,11 @@ export const generateEpisodeContent = async ({
 
     const createEpisodeContentQuery = await supabase
       .from('episode_content')
-      .insert({
+      .upsert({
         episode: episodeId,
         text_summary: summary,
         transcription: transcript,
-        user: accountId,
+        user: await getAccountId(),
       })
       .select('*')
       .single();
@@ -109,7 +107,7 @@ export const generateEpisodeContent = async ({
 
     return createEpisodeContentQuery.data;
   } catch (error) {
-    await updateAccountAICredits(accountId, updatedAiCredits + 1);
+    await updateAccountAICredits(updatedAiCredits + 1);
     throw error;
   }
 };
