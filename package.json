@@ -50,7 +50,7 @@
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.0",
     "storybook": "^7.6.4",
-    "supabase": "^1.115.5",
+    "supabase": "^1.123.0",
     "typescript": "^5"
   },
   "packageManager": "pnpm@8.12.0"
