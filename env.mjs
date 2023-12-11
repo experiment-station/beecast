@@ -16,11 +16,10 @@ const getGitSha = () => {
 
 const envSchema = z.object({
   GIT_SHA: z.string().min(1).default(getGitSha()),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
-  NEXT_PUBLIC_SUPABASE_URL: z.string(),
-  // We don't have these configurations yet.
-  SUPABASE_SERVICE_ROLE_KEY: z.string().default(''),
-  SUPABASE_URL: z.string().default(''),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+  NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  SUPABASE_URL: z.string().min(1),
 });
 
 const envValidation = envSchema.safeParse(process.env);
