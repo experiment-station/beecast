@@ -25,7 +25,7 @@
 
 ## Introduction
 
-Beecast is a simple yet effective tool designed to integrate with your Spotify account, enhancing your podcast experience with accessible transcriptions and summarizations. 
+Beecast is a simple yet effective tool designed to integrate with your Spotify account, enhancing your podcast experience with accessible transcriptions and summarizations.
 
 Our aim is to provide a user-friendly platform that simplifies the way people interact with their favorite podcasts, especially for those looking to consume content in a more efficient manner.
 
