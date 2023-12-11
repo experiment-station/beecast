@@ -15,11 +15,9 @@ const getGitSha = () => {
 };
 
 const envSchema = z.object({
-  DEEPGRAM_API_KEY: z.string().min(1),
   GIT_SHA: z.string().min(1).default(getGitSha()),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string(),
   NEXT_PUBLIC_SUPABASE_URL: z.string(),
-  OPENAI_API_KEY: z.string().min(1),
   // We don't have these configurations yet.
   SUPABASE_SERVICE_ROLE_KEY: z.string().default(''),
   SUPABASE_URL: z.string().default(''),
