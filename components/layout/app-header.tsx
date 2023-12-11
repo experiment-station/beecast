@@ -92,9 +92,9 @@ export function AppHeader(props: Props) {
               }}
             >
               <Image
-                alt="beecast.ai logo"
+                alt="beecast logo"
                 height="48"
-                src="/beecast.png"
+                src="/logo.png"
                 style={{ display: 'block' }}
                 width="48"
               />
