@@ -1,11 +1,13 @@
 import type { Tables } from '@/types/supabase/database';
 
-import { createSupabaseServiceClient } from './supabase/service';
+import { cookies } from 'next/headers';
+
+import { createSupabaseServerClient } from './supabase/server';
 
 export const fetchAccountAICredits = async (
   accountId: Tables<'account'>['id'],
 ) => {
-  const supabase = createSupabaseServiceClient();
+  const supabase = createSupabaseServerClient(cookies());
 
   const accountQuery = await supabase
     .from('account')
@@ -36,7 +38,7 @@ export const updateAccountAICredits = async (
   accountId: Tables<'account'>['id'],
   amount: number,
 ) => {
-  const supabase = createSupabaseServiceClient();
+  const supabase = createSupabaseServerClient(cookies());
 
   const accountQuery = await supabase
     .from('account')
