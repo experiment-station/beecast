@@ -27,7 +27,7 @@ const transcribeAudio = async (fileURL: string) => {
 
 const summarizeTranscript = async (transcript: string) => {
   const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: env.OPENAI_API_KEY,
   });
 
   const response = await openai.chat.completions.create({
