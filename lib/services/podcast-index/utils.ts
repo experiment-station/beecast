@@ -1,5 +1,5 @@
-// eslint-disable-next-line unicorn/prefer-node-protocol -- throws an error when this is changed to node:crypto
-import crypto from 'crypto';
+import { env } from '@/env.mjs';
+import crypto from 'node:crypto';
 
 export const PODCAST_INDEX_BASE_URL = 'https://api.podcastindex.org/api/1.0';
 
@@ -22,8 +22,8 @@ export const generateAuthTokenAuthDate = (
 };
 
 export const generateHeaders = () => {
-  const podcastIndexApiKey = process.env.NEXT_PUBLIC_PODCAST_INDEX_API_KEY!;
-  const podcastIndexSecret = process.env.NEXT_PUBLIC_PODCAST_INDEX_SECRET!;
+  const podcastIndexApiKey = env.NEXT_PUBLIC_PODCAST_INDEX_API_KEY;
+  const podcastIndexSecret = env.NEXT_PUBLIC_PODCAST_INDEX_SECRET;
 
   const { authDate, authorization } = generateAuthTokenAuthDate(
     podcastIndexApiKey,
