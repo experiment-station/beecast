@@ -41,12 +41,17 @@ export const generateEpisodeContent = async ({
 
     const createEpisodeContentQuery = await supabase
       .from('episode_content')
-      .upsert({
-        episode: episodeId,
-        text_summary: summary,
-        transcription: transcript,
-        user: await getAccountId(),
-      })
+      .upsert(
+        {
+          episode: episodeId,
+          text_summary: summary,
+          transcription: transcript,
+          user: await getAccountId(),
+        },
+        {
+          onConflict: 'episode',
+        },
+      )
       .select('*')
       .single();
 
