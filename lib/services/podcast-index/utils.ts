@@ -1,5 +1,5 @@
-// eslint-disable-next-line unicorn/prefer-node-protocol -- throws an error when this is changed to node:crypto
-import crypto from 'crypto';
+import { env } from '@/env.mjs';
+import crypto from 'node:crypto';
 
 export const PODCAST_INDEX_BASE_URL = 'https://api.podcastindex.org/api/1.0';
 
