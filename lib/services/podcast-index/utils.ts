@@ -1,6 +1,7 @@
- 
-// more info https://github.com/vercel/next.js/discussions/47314
-import crypto from 'node:crypto';
+// eslint-disable-next-line unicorn/prefer-node-protocol -- throws an error when this is changed to node:crypto
+import crypto from 'crypto';
+
+export const PODCAST_INDEX_BASE_URL = 'https://api.podcastindex.org/api/1.0';
 
 type AuthTokenDateGenetrationType = {
   authDate: number;
