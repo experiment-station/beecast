@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react';
 
 import { Logo } from '@/components/logo';
 import { Container, Flex } from '@radix-ui/themes';
+import Link from 'next/link';
 
 export default function AuthLayout(props: PropsWithChildren) {
   return (
@@ -16,7 +17,10 @@ export default function AuthLayout(props: PropsWithChildren) {
           minHeight: '80vh',
         }}
       >
-        <Logo size={64} />
+        <Link href="/" title="Go to home page">
+          <Logo size={64} />
+        </Link>
+
         {props.children}
       </Flex>
     </Container>
