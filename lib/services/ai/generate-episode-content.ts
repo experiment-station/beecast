@@ -1,64 +1,13 @@
 import type { Tables } from '@/types/supabase/database';
 
-import { env } from '@/env.mjs';
-import { createClient as createDeepgramClient } from '@deepgram/sdk';
-import { OpenAI } from 'openai';
-
 import {
   getAccountId,
   updateAccountAICredits,
   validateAccountAICredits,
-} from './account';
-import { createSupabaseServiceClient } from './supabase/service';
-
-const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
-  const deepgram = createDeepgramClient(env.DEEPGRAM_API_KEY);
-
-  const { result } = await deepgram.listen.prerecorded.transcribeUrl(
-    {
-      url: fileURL,
-    },
-    {
-      diarize: true,
-      model: 'nova-2',
-      smart_format: true,
-    },
-  );
-
-  const transcript = result?.results.channels[0]?.alternatives[0]?.transcript;
-
-  if (!transcript) {
-    throw new Error('No transcript found');
-  }
-
-  return transcript;
-};
-
-const summarizeTranscript = async ({
-  title,
-  transcript,
-}: {
-  title: string;
-  transcript: string;
-}) => {
-  const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
-
-  const response = await openai.chat.completions.create({
-    messages: [
-      {
-        content: `Summarize the following transcript from a podcast episode titled as ${title}`,
-        role: 'system',
-      },
-      {
-        content: transcript,
-        role: 'system',
-      },
-    ],
-    model: 'gpt-3.5-turbo-1106',
-  });
-
-  return response.choices[0].message.content;
-};
+} from '../account';
+import { createSupabaseServiceClient } from '../supabase/service';
+import { transcribeAudio } from './deepgram';
+import { summarizeEpisodeTranscript } from './openai';
 
 export const generateEpisodeContent = async ({
   episodeId,
@@ -85,7 +34,7 @@ export const generateEpisodeContent = async ({
       fileURL: episodeQuery.data.audio_url,
     });
 
-    const summary = await summarizeTranscript({
+    const summary = await summarizeEpisodeTranscript({
       title: episodeQuery.data.title,
       transcript,
     });
