@@ -1,6 +1,6 @@
-import { GitHubLogoIcon, TwitterLogoIcon } from '@radix-ui/react-icons';
 import { Flex, Link, Text } from '@radix-ui/themes';
 import React from 'react';
+import { FaGithub, FaXTwitter } from 'react-icons/fa6';
 
 import { AppContent } from './app-content';
 
@@ -18,20 +18,20 @@ const FOOTER_SERVICE_LINKS = [
 const FOOTER_SOCIAL_LINKS = [
   {
     href: 'https://github.com/experiment-station/beecast',
-    icon: <GitHubLogoIcon />,
+    icon: <FaGithub />,
     title: 'GitHub',
   },
   {
-    href: 'https://twitter.com/beecast_ai',
-    icon: <TwitterLogoIcon />,
-    title: 'Twitter',
+    href: 'https://x.com/beecast_ai',
+    icon: <FaXTwitter />,
+    title: 'X.com',
   },
 ] as const;
 
 export function AppFooter() {
   return (
     <AppContent>
-      <Flex justify="between" py="4">
+      <Flex align="end" justify="between" py="4">
         <Flex align="start" direction="column">
           <Text size="2" weight="bold">
             Built with ☕️ by your folks at the{' '}
@@ -57,23 +57,19 @@ export function AppFooter() {
         </Flex>
 
         <Flex align="end" direction="column">
-          <Flex align="center" gap="2">
+          <Flex align="center" gap="3">
             {FOOTER_SOCIAL_LINKS.map((link) => (
               <Link
-                color="gray"
+                highContrast
                 href={link.href}
                 key={link.href}
                 target="_blank"
                 title={link.title}
               >
-                {link.icon}
+                <Text size="5">{link.icon}</Text>
               </Link>
             ))}
           </Flex>
-
-          <Text color="gray" size="2">
-            ©2023 Experiment Station
-          </Text>
         </Flex>
       </Flex>
     </AppContent>
