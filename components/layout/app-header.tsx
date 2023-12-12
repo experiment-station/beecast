@@ -12,6 +12,7 @@ import {
   Text,
 } from '@radix-ui/themes';
 import Link from 'next/link';
+import { CgDollar, CgLogOut, CgMediaPodcast, CgOptions } from 'react-icons/cg';
 
 import { UnstyledButton } from '../ui/unstyled-button';
 import { AppContent } from './app-content';
@@ -65,8 +66,26 @@ function AppHeaderActionsAuthenticated(
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>Your episodes</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Flex align="center" gap="2">
+            <CgDollar />
+            <Text>Buy Credits</Text>
+          </Flex>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+          <Flex align="center" gap="2">
+            <CgMediaPodcast />
+            <Text>Your Shows</Text>
+          </Flex>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+          <Flex align="center" gap="2">
+            <CgOptions />
+            <Text>Settings</Text>
+          </Flex>
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
