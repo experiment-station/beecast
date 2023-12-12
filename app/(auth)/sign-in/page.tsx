@@ -4,7 +4,7 @@ import { FaSpotify } from 'react-icons/fa';
 export default function Page() {
   return (
     <Flex direction="column" gap="4">
-      <Heading>Welcome to Beecast</Heading>
+      <Heading>Welcome to beecast</Heading>
 
       <Text color="gray" size="4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam quod
