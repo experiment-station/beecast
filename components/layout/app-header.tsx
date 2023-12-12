@@ -1,7 +1,19 @@
 import { ArrowRightIcon, PersonIcon } from '@radix-ui/react-icons';
-import { Avatar, Button, DropdownMenu, Flex, Text } from '@radix-ui/themes';
+import {
+  Avatar,
+  Button,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRoot,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Flex,
+  Text,
+} from '@radix-ui/themes';
 import Link from 'next/link';
 
+import { UnstyledButton } from '../ui/unstyled-button';
 import { AppContent } from './app-content';
 import { AppHeaderLogo } from './app-header-logo';
 
@@ -22,52 +34,60 @@ function AppHeaderActionsAuthenticated(
   props: Pick<Exclude<Props, { variant: 'guest' }>, 'user'>,
 ) {
   return (
-    <Flex align="center" gap="2">
-      <Flex align="end" direction="column">
-        <Text size="2" weight="medium">
-          {props.user.username}
-        </Text>
+    <DropdownMenuRoot>
+      <DropdownMenuTrigger>
+        <Avatar
+          fallback={<PersonIcon />}
+          radius="full"
+          src={props.user.avatarURL}
+        />
+      </DropdownMenuTrigger>
 
-        <Text color="gray" size="2">
-          {props.user.credits === 0 ? 'No' : props.user.credits} credits
-          remaining
-        </Text>
-      </Flex>
+      <DropdownMenuContent
+        align="end"
+        highContrast
+        style={{
+          minWidth: 200,
+        }}
+      >
+        <DropdownMenuLabel asChild>
+          <Flex align="start" direction="column" height="auto">
+            <Text color="gray" highContrast weight="medium">
+              {props.user.username}
+            </Text>
 
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Avatar
-            fallback={<PersonIcon />}
-            radius="full"
-            src={props.user.avatarURL}
-          />
-        </DropdownMenu.Trigger>
+            <Text color="gray">
+              {props.user.credits === 0 ? 'No' : props.user.credits} credits
+              remaining
+            </Text>
+          </Flex>
+        </DropdownMenuLabel>
 
-        <DropdownMenu.Content>
-          <DropdownMenu.Item>Buy credits</DropdownMenu.Item>
-          <DropdownMenu.Item>Settings</DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item color="red">Sign out</DropdownMenu.Item>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
-    </Flex>
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem>Your episodes</DropdownMenuItem>
+        <DropdownMenuItem>Settings</DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild color="red">
+          <form action="/auth/sign-out" method="POST">
+            <UnstyledButton type="submit">Sign out</UnstyledButton>
+          </form>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenuRoot>
   );
 }
 
 function AppHeaderActionsGuest() {
   return (
-    <Flex gap="2">
-      <Button asChild variant="soft">
-        <Link href="/sign-in">Sign in</Link>
-      </Button>
-
-      <Button asChild>
-        <Link href="/sign-up">
-          Get started
-          <ArrowRightIcon />
-        </Link>
-      </Button>
-    </Flex>
+    <Button asChild highContrast>
+      <Link href="/sign-in">
+        Get started
+        <ArrowRightIcon />
+      </Link>
+    </Button>
   );
 }
 

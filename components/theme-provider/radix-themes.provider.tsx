@@ -4,7 +4,7 @@ import { Theme } from '@radix-ui/themes';
 
 export function RadixThemesProvider({ children }: PropsWithChildren) {
   return (
-    <Theme accentColor="amber" appearance="dark" grayColor="sand">
+    <Theme accentColor="gray" appearance="dark">
       {children}
     </Theme>
   );

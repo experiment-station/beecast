@@ -13,7 +13,7 @@ export default function Page() {
 
       <form action="/auth/sign-in" method="POST">
         <Flex direction="column">
-          <Button color="gray" highContrast size="3" type="submit">
+          <Button highContrast size="3" type="submit">
             <FaSpotify />
             Continue with Spotify
           </Button>
