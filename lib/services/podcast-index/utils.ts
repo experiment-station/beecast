@@ -1,7 +1,6 @@
-import { env } from '@/env.mjs';
+ 
+// more info https://github.com/vercel/next.js/discussions/47314
 import crypto from 'node:crypto';
-
-export const PODCAST_INDEX_BASE_URL = 'https://api.podcastindex.org/api/1.0';
 
 type AuthTokenDateGenetrationType = {
   authDate: number;
