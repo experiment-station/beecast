@@ -1,4 +1,4 @@
-import { PODCAST_INDEX_BASE_URL, generateHeaders } from './utils';
+import { podcastIndexFetchClient } from './client';
 
 type Show = {
   author: string;
@@ -16,22 +16,12 @@ type PodcastIndexResponse = {
 };
 
 export const searchShow = async (title: string): Promise<Show> => {
-  const response = await fetch(
-    `${PODCAST_INDEX_BASE_URL}/search/bytitle?q=${title}`,
-    {
-      headers: {
-        Authorization: generateHeaders().Authorization,
-        'User-Agent': 'Beecast',
-        'X-Auth-Date': generateHeaders()['X-Auth-Date'],
-        'X-Auth-Key': generateHeaders()['X-Auth-Key'],
-      } as unknown as Record<string, string>,
-      method: 'GET',
-    },
+  const response = await podcastIndexFetchClient<PodcastIndexResponse>(
+    `/search/bytitle?q=${title}`,
   );
 
-  const result = (await response.json()) as PodcastIndexResponse;
-  const { feeds } = result;
-  if (result.count > 1) {
+  const { feeds } = response;
+  if (response.count > 1) {
     feeds.sort((a, b) => {
       return b.episodeCount - a.episodeCount;
     });
