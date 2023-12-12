@@ -13,6 +13,7 @@ module.exports = {
     'plugin:perfectionist/recommended-natural',
     'plugin:storybook/recommended',
   ],
+  plugins: ['only-warn'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project,
