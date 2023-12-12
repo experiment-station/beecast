@@ -1,6 +1,6 @@
 import { podcastIndexFetchClient } from './client';
 
-type Show = {
+export type PodcastIndexShowType = {
   author: string;
   description: string;
   episodeCount: number;
@@ -12,10 +12,12 @@ type Show = {
 
 type PodcastIndexResponse = {
   count: number;
-  feeds: Show[];
+  feeds: PodcastIndexShowType[];
 };
 
-export const searchShow = async (title: string): Promise<Show> => {
+export const searchShow = async (
+  title: string,
+): Promise<PodcastIndexShowType> => {
   const response = await podcastIndexFetchClient<PodcastIndexResponse>(
     `/search/bytitle?q=${title}`,
   );
