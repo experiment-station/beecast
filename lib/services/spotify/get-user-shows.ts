@@ -1,3 +1,5 @@
+import { spotifyFetchClient } from './client';
+
 type Show = {
   description: string;
   id: string;
@@ -20,17 +22,11 @@ type SpotifyItems = {
 };
 
 export const getUserShows = async (spotifyToken: string): Promise<Items[]> => {
-  try {
-    const response = await fetch('https://api.spotify.com/v1/me/shows', {
-      headers: {
-        Authorization: `Bearer ${spotifyToken}`,
-      },
-      method: 'GET',
-    });
+  const response = await spotifyFetchClient<SpotifyItems>('/me/shows', {
+    headers: {
+      Authorization: `Bearer ${spotifyToken}`,
+    },
+  });
 
-    const { items } = (await response.json()) as SpotifyItems;
-    return items;
-  } catch (e) {
-    throw Error('Could not get shows from spotify');
-  }
+  return response.items;
 };
