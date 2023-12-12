@@ -14,12 +14,12 @@ type Items = {
 };
 
 type SpotifyItems = {
-  items: Items;
+  items: Items[];
   limit: number;
   offset: number;
 };
 
-export const getUserShows = async (spotifyToken: string): Promise<Items> => {
+export const getUserShows = async (spotifyToken: string): Promise<Items[]> => {
   try {
     const response = await fetch('https://api.spotify.com/v1/me/shows', {
       headers: {
