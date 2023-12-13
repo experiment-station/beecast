@@ -97,7 +97,12 @@ function AppHeaderActionsAuthenticated(
 
         <form action="/auth/sign-out" method="POST">
           <DropdownMenuItem color="red">
-            <UnstyledButton type="submit">Sign out</UnstyledButton>
+            <UnstyledButton type="submit">
+              <Flex align="center" gap="2">
+                <CgLogOut />
+                <Text>Sign out</Text>
+              </Flex>
+            </UnstyledButton>
           </DropdownMenuItem>
         </form>
       </DropdownMenuContent>
