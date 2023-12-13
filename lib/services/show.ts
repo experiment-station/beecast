@@ -1,4 +1,4 @@
-import type { Tables } from '@/types/supabase/database-generated';
+import type { Tables } from '@/types/supabase/database';
 
 import type { PodcastIndexShowType } from './podcast-index/search-show';
 
