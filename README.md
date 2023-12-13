@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="https://beecast.ai/logo.png" width="72">
+    <img src="./public/logo.png" width="72">
   </p>
 
   <h1>beecast</h1>
