@@ -1,4 +1,4 @@
-import type { PostgrestError } from '@supabase/supabase-js';
+import type { AuthError, PostgrestError } from '@supabase/supabase-js';
 
 import ExtendableError from 'es6-error';
 import { NextResponse } from 'next/server';
@@ -58,6 +58,16 @@ export class HttpBadRequestError extends HttpError {
       error_message: params.message ?? 'Bad request',
       error_type: params.type ?? 'INVALID_REQUEST',
       status_code: 400,
+    });
+  }
+}
+
+export class HttpAuthenticationError extends HttpError {
+  constructor(error: AuthError) {
+    super({
+      error_message: error.message,
+      error_type: 'AUTHENTICATION_ERROR',
+      status_code: error.status || 401,
     });
   }
 }
