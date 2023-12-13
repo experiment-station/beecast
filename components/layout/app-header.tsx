@@ -1,4 +1,3 @@
-import { ArrowRightIcon, PersonIcon } from '@radix-ui/react-icons';
 import {
   Avatar,
   Button,
@@ -12,6 +11,14 @@ import {
   Text,
 } from '@radix-ui/themes';
 import Link from 'next/link';
+import {
+  CgArrowRight,
+  CgDollar,
+  CgLogOut,
+  CgMediaPodcast,
+  CgOptions,
+  CgProfile,
+} from 'react-icons/cg';
 
 import { UnstyledButton } from '../ui/unstyled-button';
 import { AppContent } from './app-content';
@@ -37,7 +44,7 @@ function AppHeaderActionsAuthenticated(
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
         <Avatar
-          fallback={<PersonIcon />}
+          fallback={<CgProfile />}
           radius="full"
           src={props.user.avatarURL}
         />
@@ -56,7 +63,7 @@ function AppHeaderActionsAuthenticated(
               {props.user.username}
             </Text>
 
-            <Text color="gray">
+            <Text color="gray" size="1">
               {props.user.credits === 0 ? 'No' : props.user.credits} credits
               remaining
             </Text>
@@ -65,8 +72,26 @@ function AppHeaderActionsAuthenticated(
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>Your episodes</DropdownMenuItem>
-        <DropdownMenuItem>Settings</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Flex align="center" gap="2">
+            <CgDollar />
+            <Text>Buy Credits</Text>
+          </Flex>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+          <Flex align="center" gap="2">
+            <CgMediaPodcast />
+            <Text>Your Shows</Text>
+          </Flex>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+          <Flex align="center" gap="2">
+            <CgOptions />
+            <Text>Settings</Text>
+          </Flex>
+        </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
@@ -85,7 +110,7 @@ function AppHeaderActionsGuest() {
     <Button asChild highContrast>
       <Link href="/sign-in">
         Get started
-        <ArrowRightIcon />
+        <CgArrowRight />
       </Link>
     </Button>
   );
