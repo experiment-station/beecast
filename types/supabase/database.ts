@@ -216,6 +216,35 @@ export interface Database {
           },
         ];
       };
+      imported_show: {
+        Row: {
+          created_at: string;
+          id: number;
+          show: number;
+          spotify_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          show: number;
+          spotify_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          show?: number;
+          spotify_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'imported_show_show_fkey';
+            columns: ['show'];
+            isOneToOne: false;
+            referencedRelation: 'show';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       show: {
         Row: {
           created_at: string;
