@@ -1,9 +1,11 @@
 import type { Session, User } from '@supabase/supabase-js';
 
 import { DatabaseError } from '@/lib/errors';
+import { differenceInMinutes } from 'date-fns';
 import { cookies } from 'next/headers';
 import { z } from 'zod';
 
+import { notifySlack } from '../notify/slack';
 import { createSupabaseServerClient } from '../supabase/server';
 
 type UserMetadata = {
@@ -43,7 +45,7 @@ export const saveUserInfo = async ({
   const userInfo = validatedResponse.data;
   const supabase = createSupabaseServerClient(cookies());
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('account')
     .upsert(
       {
@@ -56,9 +58,17 @@ export const saveUserInfo = async ({
       },
       { onConflict: 'spotify_id' },
     )
-    .select();
+    .select('display_name, created_at')
+    .single();
 
   if (error) {
     throw new DatabaseError(error);
+  }
+
+  const isNewAccount =
+    differenceInMinutes(new Date(), new Date(data.created_at)) <= 5;
+
+  if (isNewAccount) {
+    await notifySlack(`🐝 New sign-up for *beecast*: ${data.display_name}`);
   }
 };
