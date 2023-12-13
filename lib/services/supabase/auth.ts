@@ -4,7 +4,10 @@ import type { NextRequest } from 'next/server';
 
 import { env } from '@/env.mjs';
 import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+
+import { createSupabaseServerClient } from './server';
 
 export const getSupabaseAuthSession = async (request: NextRequest) => {
   let response = NextResponse.next({
@@ -60,4 +63,14 @@ export const getSupabaseAuthSession = async (request: NextRequest) => {
   const authSession = await supabase.auth.getSession();
 
   return { authSession, response };
+};
+
+export const getIsAuthenticated = async () => {
+  const supabase = createSupabaseServerClient(cookies());
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  return session !== null;
 };
