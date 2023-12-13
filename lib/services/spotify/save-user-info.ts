@@ -4,6 +4,7 @@ import { DatabaseError } from '@/lib/errors';
 import { cookies } from 'next/headers';
 import { z } from 'zod';
 
+import { notify } from '../slack';
 import { createSupabaseServerClient } from '../supabase/server';
 
 type UserMetadata = {
@@ -43,7 +44,7 @@ export const saveUserInfo = async ({
   const userInfo = validatedResponse.data;
   const supabase = createSupabaseServerClient(cookies());
 
-  const { error } = await supabase
+  const { data, error, status } = await supabase
     .from('account')
     .upsert(
       {
@@ -56,9 +57,14 @@ export const saveUserInfo = async ({
       },
       { onConflict: 'spotify_id' },
     )
-    .select();
+    .select('display_name')
+    .single();
 
   if (error) {
     throw new DatabaseError(error);
+  }
+
+  if (status === 201) {
+    await notify(`🐝 New sign-up for *beecast*: ${data.display_name}`);
   }
 };
