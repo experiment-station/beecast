@@ -1,7 +1,7 @@
 import { env } from '@/env.mjs';
 import { ofetch } from 'ofetch';
 
-export const notify = async (message: string) => {
+export const notifyViaSlack = async (message: string) => {
   try {
     await ofetch(env.SLACK_POSTMAN_WEBHOOK_URL, {
       body: { text: message },
