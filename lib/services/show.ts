@@ -2,6 +2,7 @@ import type { Tables } from '@/types/supabase/database';
 
 import type { PodcastIndexShowType } from './podcast-index/search-show';
 
+import { DatabaseError } from '../errors';
 import { createSupabaseServiceClient } from './supabase/service';
 
 export const saveShow = async (
@@ -9,6 +10,7 @@ export const saveShow = async (
   spotifyId: Tables<'show'>['spotify_id'],
 ) => {
   const supabase = createSupabaseServiceClient();
+
   const { data, error } = await supabase
     .from('show')
     .insert({
@@ -24,7 +26,7 @@ export const saveShow = async (
     .select();
 
   if (error) {
-    throw new Error(error.message);
+    throw new DatabaseError(error);
   }
 
   return data;

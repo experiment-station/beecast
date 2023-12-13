@@ -1,18 +1,20 @@
+import type { AuthError, PostgrestError } from '@supabase/supabase-js';
+
 import ExtendableError from 'es6-error';
 import { NextResponse } from 'next/server';
 
-type ServerErrorParams = {
+type HttpErrorParams = {
   error_message: string;
   error_type: string;
   status_code: number;
   underlyingError?: unknown;
 };
 
-export class ServerError extends ExtendableError {
-  params: ServerErrorParams;
+export class HttpError extends ExtendableError {
+  params: HttpErrorParams;
   trace_id?: string;
 
-  constructor(params: ServerErrorParams) {
+  constructor(params: HttpErrorParams) {
     super(params.error_type);
     this.params = params;
   }
@@ -33,14 +35,14 @@ export class ServerError extends ExtendableError {
   }
 }
 
-type ExtendedServerErrorParams = {
+type ExtendedHttpErrorParams = {
   error?: unknown;
   message?: string;
   type?: string;
 };
 
-export class InternalServerError extends ServerError {
-  constructor(params: ExtendedServerErrorParams = {}) {
+export class HttpInternalServerError extends HttpError {
+  constructor(params: ExtendedHttpErrorParams = {}) {
     super({
       error_message: params.message ?? 'Internal server error',
       error_type: params.type ?? 'INTERNAL_SERVER_ERROR',
@@ -50,12 +52,31 @@ export class InternalServerError extends ServerError {
   }
 }
 
-export class BadRequestError extends ServerError {
-  constructor(params: ExtendedServerErrorParams = {}) {
+export class HttpBadRequestError extends HttpError {
+  constructor(params: ExtendedHttpErrorParams = {}) {
     super({
       error_message: params.message ?? 'Bad request',
       error_type: params.type ?? 'INVALID_REQUEST',
       status_code: 400,
     });
+  }
+}
+
+export class HttpAuthenticationError extends HttpError {
+  constructor(error: AuthError) {
+    super({
+      error_message: error.message,
+      error_type: 'AUTHENTICATION_ERROR',
+      status_code: error.status || 401,
+    });
+  }
+}
+
+export class DatabaseError extends ExtendableError {
+  underlyingError: PostgrestError;
+
+  constructor(error: PostgrestError) {
+    super(error.message);
+    this.underlyingError = error;
   }
 }

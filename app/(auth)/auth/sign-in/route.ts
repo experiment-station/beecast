@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server';
 
+import { HttpAuthenticationError } from '@/lib/errors';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
@@ -18,7 +19,11 @@ export async function POST(request: NextRequest) {
     provider: 'spotify',
   });
 
-  return NextResponse.redirect(result.data.url!, {
+  if (result.error) {
+    return new HttpAuthenticationError(result.error).toNextResponse();
+  }
+
+  return NextResponse.redirect(result.data.url, {
     status: 301,
   });
 }

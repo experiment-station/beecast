@@ -1,7 +1,8 @@
 import type { Session, User } from '@supabase/supabase-js';
 
+import { DatabaseError } from '@/lib/errors';
 import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { z } from 'zod';
 
 import { createSupabaseServerClient } from '../supabase/server';
 
@@ -10,6 +11,13 @@ type UserMetadata = {
   full_name?: string;
   provider_id?: string;
 };
+
+const spotifyUserInfoResponseSchema = z.object({
+  avatar_url: z.string().min(1),
+  full_name: z.string().min(1),
+  provider_id: z.string().min(1),
+  provider_token: z.string().min(1),
+});
 
 export const saveUserInfo = async ({
   session,
@@ -20,36 +28,37 @@ export const saveUserInfo = async ({
 }) => {
   const providerToken = session.provider_token;
   const userMetadata: UserMetadata = user.user_metadata;
-  if (
-    providerToken &&
-    userMetadata.avatar_url &&
-    userMetadata.full_name &&
-    userMetadata.provider_id
-  ) {
-    const cookieStore = cookies();
-    const supabase = createSupabaseServerClient(cookieStore);
-    const { error } = await supabase
-      .from('account')
-      .upsert(
-        {
-          avatar_url: userMetadata.avatar_url,
-          display_name: userMetadata.full_name,
-          provider_refresh_token: session.provider_refresh_token,
-          provider_token: providerToken,
-          spotify_id: userMetadata.provider_id,
-          user_id: user.id,
-        },
-        { onConflict: 'spotify_id' },
-      )
-      .select();
 
-    if (error) {
-      return NextResponse.json(
-        { message: 'Spotify into could not save into account table' },
-        {
-          status: 500,
-        },
-      );
-    }
+  const validatedResponse = spotifyUserInfoResponseSchema.safeParse({
+    avatar_url: userMetadata.avatar_url,
+    full_name: userMetadata.full_name,
+    provider_id: userMetadata.provider_id,
+    provider_token: providerToken,
+  });
+
+  if (!validatedResponse.success) {
+    throw validatedResponse.error;
+  }
+
+  const userInfo = validatedResponse.data;
+  const supabase = createSupabaseServerClient(cookies());
+
+  const { error } = await supabase
+    .from('account')
+    .upsert(
+      {
+        avatar_url: userInfo.avatar_url,
+        display_name: userInfo.full_name,
+        provider_refresh_token: session.provider_refresh_token,
+        provider_token: userInfo.provider_token,
+        spotify_id: userInfo.provider_id,
+        user_id: user.id,
+      },
+      { onConflict: 'spotify_id' },
+    )
+    .select();
+
+  if (error) {
+    throw new DatabaseError(error);
   }
 };

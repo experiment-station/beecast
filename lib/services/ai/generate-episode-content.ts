@@ -1,5 +1,7 @@
 import type { Tables } from '@/types/supabase/database';
 
+import { DatabaseError } from '@/lib/errors';
+
 import {
   getAccountId,
   updateAccountAICredits,
@@ -27,7 +29,7 @@ export const generateEpisodeContent = async ({
       .single();
 
     if (episodeQuery.error) {
-      throw new Error(episodeQuery.error.message);
+      throw new DatabaseError(episodeQuery.error);
     }
 
     const transcript = await transcribeAudio({
@@ -39,7 +41,7 @@ export const generateEpisodeContent = async ({
       transcript,
     });
 
-    const createEpisodeContentQuery = await supabase
+    const { data, error } = await supabase
       .from('episode_content')
       .upsert(
         {
@@ -55,11 +57,11 @@ export const generateEpisodeContent = async ({
       .select('*')
       .single();
 
-    if (createEpisodeContentQuery.error) {
-      throw new Error(createEpisodeContentQuery.error.message);
+    if (error) {
+      throw new DatabaseError(error);
     }
 
-    return createEpisodeContentQuery.data;
+    return data;
   } catch (error) {
     await updateAccountAICredits(updatedAiCredits + 1);
     throw error;
