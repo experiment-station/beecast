@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers';
+import { z } from 'zod';
 
+import { DatabaseError } from '../errors';
 import { createSupabaseServerClient } from './supabase/server';
 
 const getUserId = async () => {
@@ -8,7 +10,7 @@ const getUserId = async () => {
   const userQuery = await supabase.auth.getUser();
 
   if (userQuery.error) {
-    throw new Error(userQuery.error.message);
+    throw userQuery.error;
   }
 
   return userQuery.data.user.id;
@@ -24,7 +26,7 @@ export const getAccountId = async () => {
     .single();
 
   if (accountQuery.error) {
-    throw new Error(accountQuery.error.message);
+    throw new DatabaseError(accountQuery.error);
   }
 
   return accountQuery.data.id;
@@ -40,7 +42,7 @@ export const fetchAccount = async () => {
     .single();
 
   if (accountQuery.error) {
-    throw new Error(accountQuery.error.message);
+    throw new DatabaseError(accountQuery.error);
   }
 
   return accountQuery.data;
@@ -56,7 +58,7 @@ export const fetchAccountAICredits = async () => {
     .single();
 
   if (accountQuery.error) {
-    throw new Error(accountQuery.error.message);
+    throw new DatabaseError(accountQuery.error);
   }
 
   return accountQuery.data.ai_credit || 0;
@@ -65,11 +67,14 @@ export const fetchAccountAICredits = async () => {
 export const validateAccountAICredits = async () => {
   const aiCredits = await fetchAccountAICredits();
 
-  if (aiCredits <= 0) {
-    throw new Error('User does not have any AI credits');
+  const accountCreditsSchema = z.number().int().positive();
+  const validatedCredits = accountCreditsSchema.safeParse(aiCredits);
+
+  if (!validatedCredits.success) {
+    throw validatedCredits.error;
   }
 
-  return aiCredits;
+  return validatedCredits.data;
 };
 
 export const updateAccountAICredits = async (amount: number) => {
@@ -83,7 +88,7 @@ export const updateAccountAICredits = async (amount: number) => {
     .single();
 
   if (accountQuery.error) {
-    throw new Error(accountQuery.error.message);
+    throw new DatabaseError(accountQuery.error);
   }
 
   return accountQuery.data.ai_credit || 0;
