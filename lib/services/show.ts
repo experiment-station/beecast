@@ -1,12 +1,12 @@
 import type { PodcastIndexShowType } from './podcast-index/search-show';
 
-import { createSupabaseBrowserClient } from './supabase/browser';
+import { createSupabaseServiceClient } from './supabase/service';
 
 export const saveShow = async (
   show: PodcastIndexShowType,
   spotifyId: string,
 ) => {
-  const supabase = createSupabaseBrowserClient();
+  const supabase = createSupabaseServiceClient();
   const { data, error } = await supabase
     .from('show')
     .insert({

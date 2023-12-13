@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 
 export const PODCAST_INDEX_BASE_URL = 'https://api.podcastindex.org/api/1.0';
 
-type AuthTokenDateGenetrationType = {
+type AuthTokenDateGenerationType = {
   authDate: number;
   authorization: string;
 };
@@ -11,7 +11,7 @@ type AuthTokenDateGenetrationType = {
 export const generateAuthTokenAuthDate = (
   podcastIndexApiKey: string,
   podcastIndexSecret: string,
-): AuthTokenDateGenetrationType => {
+): AuthTokenDateGenerationType => {
   const authDate = Math.floor(Date.now() / 1000);
   const authorization = crypto
     .createHash('sha1')
@@ -22,8 +22,8 @@ export const generateAuthTokenAuthDate = (
 };
 
 export const generateHeaders = () => {
-  const podcastIndexApiKey = env.NEXT_PUBLIC_PODCAST_INDEX_API_KEY;
-  const podcastIndexSecret = env.NEXT_PUBLIC_PODCAST_INDEX_SECRET;
+  const podcastIndexApiKey = env.PODCAST_INDEX_API_KEY;
+  const podcastIndexSecret = env.PODCAST_INDEX_SECRET;
 
   const { authDate, authorization } = generateAuthTokenAuthDate(
     podcastIndexApiKey,
