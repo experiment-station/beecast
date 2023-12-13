@@ -8,7 +8,7 @@ type ServerErrorParams = {
   underlyingError?: unknown;
 };
 
-class ServerError extends ExtendableError {
+export class ServerError extends ExtendableError {
   params: ServerErrorParams;
   trace_id?: string;
 
