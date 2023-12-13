@@ -1,10 +1,12 @@
+import type { Tables } from '@/types/supabase/database-generated';
+
 import type { PodcastIndexShowType } from './podcast-index/search-show';
 
 import { createSupabaseServiceClient } from './supabase/service';
 
 export const saveShow = async (
   show: PodcastIndexShowType,
-  spotifyId: string,
+  spotifyId: Tables<'show'>['spotify_id'],
 ) => {
   const supabase = createSupabaseServiceClient();
   const { data, error } = await supabase
