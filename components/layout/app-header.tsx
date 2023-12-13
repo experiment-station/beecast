@@ -70,11 +70,11 @@ function AppHeaderActionsAuthenticated(
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild color="red">
-          <form action="/auth/sign-out" method="POST">
+        <form action="/auth/sign-out" method="POST">
+          <DropdownMenuItem color="red">
             <UnstyledButton type="submit">Sign out</UnstyledButton>
-          </form>
-        </DropdownMenuItem>
+          </DropdownMenuItem>
+        </form>
       </DropdownMenuContent>
     </DropdownMenuRoot>
   );

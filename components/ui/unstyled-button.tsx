@@ -7,11 +7,14 @@ export function UnstyledButton(props: ComponentProps<'button'>) {
         background: 'none',
         border: 'none',
         color: 'inherit',
+        cursor: 'var(--cursor-button)',
         font: 'inherit',
         margin: 0,
         padding: 0,
+        textAlign: 'left',
+        width: '100%',
       }}
-      type={props.type ?? 'button'}
+      type="button"
       {...props}
     />
   );
