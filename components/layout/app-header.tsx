@@ -20,9 +20,9 @@ import {
   CgProfile,
 } from 'react-icons/cg';
 
+import { Logo } from '../ui/logo';
 import { UnstyledButton } from '../ui/unstyled-button';
 import { AppContent } from './app-content';
-import { AppHeaderLogo } from './app-header-logo';
 
 type Props =
   | {
@@ -121,7 +121,9 @@ export function AppHeader(props: Props) {
     <Flex direction="column" gap="4" py="4">
       <AppContent>
         <Flex align="center" justify="between">
-          <AppHeaderLogo />
+          <Link href="/">
+            <Logo size={36} />
+          </Link>
 
           {props.variant === 'authenticated' ? (
             <AppHeaderActionsAuthenticated {...props} />

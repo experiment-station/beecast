@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 
-import { Logo } from '@/components/logo';
+import { Logo } from '@/components/ui/logo';
 import { Container, Flex } from '@radix-ui/themes';
 import Link from 'next/link';
 

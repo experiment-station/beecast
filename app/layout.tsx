@@ -6,7 +6,7 @@ import '@/components/theme-provider/styles.css';
 
 export const metadata: Metadata = {
   description: 'Your hard-working AI podcast companion.',
-  title: 'Beecast',
+  title: 'beecast',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
