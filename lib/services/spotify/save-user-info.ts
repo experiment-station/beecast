@@ -44,7 +44,16 @@ export const saveUserInfo = async ({
   const userInfo = validatedResponse.data;
   const supabase = createSupabaseServerClient(cookies());
 
-  const { data, error, status } = await supabase
+  const isNewAccount =
+    (
+      await supabase
+        .from('account')
+        .select('id')
+        .eq('spotify_id', userInfo.provider_id)
+        .single()
+    ).data === null;
+
+  const { data, error } = await supabase
     .from('account')
     .upsert(
       {
@@ -64,7 +73,7 @@ export const saveUserInfo = async ({
     throw new DatabaseError(error);
   }
 
-  if (status === 201) {
+  if (isNewAccount) {
     await notify(`🐝 New sign-up for *beecast*: ${data.display_name}`);
   }
 };
