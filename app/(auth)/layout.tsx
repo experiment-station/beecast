@@ -1,20 +1,28 @@
 import type { PropsWithChildren } from 'react';
 
-import { Flex } from '@radix-ui/themes';
+import { Logo } from '@/components/logo';
+import { Container, Flex } from '@radix-ui/themes';
+import Link from 'next/link';
 
 export default function AuthLayout(props: PropsWithChildren) {
   return (
-    <Flex
-      direction="column"
-      gap="4"
-      mx="auto"
-      style={{
-        alignItems: 'center',
-        height: '100vh',
-        justifyContent: 'center',
-      }}
-    >
-      {props.children}
-    </Flex>
+    <Container size="1">
+      <Flex
+        direction="column"
+        gap="4"
+        mx="auto"
+        style={{
+          alignItems: 'start',
+          justifyContent: 'center',
+          minHeight: '80vh',
+        }}
+      >
+        <Link href="/" title="Go to home page">
+          <Logo size={64} />
+        </Link>
+
+        {props.children}
+      </Flex>
+    </Container>
   );
 }
