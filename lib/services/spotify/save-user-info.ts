@@ -5,7 +5,7 @@ import { differenceInMinutes } from 'date-fns';
 import { cookies } from 'next/headers';
 import { z } from 'zod';
 
-import { notifyViaSlack } from '../notify/slack';
+import { notifySlack } from '../notify/slack';
 import { createSupabaseServerClient } from '../supabase/server';
 
 type UserMetadata = {
@@ -69,6 +69,6 @@ export const saveUserInfo = async ({
     differenceInMinutes(new Date(), new Date(data.created_at)) <= 5;
 
   if (isNewAccount) {
-    await notifyViaSlack(`🐝 New sign-up for *beecast*: ${data.display_name}`);
+    await notifySlack(`🐝 New sign-up for *beecast*: ${data.display_name}`);
   }
 };
