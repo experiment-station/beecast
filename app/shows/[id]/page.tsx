@@ -36,10 +36,10 @@ export default async function Page(props: { params: { id: ShowId } }) {
   }
 
   return (
-    <Flex direction="row" gap="8">
+    <Flex direction="row" gap="6">
       <Box
         style={{
-          width: 240,
+          width: 200,
         }}
       >
         <Flex direction="column" gap="4">
@@ -48,8 +48,8 @@ export default async function Page(props: { params: { id: ShowId } }) {
             fallback="/images/placeholder.png"
             src={data.images?.[0]}
             style={{
-              height: 240,
-              width: 240,
+              height: 200,
+              width: 200,
             }}
           />
 
@@ -61,8 +61,13 @@ export default async function Page(props: { params: { id: ShowId } }) {
 
       <Flex direction="column" gap="6">
         <Flex direction="column" gap="2">
-          <Heading size="8">{data.title}</Heading>
-          <Text color="gray">{data.publisher}</Text>
+          <Heading as="h2" size="6">
+            {data.title}
+          </Heading>
+
+          <Text color="gray" size="2">
+            {data.publisher}
+          </Text>
         </Flex>
 
         <Separator orientation="horizontal" size="4" />

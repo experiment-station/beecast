@@ -37,8 +37,8 @@ export function EpisodeCard(props: Props) {
                 color="gray"
                 highContrast
                 size={{
-                  initial: '3',
-                  md: '4',
+                  initial: '2',
+                  md: '3',
                 }}
               >
                 {props.title}

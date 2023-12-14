@@ -41,8 +41,7 @@ export default async function Page() {
       <Grid
         columns={{
           initial: '2',
-          md: '5',
-          sm: '4',
+          md: '4',
           xs: '3',
         }}
         gap={{

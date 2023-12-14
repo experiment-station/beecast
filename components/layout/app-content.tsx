@@ -8,8 +8,9 @@ export function AppContent(props: PropsWithChildren) {
       px={{
         initial: '6',
         lg: '0',
+        md: '3',
       }}
-      size="4"
+      size="3"
     >
       {props.children}
     </Container>
