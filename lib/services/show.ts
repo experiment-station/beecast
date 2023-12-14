@@ -23,7 +23,28 @@ export const saveShow = async (
       title: show.title,
       total_episode: show.episodeCount,
     })
-    .select();
+    .select()
+    .single();
+
+  if (error) {
+    throw new DatabaseError(error);
+  }
+
+  await saveShowToImported(data.id, spotifyId);
+
+  return data;
+};
+
+const saveShowToImported = async (
+  showId: Tables<'show'>['id'],
+  spotifyId: Tables<'show'>['spotify_id'],
+) => {
+  const supabase = createSupabaseServiceClient();
+
+  const { data, error } = await supabase.from('imported_show').insert({
+    show: showId,
+    spotify_id: spotifyId,
+  });
 
   if (error) {
     throw new DatabaseError(error);
