@@ -1,12 +1,32 @@
 import { ShowCard } from '@/components/show-card';
 import { DatabaseError } from '@/lib/errors';
+import { getAccountId } from '@/lib/services/account';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Flex, Grid, Heading } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
-export default async function Page() {
+const fetchAllShows = async () => {
   const supabase = createSupabaseServerClient(cookies());
-  const { data, error } = await supabase.from('show').select('*');
+  const response = await supabase
+    .from('show')
+    .select('id, title, description, images');
+
+  return response;
+};
+
+const _fetchMyShows = async () => {
+  const supabase = createSupabaseServerClient(cookies());
+  const accountId = await getAccountId();
+  const response = await supabase
+    .from('account_show_relation')
+    .select('id, show (title, description, images)')
+    .eq('account', accountId);
+
+  return response;
+};
+
+export default async function Page() {
+  const { data, error } = await fetchAllShows();
 
   if (error) {
     throw new DatabaseError(error);
