@@ -1,3 +1,5 @@
+import type { Tables } from '@/types/supabase/database';
+
 import {
   AspectRatio,
   Button,
@@ -15,22 +17,17 @@ import { FaPlay } from 'react-icons/fa6';
 
 import styles from './episode-card.module.css';
 
-// @TODO: rebase when https://github.com/experiment-station/beecast/pull/41 is merged
-type Props = {
-  description: string;
-  duration: number;
-  id: number;
-  image: string;
-  publishedDate: number;
-  title: string;
-};
+type Props = Pick<
+  Tables<'episode'>,
+  'description' | 'duration' | 'id' | 'image' | 'published_date' | 'title'
+>;
 
 export function EpisodeCard(props: Props) {
   return (
     <Link asChild className={styles.Link}>
       <NextLink href={`/episode/${props.id}`}>
         <Card className={styles.Card} variant="ghost">
-          <Flex align="start" gap="4">
+          <Flex align="start" gap="5" p="2">
             <Card className={styles.ImageContainer}>
               <Inset>
                 <AspectRatio ratio={1}>
@@ -38,14 +35,14 @@ export function EpisodeCard(props: Props) {
                   <img
                     alt={`Cover for ${props.title}`}
                     className={styles.Image}
-                    src={props.image}
+                    src={props.image || '/images/placeholder.png'}
                   />
                 </AspectRatio>
               </Inset>
             </Card>
 
             <Flex direction="column" gap="3">
-              <Heading color="gray" highContrast size="3">
+              <Heading color="gray" highContrast size="4">
                 {props.title}
               </Heading>
 
@@ -59,13 +56,17 @@ export function EpisodeCard(props: Props) {
 
                 <Flex gap="1">
                   <Text size="2">{formatDuration(props.duration * 1000)}</Text>
-                  <Text size="2">•</Text>
-                  <Text size="2">
-                    {format(
-                      new Date(props.publishedDate * 1000),
-                      'MMM d, yyyy',
-                    )}
-                  </Text>
+                  {props.published_date ? (
+                    <>
+                      <Text size="2">•</Text>
+                      <Text size="2">
+                        {format(
+                          new Date(props.published_date * 1000),
+                          'MMM d, yyyy',
+                        )}
+                      </Text>
+                    </>
+                  ) : null}
                 </Flex>
               </Flex>
             </Flex>
