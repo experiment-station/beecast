@@ -10,9 +10,8 @@ import { AppHeader } from './app-header';
 
 export async function AppLayout({ children }: PropsWithChildren) {
   let appHeader = <AppHeader variant="guest" />;
-  const isAuthenticated = await getIsAuthenticated();
 
-  if (isAuthenticated) {
+  if (await getIsAuthenticated()) {
     const account = await fetchAccount();
 
     appHeader = (

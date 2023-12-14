@@ -6,4 +6,5 @@ body {
 
 .radix-themes {
   --cursor-button: pointer;
+  --cursor-menu-item: pointer;
 }
