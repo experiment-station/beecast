@@ -8,7 +8,7 @@ export default function Page(props: {
 }) {
   return (
     <RouteModal>
-      <EpisodeDetail id={props.params.id} />
+      <EpisodeDetail.Page id={props.params.id} />
     </RouteModal>
   );
 }

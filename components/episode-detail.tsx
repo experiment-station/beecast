@@ -2,17 +2,62 @@ import type { Tables } from '@/types/supabase/database';
 
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
+import { Avatar, Box, Card, Flex, Heading, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
-type Props = {
-  id: Tables<'episode'>['id'];
-};
+import { DecorativeBox } from './ui/decorative-box';
 
-export async function EpisodeDetail(props: Props) {
+function EpisodeDetailContent(
+  props: Pick<
+    Tables<'episode'>,
+    'description' | 'duration' | 'image' | 'published_date' | 'title'
+  > & {
+    show: {
+      id: Tables<'show'>['id'];
+      title: Tables<'show'>['title'];
+    };
+  },
+) {
+  return (
+    <Flex direction="column" gap="4">
+      <Flex align="start" direction="row" gap="5">
+        <Avatar
+          fallback="/images/placeholder.png"
+          radius="small"
+          size="9"
+          src={props.image ?? ''}
+        />
+
+        <Flex direction="column" gap="1">
+          <Heading size="3">{props.title}</Heading>
+
+          <Text color="gray" size="2">
+            {props.show.title}
+          </Text>
+
+          <Box height="9" width="100%">
+            <DecorativeBox />
+          </Box>
+        </Flex>
+      </Flex>
+
+      <Box height="9" width="100%">
+        <DecorativeBox />
+      </Box>
+
+      <Box height="9" width="100%">
+        <DecorativeBox />
+      </Box>
+    </Flex>
+  );
+}
+
+async function EpisodeDetailPage(props: { id: Tables<'episode'>['id'] }) {
   const supabase = createSupabaseServerClient(cookies());
+
   const { data, error } = await supabase
     .from('episode')
-    .select('*')
+    .select('*, show(id, title)')
     .eq('id', props.id)
     .single();
 
@@ -20,5 +65,35 @@ export async function EpisodeDetail(props: Props) {
     throw new DatabaseError(error);
   }
 
-  return <div>{data.title}</div>;
+  return (
+    <EpisodeDetailContent
+      description={data.description}
+      duration={data.duration}
+      image={data.image}
+      published_date={data.published_date}
+      show={data.show}
+      title={data.title}
+    />
+  );
 }
+
+function EpisodeDetailRoot(props: { children: React.ReactNode }) {
+  return (
+    <Box
+      mx="auto"
+      style={{
+        maxWidth: 'var(--container-2)',
+      }}
+    >
+      <Card>
+        <Box p="3">{props.children}</Box>
+      </Card>
+    </Box>
+  );
+}
+
+export const EpisodeDetail = {
+  Content: EpisodeDetailContent,
+  Page: EpisodeDetailPage,
+  Root: EpisodeDetailRoot,
+};
