@@ -27,7 +27,19 @@ export function EpisodeCard(props: Props) {
     <Link asChild className={styles.Link}>
       <NextLink href={`/episode/${props.id}`}>
         <Card className={styles.Card} variant="ghost">
-          <Flex align="start" gap="5" p="2">
+          <Flex
+            align="start"
+            direction={{
+              initial: 'column',
+              md: 'row',
+            }}
+            gap={{
+              initial: '3',
+              lg: '5',
+              md: '4',
+            }}
+            p="2"
+          >
             <Card className={styles.ImageContainer}>
               <Inset>
                 <AspectRatio ratio={1}>
@@ -42,7 +54,14 @@ export function EpisodeCard(props: Props) {
             </Card>
 
             <Flex direction="column" gap="3">
-              <Heading color="gray" highContrast size="4">
+              <Heading
+                color="gray"
+                highContrast
+                size={{
+                  initial: '3',
+                  md: '4',
+                }}
+              >
                 {props.title}
               </Heading>
 

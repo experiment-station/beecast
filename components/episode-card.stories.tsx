@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { EpisodeCard } from './episode-card';
-import { AppContent } from './layout/app-content';
 
 export const Primary: StoryObj<typeof EpisodeCard> = {
   render: () => (
@@ -17,13 +16,6 @@ export const Primary: StoryObj<typeof EpisodeCard> = {
 };
 const meta: Meta<typeof EpisodeCard> = {
   component: EpisodeCard,
-  decorators: [
-    (Story) => (
-      <AppContent>
-        <Story />
-      </AppContent>
-    ),
-  ],
 };
 
 export default meta;
