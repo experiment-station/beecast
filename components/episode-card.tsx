@@ -1,17 +1,9 @@
 import type { Tables } from '@/types/supabase/database';
 
-import {
-  AspectRatio,
-  Button,
-  Card,
-  Flex,
-  Heading,
-  Inset,
-  Link,
-  Text,
-} from '@radix-ui/themes';
+import { Button, Card, Flex, Heading, Link, Text } from '@radix-ui/themes';
 import { format } from 'date-fns';
 import formatDuration from 'format-duration';
+import parseHTML from 'html-react-parser';
 import NextLink from 'next/link';
 import { FaPlay } from 'react-icons/fa6';
 
@@ -19,13 +11,13 @@ import styles from './episode-card.module.css';
 
 type Props = Pick<
   Tables<'episode'>,
-  'description' | 'duration' | 'id' | 'image' | 'published_date' | 'title'
+  'description' | 'duration' | 'id' | 'published_date' | 'show' | 'title'
 >;
 
 export function EpisodeCard(props: Props) {
   return (
     <Link asChild className={styles.Link}>
-      <NextLink href={`/episode/${props.id}`}>
+      <NextLink href={`/shows/${props.show}/episode/${props.id}`}>
         <Card className={styles.Card} variant="ghost">
           <Flex
             align="start"
@@ -40,19 +32,6 @@ export function EpisodeCard(props: Props) {
             }}
             p="2"
           >
-            <Card className={styles.ImageContainer}>
-              <Inset>
-                <AspectRatio ratio={1}>
-                  {/* @TODO: SUPA-37 */}
-                  <img
-                    alt={`Cover for ${props.title}`}
-                    className={styles.Image}
-                    src={props.image || '/images/placeholder.png'}
-                  />
-                </AspectRatio>
-              </Inset>
-            </Card>
-
             <Flex direction="column" gap="3">
               <Heading
                 color="gray"
@@ -65,7 +44,16 @@ export function EpisodeCard(props: Props) {
                 {props.title}
               </Heading>
 
-              <Text size="2">{props.description}</Text>
+              {props.description ? (
+                <Text
+                  as="div"
+                  className={styles.Description}
+                  size="2"
+                  trim="start"
+                >
+                  {parseHTML(props.description)}
+                </Text>
+              ) : null}
 
               <Flex align="center" direction="row" gap="3">
                 <Button highContrast>
