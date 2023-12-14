@@ -5,6 +5,8 @@ import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Avatar, Box, Flex, Heading, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
+import { EpisodeDescription } from './episode-description';
+import { CollapsiblePanel } from './ui/collapsible-panel';
 import { DecorativeBox } from './ui/decorative-box';
 
 function EpisodeDetailContent(
@@ -41,9 +43,13 @@ function EpisodeDetailContent(
         </Flex>
       </Flex>
 
-      <Box height="9" width="100%">
-        <DecorativeBox />
-      </Box>
+      {props.description ? (
+        <CollapsiblePanel title="Show notes">
+          <Text size="2">
+            <EpisodeDescription>{props.description}</EpisodeDescription>
+          </Text>
+        </CollapsiblePanel>
+      ) : null}
 
       <Box height="9" width="100%">
         <DecorativeBox />
