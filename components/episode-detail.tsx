@@ -44,7 +44,7 @@ function EpisodeDetailContent(
       </Flex>
 
       {props.description ? (
-        <CollapsiblePanel title="Show notes">
+        <CollapsiblePanel title="Episode description">
           <Text size="2">
             <EpisodeDescription>{props.description}</EpisodeDescription>
           </Text>
