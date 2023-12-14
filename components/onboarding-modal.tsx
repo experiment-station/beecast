@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Text } from '@radix-ui/themes';
+import { Button, DialogClose, Flex, Heading, Text } from '@radix-ui/themes';
 
 import { Logo } from './ui/logo';
 
@@ -16,9 +16,11 @@ export function OnboardingModal() {
       </Text>
 
       <Flex direction="row" gap="2" justify="end">
-        <Button color="gray" variant="surface">
-          Maybe later
-        </Button>
+        <DialogClose>
+          <Button color="gray" variant="surface">
+            Maybe later
+          </Button>
+        </DialogClose>
         <Button highContrast>Absolutely!</Button>
       </Flex>
     </Flex>
