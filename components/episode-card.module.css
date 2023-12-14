@@ -1,0 +1,20 @@
+.Link {
+  text-decoration: none;
+}
+
+.ImageContainer {
+  min-width: 130px;
+}
+
+.Image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (hover: hover) {
+  .Card:hover {
+    background-color: var(--color-panel-translucent);
+    transition: opacity 60ms;
+  }
+}
