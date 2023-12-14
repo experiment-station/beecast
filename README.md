@@ -33,8 +33,8 @@ Our aim is to provide a user-friendly platform that simplifies the way people in
 
 Here's a quick overview of beecast's features:
 
-- Spotify integration: Log in with your Spotify account to sync your podcast library.
-- Podcast matching: We match your podcasts with entries from the Open Podcast Index.
+- Spotify integration: Log in with your Spotify account to sync your podcast library to beecast.
+- Podcast matching: We match your podcasts with entries from the Podcast Index.
 - Interactive features: Enjoy listening to episodes with the added benefits of AI-generated transcriptions and summaries.
 - Seamless continuation: beecast remembers where you left off, allowing for an uninterrupted listening experience.
 
@@ -46,7 +46,7 @@ We are using the following technologies to build beecast:
 - Radix Themes for the UI.
 - Supabase Auth for user authentication.
 - Supabase Database for the database.
-- Spotify API for fetching user data, Open Podcast Index for podcast matching.
+- Spotify API for fetching user data, Podcast Index for podcast cataloging.
 - Deepgram's SDK for transcription, OpenAI SDK for summarization.
 
 ## Team
