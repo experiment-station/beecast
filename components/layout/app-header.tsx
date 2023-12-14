@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Flex,
+  IconButton,
   Text,
 } from '@radix-ui/themes';
 import Link from 'next/link';
@@ -37,17 +38,38 @@ type Props =
       variant: 'guest';
     };
 
+const USER_MENU_LINKS = [
+  {
+    href: '/credits',
+    icon: <CgDollar />,
+    label: 'Buy Credits',
+  },
+  {
+    href: '/shows',
+    icon: <CgMediaPodcast />,
+    label: 'Your Shows',
+  },
+  {
+    href: '/settings',
+    icon: <CgOptions />,
+    label: 'Settings',
+  },
+];
+
 function AppHeaderActionsAuthenticated(
   props: Pick<Exclude<Props, { variant: 'guest' }>, 'user'>,
 ) {
   return (
     <DropdownMenuRoot>
       <DropdownMenuTrigger>
-        <Avatar
-          fallback={<CgProfile />}
-          radius="full"
-          src={props.user.avatarURL}
-        />
+        <IconButton radius="full" size="1" tabIndex={-1} variant="ghost">
+          <Avatar
+            fallback={<CgProfile />}
+            radius="full"
+            size="2"
+            src={props.user.avatarURL}
+          />
+        </IconButton>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
@@ -72,26 +94,16 @@ function AppHeaderActionsAuthenticated(
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
-          <Flex align="center" gap="2">
-            <CgDollar />
-            <Text>Buy Credits</Text>
-          </Flex>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem>
-          <Flex align="center" gap="2">
-            <CgMediaPodcast />
-            <Text>Your Shows</Text>
-          </Flex>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem>
-          <Flex align="center" gap="2">
-            <CgOptions />
-            <Text>Settings</Text>
-          </Flex>
-        </DropdownMenuItem>
+        {USER_MENU_LINKS.map((link) => (
+          <DropdownMenuItem asChild key={link.href}>
+            <Link href={link.href}>
+              <Flex align="center" gap="2">
+                {link.icon}
+                <Text>{link.label}</Text>
+              </Flex>
+            </Link>
+          </DropdownMenuItem>
+        ))}
 
         <DropdownMenuSeparator />
 
