@@ -23,13 +23,14 @@ export const saveShow = async (
       title: show.title,
       total_episode: show.episodeCount,
     })
-    .select();
+    .select()
+    .single();
 
   if (error) {
     throw new DatabaseError(error);
   }
 
-  await saveShowToImported(data[0].id, spotifyId);
+  await saveShowToImported(data.id, spotifyId);
 
   return data;
 };
