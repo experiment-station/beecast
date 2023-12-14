@@ -77,21 +77,7 @@ async function EpisodeDetailPage(props: { id: Tables<'episode'>['id'] }) {
   );
 }
 
-function EpisodeDetailRoot(props: { children: React.ReactNode }) {
-  return (
-    <Box
-      mx="auto"
-      style={{
-        maxWidth: 'var(--container-2)',
-      }}
-    >
-      {props.children}
-    </Box>
-  );
-}
-
 export const EpisodeDetail = {
   Content: EpisodeDetailContent,
   Page: EpisodeDetailPage,
-  Root: EpisodeDetailRoot,
 };

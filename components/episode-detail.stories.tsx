@@ -19,13 +19,6 @@ export const Primary: StoryObj<typeof EpisodeDetail.Content> = {
 };
 const meta: Meta<typeof EpisodeDetail.Content> = {
   component: EpisodeDetail.Content,
-  decorators: [
-    (Story) => (
-      <EpisodeDetail.Root>
-        <Story />
-      </EpisodeDetail.Root>
-    ),
-  ],
   title: 'episode-detail',
 };
 
