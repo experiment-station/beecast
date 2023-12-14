@@ -3,6 +3,7 @@ import type { PropsWithChildren } from 'react';
 
 import {
   AspectRatio,
+  Avatar,
   Box,
   Card,
   Flex,
@@ -39,10 +40,11 @@ function ShowCardImage(props: Pick<Props, 'images' | 'title'>) {
     <Inset>
       <AspectRatio ratio={1}>
         {/* @TODO: SUPA-37 */}
-        <img
+        <Avatar
           alt={`Cover for ${props.title}`}
           className={styles.Image}
-          src={props.images?.[0] ?? '/images/placeholder.png'}
+          fallback="/images/placeholder.png"
+          src={props.images?.[0]}
         />
       </AspectRatio>
     </Inset>

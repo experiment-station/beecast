@@ -46,6 +46,7 @@ export default async function Page(props: { params: { id: ShowId } }) {
           <Avatar
             alt={data.title}
             fallback="/images/placeholder.png"
+            radius="small"
             src={data.images?.[0]}
             style={{
               height: 200,
