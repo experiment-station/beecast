@@ -189,30 +189,37 @@ export interface Database {
       };
       episode_progress: {
         Row: {
+          account: number;
           at: number;
           created_at: string;
           episode: number;
           finished: boolean;
           id: number;
-          user: number;
         };
         Insert: {
+          account: number;
           at: number;
           created_at?: string;
           episode: number;
           finished?: boolean;
           id?: number;
-          user: number;
         };
         Update: {
+          account?: number;
           at?: number;
           created_at?: string;
           episode?: number;
           finished?: boolean;
           id?: number;
-          user?: number;
         };
         Relationships: [
+          {
+            foreignKeyName: 'episode_progress_account_fkey';
+            columns: ['account'];
+            isOneToOne: false;
+            referencedRelation: 'account';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'episode_progress_episode_fkey';
             columns: ['episode'];
