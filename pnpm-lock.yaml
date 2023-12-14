@@ -20,15 +20,15 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.39.0
     version: 2.39.0
+  '@t3-oss/env-nextjs':
+    specifier: ^0.7.1
+    version: 0.7.1(typescript@5.3.3)(zod@3.22.4)
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
   es6-error:
     specifier: ^4.1.1
     version: 4.1.1
-  '@t3-oss/env-nextjs':
-    specifier: ^0.7.1
-    version: 0.7.1(typescript@5.3.3)(zod@3.22.4)
   next:
     specifier: 14.0.4
     version: 14.0.4(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
@@ -70,6 +70,9 @@ devDependencies:
   '@storybook/addon-links':
     specifier: ^7.6.4
     version: 7.6.4(react@18.2.0)
+  '@storybook/addon-themes':
+    specifier: ^7.6.4
+    version: 7.6.4
   '@storybook/blocks':
     specifier: ^7.6.4
     version: 7.6.4(@types/react-dom@18.2.17)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
@@ -3734,6 +3737,12 @@ packages:
     resolution: {integrity: sha512-CFxGASRse/qeFocetDKFNeWZ3Aa2wapVtRciDNa4Zx7k1wCnTjEsPIm54waOuCaNVcrvO+nJUAZG5WyiorQvcg==}
     dependencies:
       '@storybook/global': 5.0.0
+      ts-dedent: 2.2.0
+    dev: true
+
+  /@storybook/addon-themes@7.6.4:
+    resolution: {integrity: sha512-jz6/6LSRVgL9G5vknxROGOakXAsTIIl2sR7tkuC4gyGkCIGwvb9oO9jUaHkUHQ8rtcLXbVpFncQzUXmrwK6CGg==}
+    dependencies:
       ts-dedent: 2.2.0
     dev: true
 

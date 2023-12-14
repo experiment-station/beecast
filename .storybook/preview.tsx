@@ -1,4 +1,5 @@
-import type { Preview } from '@storybook/react';
+import type { Preview, ReactRenderer } from '@storybook/react';
+import { withThemeByClassName } from '@storybook/addon-themes';
 import React from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
@@ -17,6 +18,13 @@ const preview: Preview = {
     },
   },
   decorators: [
+    withThemeByClassName<ReactRenderer>({
+      themes: {
+        light: '',
+        dark: 'dark',
+      },
+      defaultTheme: 'dark',
+    }),
     (Story) => (
       <ThemeProvider>
         <Story />
