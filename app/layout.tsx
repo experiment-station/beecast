@@ -13,7 +13,7 @@ export default function RootLayout({
   children,
   modal,
 }: PropsWithChildren<{
-  modal?: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
