@@ -9,7 +9,6 @@ export const Primary: StoryObj<typeof EpisodeCard> = {
       duration={4021}
       id={1}
       published_date={1699531200}
-      show={1}
       title="How Vercel found extreme product-market fit by focusing on simplification | Guillermo Rauch (Vercel's CEO)"
     />
   ),

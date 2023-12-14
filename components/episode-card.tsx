@@ -11,13 +11,13 @@ import styles from './episode-card.module.css';
 
 type Props = Pick<
   Tables<'episode'>,
-  'description' | 'duration' | 'id' | 'published_date' | 'show' | 'title'
+  'description' | 'duration' | 'id' | 'published_date' | 'title'
 >;
 
 export function EpisodeCard(props: Props) {
   return (
     <Link asChild className={styles.Link}>
-      <NextLink href={`/shows/${props.show}/episode/${props.id}`}>
+      <NextLink href={`/episodes/${props.id}`}>
         <Card className={styles.Card} variant="ghost">
           <Flex
             align="start"
