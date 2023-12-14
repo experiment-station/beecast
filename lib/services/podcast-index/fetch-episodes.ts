@@ -26,9 +26,10 @@ export const fetchEpisodes = async (
   podcastGuid: string,
 ): Promise<PodcastIndexEpisodeType[]> => {
   const response = await podcastIndexFetchClient<PodcastIndexResponse>(
-    `/episodes/bypodcastguid?guid=${podcastGuid}`,
+    `/episodes/bypodcastguid`,
     {
       params: {
+        guid: podcastGuid,
         max: 50,
       },
     },
