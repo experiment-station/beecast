@@ -29,6 +29,9 @@ dependencies:
   es6-error:
     specifier: ^4.1.1
     version: 4.1.1
+  format-duration:
+    specifier: ^3.0.2
+    version: 3.0.2
   next:
     specifier: 14.0.4
     version: 14.0.4(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
@@ -8279,6 +8282,10 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+
+  /format-duration@3.0.2:
+    resolution: {integrity: sha512-pKzJDSRgK2lqAiPW3uizDaIJaJnataZclsahz25UMwfdryBGDa+1HlbXGjzpMvX/2kMh4O0sNevFXKaEfCjHsA==}
+    dev: false
 
   /formdata-node@4.4.1:
     resolution: {integrity: sha512-0iirZp3uVDjVGt9p49aTaqjk84TrglENEDuqfdlZQ1roC9CWlPk6Avf8EEnZNcAqPonwkG35x4n3ww/1THYAeQ==}
