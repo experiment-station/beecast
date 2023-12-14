@@ -102,10 +102,12 @@ export interface Database {
           created_at: string;
           description: string | null;
           duration: number;
-          episode_number: number;
+          episode_number: number | null;
           id: number;
-          images: string[] | null;
+          image: string | null;
           podcast_index_guid: string;
+          published_date: number | null;
+          published_date_pretty: string | null;
           show: number;
           size: number | null;
           title: string;
@@ -115,10 +117,12 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           duration: number;
-          episode_number: number;
+          episode_number?: number | null;
           id?: number;
-          images?: string[] | null;
+          image?: string | null;
           podcast_index_guid: string;
+          published_date?: number | null;
+          published_date_pretty?: string | null;
           show: number;
           size?: number | null;
           title: string;
@@ -128,10 +132,12 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           duration?: number;
-          episode_number?: number;
+          episode_number?: number | null;
           id?: number;
-          images?: string[] | null;
+          image?: string | null;
           podcast_index_guid?: string;
+          published_date?: number | null;
+          published_date_pretty?: string | null;
           show?: number;
           size?: number | null;
           title?: string;
@@ -212,6 +218,35 @@ export interface Database {
             columns: ['episode'];
             isOneToOne: false;
             referencedRelation: 'episode';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      imported_show: {
+        Row: {
+          created_at: string;
+          id: number;
+          show: number;
+          spotify_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          show: number;
+          spotify_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          show?: number;
+          spotify_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'imported_show_show_fkey';
+            columns: ['show'];
+            isOneToOne: false;
+            referencedRelation: 'show';
             referencedColumns: ['id'];
           },
         ];
