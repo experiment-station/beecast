@@ -52,3 +52,21 @@ const saveShowToImported = async (
 
   return data;
 };
+
+export const getShowWithGuid = async (
+  guid: Tables<'show'>['podcast_index_guid'],
+) => {
+  const supabase = createSupabaseServiceClient();
+
+  const { data, error } = await supabase
+    .from('show')
+    .select('*')
+    .eq('podcast_index_guid', guid)
+    .single();
+
+  if (error) {
+    throw new DatabaseError(error);
+  }
+
+  return data;
+};
