@@ -1,0 +1,28 @@
+.LinkTitle {
+  text-decoration: none;
+}
+
+.Description {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.ToggleCard {
+  cursor: var(--cursor-button);
+}
+
+.ToggleCard[aria-selected='true'] {
+  box-shadow: 0 0 0 2px var(--accent-10);
+}
+
+.ToggleCheckIcon {
+  line-height: 1;
+}
+
+.Image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

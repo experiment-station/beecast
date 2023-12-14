@@ -7,12 +7,14 @@ import {
   Card,
   Flex,
   IconButton,
+  Inset,
   Link,
   Text,
 } from '@radix-ui/themes';
 import NextLink from 'next/link';
-import { CgCheckO, CgPlayButton } from 'react-icons/cg';
+import { FaCircleCheck, FaPlay } from 'react-icons/fa6';
 
+import styles from './show-card.module.css';
 import { Hover } from './ui/hover';
 
 type Props = Pick<Tables<'show'>, 'description' | 'images' | 'title'>;
@@ -22,14 +24,9 @@ function ShowCardDescription(props: Pick<Props, 'description'>) {
 
   return (
     <Text
+      className={styles.Description}
       color="gray"
       size="2"
-      style={{
-        WebkitBoxOrient: 'vertical',
-        WebkitLineClamp: 1,
-        display: '-webkit-box',
-        overflow: 'hidden',
-      }}
       title={props.description}
     >
       {props.description}
@@ -39,20 +36,16 @@ function ShowCardDescription(props: Pick<Props, 'description'>) {
 
 function ShowCardImage(props: Pick<Props, 'images' | 'title'>) {
   return (
-    <Box style={{ margin: 'calc(var(--card-padding) * -1)' }}>
+    <Inset>
       <AspectRatio ratio={1}>
         {/* @TODO: SUPA-37 */}
         <img
           alt={`Cover for ${props.title}`}
+          className={styles.Image}
           src={props.images?.[0] ?? '/images/placeholder.png'}
-          style={{
-            height: '100%',
-            objectFit: 'cover',
-            width: '100%',
-          }}
         />
       </AspectRatio>
-    </Box>
+    </Inset>
   );
 }
 
@@ -78,17 +71,7 @@ function ShowCardLink(props: Props & { href: string }) {
           <Hover.Show>
             <Flex bottom="0" gap="2" m="2" position="absolute" right="0">
               <IconButton radius="full" size="2" tabIndex={-1}>
-                <Text size="7">
-                  <Flex
-                    align="center"
-                    justify="center"
-                    style={{
-                      paddingLeft: '2px',
-                    }}
-                  >
-                    <CgPlayButton />
-                  </Flex>
-                </Text>
+                <FaPlay />
               </IconButton>
             </Flex>
           </Hover.Show>
@@ -98,9 +81,9 @@ function ShowCardLink(props: Props & { href: string }) {
       <Flex align="start" direction="column" position="relative">
         <Link
           asChild
+          className={styles.LinkTitle}
           highContrast
           size="2"
-          style={{ textDecoration: 'none' }}
           tabIndex={-1}
           weight="medium"
         >
@@ -120,16 +103,10 @@ function ShowCardToggle(
     <ShowCardRoot>
       <Box mb="2" position="relative">
         <Card
+          aria-selected={props.selected}
+          className={styles.ToggleCard}
           data-accent-color="grass"
           onClick={props.onClick}
-          style={{
-            cursor: 'var(--cursor-button)',
-            ...(props.selected
-              ? {
-                  boxShadow: '0 0 0 2px var(--accent-10)',
-                }
-              : {}),
-          }}
         >
           <ShowCardImage images={props.images} title={props.title} />
         </Card>
@@ -142,8 +119,8 @@ function ShowCardToggle(
           </Text>
 
           {props.selected ? (
-            <Text color="grass" size="2" style={{ lineHeight: 1 }}>
-              <CgCheckO />
+            <Text className={styles.ToggleCheckIcon} color="grass" size="1">
+              <FaCircleCheck />
             </Text>
           ) : null}
         </Flex>
