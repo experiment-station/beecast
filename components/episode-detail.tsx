@@ -2,7 +2,7 @@ import type { Tables } from '@/types/supabase/database';
 
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
-import { Avatar, Box, Card, Flex, Heading, Text } from '@radix-ui/themes';
+import { Avatar, Box, Flex, Heading, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
 import { DecorativeBox } from './ui/decorative-box';
@@ -85,9 +85,7 @@ function EpisodeDetailRoot(props: { children: React.ReactNode }) {
         maxWidth: 'var(--container-2)',
       }}
     >
-      <Card>
-        <Box p="3">{props.children}</Box>
-      </Card>
+      {props.children}
     </Box>
   );
 }
