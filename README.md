@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <p>
+    <img src="./public/logo.png" width="72">
+  </p>
 
-## Getting Started
+  <h1>beecast</h1>
 
-First, run the development server:
+  <p>
+    Your hard-working AI podcast companion.
+  </p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+  <p>
+    <a href="https://supabase.io" target="_blank"><img src="https://shields.io/badge/supabase-black?logo=supabase"></a>
+    <a href="https://vercel.com" target="_blank"><img src="https://img.shields.io/badge/Vercel-black?style=flat&logo=Vercel&logoColor=white"></a>
+    <a href="https://conventionalcommits.org" target="_blank"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196" ></a>
+    <img src="https://img.shields.io/github/license/experiment-station/beecast">
+  </p>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br />
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<br />
 
-## Learn More
+## Introduction
 
-To learn more about Next.js, take a look at the following resources:
+beecast is a simple yet effective tool designed to integrate with your Spotify account, enhancing your podcast experience with accessible transcriptions and summarizations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Our aim is to provide a user-friendly platform that simplifies the way people interact with their favorite podcasts, especially for those looking to consume content in a more efficient manner.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## How it works
 
-## Deploy on Vercel
+Here's a quick overview of beecast's features:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Spotify integration: Log in with your Spotify account to sync your podcast library to beecast.
+- Podcast matching: We match your podcasts with entries from the Podcast Index.
+- Interactive features: Enjoy listening to episodes with the added benefits of AI-generated transcriptions and summaries.
+- Seamless continuation: beecast remembers where you left off, allowing for an uninterrupted listening experience.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Tech stack
+
+We are using the following technologies to build beecast:
+
+- Next.js as the full-stack framework.
+- Radix Themes for the UI.
+- Supabase Auth for user authentication.
+- Supabase Database for the database.
+- Spotify API for fetching user data, Podcast Index for podcast cataloging.
+- Deepgram's SDK for transcription, OpenAI SDK for summarization.
+
+## Team
+
+- [Okan](https://github.com/okanisildar)
+- [Altay](https://github.com/altaywtf)
