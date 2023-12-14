@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "prepare": "is-ci || husky install",
     "start": "next start",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --no-open",
     "supabase:login": "supabase login",
     "supabase:types": "supabase gen types typescript --project-id zcetythxtznisfgaakyk > types/supabase/database.ts",
     "typecheck": "tsc --noEmit"
