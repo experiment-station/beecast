@@ -1,0 +1,19 @@
+@import 'css-device-frames/dist/device-frames.min.css';
+
+.app-frame {
+  width: 100%;
+  border-width: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
+}
+
+html.dark .app-frame {
+  --background: #262626;
+  --bar-background: #404040 linear-gradient(to bottom, #525252, #404040);
+  --border-color: #525252;
+  --color: #f5f5f5;
+  --title-color: #d4d4d4;
+  --url-background: #737373;
+  --url-border-width: 0;
+  --url-color: #d4d4d4;
+}

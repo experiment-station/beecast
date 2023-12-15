@@ -1,9 +1,8 @@
 import type { ComponentProps } from 'react';
 
 import { Card, Inset } from '@radix-ui/themes';
-import 'css-device-frames/dist/device-frames.min.css';
 
-import styles from './browser-frame.module.css';
+import './browser-frame.css';
 
 type Props = ComponentProps<'div'>;
 
@@ -16,7 +15,7 @@ export default function BrowserFrame({
     <Card>
       <Inset>
         <div
-          className={`${styles.BrowserFrame} ${styles.BrowserFrameTheme} app-frame mac centered scrolling ${className}`}
+          className={`app-frame mac centered scrolling ${className}`}
           {...props}
         >
           {children}
