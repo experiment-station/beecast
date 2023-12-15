@@ -17,19 +17,8 @@ import { FaCircleCheck, FaPlay } from 'react-icons/fa6';
 
 import styles from './show-card.module.css';
 import { Hover } from './ui/hover';
-import { LineClamp } from './ui/line-clamp';
 
 type Props = Pick<Tables<'show'>, 'description' | 'images' | 'title'>;
-
-function ShowCardDescription(props: Pick<Props, 'description'>) {
-  if (!props.description) return null;
-
-  return (
-    <Text color="gray" size="2">
-      <LineClamp>{props.description}</LineClamp>
-    </Text>
-  );
-}
 
 function ShowCardImage(props: Pick<Props, 'images' | 'title'>) {
   return (
@@ -60,7 +49,7 @@ function ShowCardRoot(props: PropsWithChildren) {
 function ShowCardLink(props: Props & { href: string }) {
   return (
     <ShowCardRoot>
-      <Box mb="2" position="relative">
+      <Box mb="1" position="relative">
         <NextLink href={props.href}>
           <Card>
             <ShowCardImage images={props.images} title={props.title} />
@@ -87,8 +76,6 @@ function ShowCardLink(props: Props & { href: string }) {
         >
           <NextLink href={props.href}>{props.title}</NextLink>
         </Link>
-
-        <ShowCardDescription description={props.description} />
       </Flex>
     </ShowCardRoot>
   );
@@ -122,8 +109,6 @@ function ShowCardToggle(
             </Text>
           ) : null}
         </Flex>
-
-        <ShowCardDescription description={props.description} />
       </Flex>
     </ShowCardRoot>
   );
