@@ -2,10 +2,6 @@
 
 import type { Tables } from '@/types/supabase/database';
 
-import {
-  updateAccountAICredits,
-  validateAccountAICredits,
-} from '@/lib/services/account';
 import { transcribeEpisode } from '@/lib/services/ai/transcribe-episode';
 import { Box, Button, Callout, Flex, Text } from '@radix-ui/themes';
 import { useCallback, useState } from 'react';
@@ -39,21 +35,11 @@ export function EpisodeAIThingyGenerator({
   const [state, setState] = useState<State>({ status: 'idle' });
 
   const generate = useCallback(async () => {
-    let updatedAiCredits = 0;
-
-    try {
-      const initialAiCredits = await validateAccountAICredits();
-      updatedAiCredits = await updateAccountAICredits(initialAiCredits - 1);
-    } catch (error) {
-      setState({ message: 'Not enough credits.', status: 'error' });
-    }
-
     try {
       setState({ status: 'transcribing' });
       const transcription = await transcribeEpisode(id);
       setState({ status: 'summarizing', transcription });
     } catch (error) {
-      await updateAccountAICredits(updatedAiCredits + 1);
       setState({ message: 'Failed to transcribe episode', status: 'error' });
     }
   }, [id]);
