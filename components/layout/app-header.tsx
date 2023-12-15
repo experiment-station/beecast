@@ -139,7 +139,7 @@ export function AppHeader(props: Props) {
     <Flex direction="column" gap="4" py="4">
       <AppContent>
         <Flex align="center" justify="between">
-          <Link href="/">
+          <Link href="/" style={{ lineHeight: 1 }}>
             <Logo size={36} />
           </Link>
 
