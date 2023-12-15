@@ -17,7 +17,13 @@ export default function AuthLayout(props: PropsWithChildren) {
           minHeight: '80vh',
         }}
       >
-        <Link href="/" title="Go to home page">
+        <Link
+          href="/"
+          style={{
+            lineHeight: 1,
+          }}
+          title="Go to home page"
+        >
           <Logo size={64} />
         </Link>
 
