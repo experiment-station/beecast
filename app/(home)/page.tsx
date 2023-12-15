@@ -1,18 +1,66 @@
-import { env } from '@/env.mjs';
-import { Button, Container, Flex, Heading, Text } from '@radix-ui/themes';
+import { EpisodeAISummaryPanel } from '@/components/episode-ai-summary/episode-ai-summary-panel';
+import { EpisodeDetail } from '@/components/episode-detail';
+import { DatabaseError } from '@/lib/errors';
+import { createSupabaseServiceClient } from '@/lib/services/supabase/service';
+import { Box, Em, Flex, Heading, Text } from '@radix-ui/themes';
+import 'css-device-frames/dist/device-frames.min.css';
+import { ErrorBoundary } from 'react-error-boundary';
+
+async function EpisodeDemo() {
+  const supabase = createSupabaseServiceClient();
+
+  const { data, error } = await supabase
+    .from('episode')
+    .select('*, show(id, title), episode_content(text_summary)')
+    .eq('id', 166)
+    .single();
+
+  if (error) {
+    throw new DatabaseError(error);
+  }
+
+  return (
+    <EpisodeDetail.Content
+      description={data.description}
+      duration={data.duration}
+      id={data.id}
+      image={data.image}
+      published_date={data.published_date}
+      show={{
+        id: data.show.id,
+        title: data.show.title,
+      }}
+      title={data.title}
+    >
+      <EpisodeAISummaryPanel variant="collapsible">
+        {data.episode_content?.text_summary}
+      </EpisodeAISummaryPanel>
+    </EpisodeDetail.Content>
+  );
+}
 
 export default function Page() {
   return (
-    <Container
-      size={{
-        initial: '1',
-      }}
-    >
-      <Flex direction="column" gap="2">
-        <Heading>Hello from Radix Themes 🤓</Heading>
-        <Text color="gray">Release: {env.GIT_SHA}</Text>
-        <Button>Click me</Button>
-      </Flex>
-    </Container>
+    <Flex align="center" direction="column" gap="3" mx="auto">
+      <Heading size="8">A more efficient way to listen podcasts</Heading>
+
+      <Text color="gray" size="4">
+        Meet <Em>beecast</Em>, your hard-working AI podcast companion.
+      </Text>
+
+      <Box
+        className="app-frame mac dark scrolling"
+        data-url="beecast.ai"
+        style={{
+          width: 'var(--container-2)',
+        }}
+      >
+        <Box style={{ height: 480 }}>
+          <ErrorBoundary fallback={<div>Failed to load demo...</div>}>
+            <EpisodeDemo />
+          </ErrorBoundary>
+        </Box>
+      </Box>
+    </Flex>
   );
 }
