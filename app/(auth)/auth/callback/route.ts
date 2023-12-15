@@ -34,7 +34,16 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    await saveUserInfo({ session, user });
+    const isNewAccount = await saveUserInfo({ session, user });
+    if (isNewAccount) {
+      return NextResponse.redirect(
+        new URL('/onboarding/start', request.url).toString(),
+        {
+          status: 301,
+        },
+      );
+    }
+    return NextResponse.redirect(requestUrl.origin);
   } catch (error) {
     switch (true) {
       case error instanceof DatabaseError:
@@ -47,6 +56,4 @@ export async function GET(request: NextRequest) {
         return new HttpInternalServerError().toNextResponse();
     }
   }
-
-  return NextResponse.redirect(requestUrl.origin);
 }
