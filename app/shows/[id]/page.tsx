@@ -21,7 +21,7 @@ const fetchShowWithEpisodes = async (id: ShowId) => {
 
   const response = await supabase
     .from('show')
-    .select('*, episodes:episode(*)')
+    .select('*, episodes:episode(*, episode_content(id, text_summary))')
     .eq('id', id)
     .single();
 
@@ -75,7 +75,11 @@ export default async function Page(props: { params: { id: ShowId } }) {
 
         <Grid gap="6">
           {data.episodes.map((episode) => (
-            <EpisodeCard key={episode.id} {...episode} />
+            <EpisodeCard
+              hasContent={Boolean(episode.episode_content?.text_summary)}
+              key={episode.id}
+              {...episode}
+            />
           ))}
         </Grid>
       </Flex>
