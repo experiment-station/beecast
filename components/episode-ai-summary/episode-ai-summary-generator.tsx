@@ -57,7 +57,7 @@ export function EpisodeAISummaryGenerator({
                 <PiRobotBold />
               </Text>
 
-              <Text style={{ textTransform: 'uppercase' }} weight="bold">
+              <Text style={{ textTransform: 'uppercase' }} weight="medium">
                 Do the AI thingy!
               </Text>
             </Flex>
