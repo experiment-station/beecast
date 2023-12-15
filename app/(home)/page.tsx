@@ -3,8 +3,7 @@ import { EpisodeDetail } from '@/components/episode-detail';
 import BrowserFrame from '@/components/ui/browser-frame';
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServiceClient } from '@/lib/services/supabase/service';
-import { Box, Em, Flex, Heading, Text } from '@radix-ui/themes';
-import { ErrorBoundary } from 'react-error-boundary';
+import { Em, Flex, Heading, Text } from '@radix-ui/themes';
 
 const DEMO_EPISODE_ID = 166;
 
@@ -50,17 +49,8 @@ export default function Page() {
         Meet <Em>beecast</Em>, your hard-working AI podcast companion.
       </Text>
 
-      <BrowserFrame
-        data-url="beecast.ai"
-        style={{
-          maxWidth: 'var(--container-2)',
-        }}
-      >
-        <Box style={{ height: 480 }}>
-          <ErrorBoundary fallback={<div>Failed to load demo...</div>}>
-            <EpisodeDemo />
-          </ErrorBoundary>
-        </Box>
+      <BrowserFrame data-url="beecast.ai">
+        <EpisodeDemo />
       </BrowserFrame>
     </Flex>
   );
