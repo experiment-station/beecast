@@ -28,10 +28,9 @@ export function EpisodeCard(props: Props) {
             }}
             gap={{
               initial: '3',
-              lg: '5',
               md: '4',
             }}
-            p="2"
+            p="1"
           >
             <Flex direction="column" gap="3">
               <Heading
@@ -39,7 +38,7 @@ export function EpisodeCard(props: Props) {
                 highContrast
                 size={{
                   initial: '2',
-                  md: '3',
+                  md: '2',
                 }}
               >
                 {props.title}
@@ -53,17 +52,19 @@ export function EpisodeCard(props: Props) {
                 </Text>
               ) : null}
 
-              <Flex align="center" direction="row" gap="3">
-                <Button highContrast>
+              <Flex align="center" direction="row" gap="4">
+                <Button highContrast size="1">
                   <FaPlay />
                   Play
                 </Button>
 
                 <Flex gap="1">
                   <Text size="2">{formatDuration(props.duration * 1000)}</Text>
+
                   {props.published_date ? (
                     <>
                       <Text size="2">•</Text>
+
                       <Text size="2">
                         {format(
                           new Date(props.published_date * 1000),
