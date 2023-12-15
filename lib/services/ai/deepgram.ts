@@ -11,6 +11,7 @@ export const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
     },
     {
       model: 'nova-2',
+      paragraphs: true,
       smart_format: true,
     },
   );
