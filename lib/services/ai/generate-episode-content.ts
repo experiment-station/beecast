@@ -1,3 +1,5 @@
+'use server';
+
 import type { Tables } from '@/types/supabase/database';
 
 import { DatabaseError } from '@/lib/errors';
@@ -32,14 +34,24 @@ export const generateEpisodeContent = async ({
       throw new DatabaseError(episodeQuery.error);
     }
 
+    const transcribeStart = performance.now();
+    console.log('Transcribing audio...');
     const transcript = await transcribeAudio({
       fileURL: episodeQuery.data.audio_url,
     });
+    const transcribeEnd = performance.now();
+    console.log(
+      `Transcription completed in ${transcribeEnd - transcribeStart}ms.`,
+    );
 
+    const summaryStart = performance.now();
+    console.log('Summarizing transcript...');
     const summary = await summarizeEpisodeTranscript({
       title: episodeQuery.data.title,
       transcript,
     });
+    const summaryEnd = performance.now();
+    console.log(`Summarization completed in ${summaryEnd - summaryStart}ms.`);
 
     const { data, error } = await supabase
       .from('episode_content')

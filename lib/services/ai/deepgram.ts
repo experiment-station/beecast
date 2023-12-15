@@ -10,7 +10,6 @@ export const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
       url: fileURL,
     },
     {
-      diarize: true,
       model: 'nova-2',
       smart_format: true,
     },
