@@ -24,16 +24,15 @@ export function EpisodeAIThingyGenerator({ credits, id }: Props) {
 
   const generationButtonText = useMemo(() => {
     switch (state.status) {
-      case 'countdown':
-        return state.timeRemaining === 0
-          ? `THERE YOU GO!`
-          : `Presenting the AI thingy in ${state.timeRemaining} seconds...`;
       case 'error':
         return 'Error';
+
       case 'idle':
         return 'Do the AI thingy!';
+
       case 'loading':
         return 'Doing the AI thingy...';
+
       case 'success':
         return 'Done!';
     }
