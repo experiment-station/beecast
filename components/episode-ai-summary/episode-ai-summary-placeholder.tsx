@@ -7,7 +7,7 @@ import { CollapsiblePanel } from '../ui/collapsible-panel';
 
 export function EpisodeAISummaryPlaceholder(props: PropsWithChildren) {
   return (
-    <CollapsiblePanel open={false} title="Episode summary">
+    <CollapsiblePanel title="Episode summary">
       {FAKE_EPISODE_SUMMARY}
 
       <Flex
