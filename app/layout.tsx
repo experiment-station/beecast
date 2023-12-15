@@ -9,19 +9,11 @@ export const metadata: Metadata = {
   title: 'beecast',
 };
 
-export default function RootLayout({
-  children,
-  modal,
-}: PropsWithChildren<{
-  modal: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ThemeProvider>
-          {children}
-          {modal}
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
