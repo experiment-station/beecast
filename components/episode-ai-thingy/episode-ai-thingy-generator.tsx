@@ -31,6 +31,7 @@ export function EpisodeAIThingyGenerator({
   id,
 }: {
   id: Tables<'episode'>['id'];
+  title: Tables<'episode'>['title'];
 }) {
   const [state, setState] = useState<State>({ status: 'idle' });
 
