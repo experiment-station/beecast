@@ -17,6 +17,7 @@ import { FaCircleCheck, FaPlay } from 'react-icons/fa6';
 
 import styles from './show-card.module.css';
 import { Hover } from './ui/hover';
+import { LineClamp } from './ui/line-clamp';
 
 type Props = Pick<Tables<'show'>, 'description' | 'images' | 'title'>;
 
@@ -24,13 +25,8 @@ function ShowCardDescription(props: Pick<Props, 'description'>) {
   if (!props.description) return null;
 
   return (
-    <Text
-      className={styles.Description}
-      color="gray"
-      size="2"
-      title={props.description}
-    >
-      {props.description}
+    <Text color="gray" size="2">
+      <LineClamp>{props.description}</LineClamp>
     </Text>
   );
 }

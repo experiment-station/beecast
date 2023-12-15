@@ -3,11 +3,12 @@ import type { Tables } from '@/types/supabase/database';
 import { Button, Card, Flex, Heading, Link, Text } from '@radix-ui/themes';
 import { format } from 'date-fns';
 import formatDuration from 'format-duration';
-import parseHTML from 'html-react-parser';
 import NextLink from 'next/link';
 import { FaPlay } from 'react-icons/fa6';
 
 import styles from './episode-card.module.css';
+import { EpisodeDescription } from './episode-description';
+import { LineClamp } from './ui/line-clamp';
 
 type Props = Pick<
   Tables<'episode'>,
@@ -45,13 +46,10 @@ export function EpisodeCard(props: Props) {
               </Heading>
 
               {props.description ? (
-                <Text
-                  as="div"
-                  className={styles.Description}
-                  size="2"
-                  trim="start"
-                >
-                  {parseHTML(props.description)}
+                <Text size="2">
+                  <LineClamp>
+                    <EpisodeDescription>{props.description}</EpisodeDescription>
+                  </LineClamp>
                 </Text>
               ) : null}
 
