@@ -1,0 +1,17 @@
+.Container {
+  position: relative;
+}
+
+.Content {
+  overflow: clip;
+  transition: max-height 0.3s ease-out;
+  max-height: var(--min-height);
+}
+
+.Content[data-state='open'] {
+  max-height: var(--max-height);
+}
+
+.Content[data-state='closed'] {
+  max-height: var(--min-height);
+}
