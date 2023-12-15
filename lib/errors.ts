@@ -80,3 +80,14 @@ export class DatabaseError extends ExtendableError {
     this.underlyingError = error;
   }
 }
+
+export const createExternalServiceError = (serviceName: string) =>
+  class ExternalServiceError extends ExtendableError {
+    serviceName = serviceName;
+    underlyingError: unknown;
+
+    constructor(error: unknown) {
+      super(`Error from ${serviceName}`);
+      this.underlyingError = error;
+    }
+  };
