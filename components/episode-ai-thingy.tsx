@@ -128,39 +128,39 @@ export function EpisodeAIThingy(props: Props) {
   }, [state]);
 
   return (
-    <Box id={props.id.toString()} position="relative">
-      {state.type === 'success' ? null : (
-        <Flex
-          align="center"
-          height="100%"
-          justify="center"
-          left="0"
-          position="absolute"
-          style={{ backdropFilter: 'blur(3px)', borderRadius: 10, zIndex: 1 }}
-          top="0"
-          width="100%"
-        >
-          <Button highContrast onClick={doTheThingy} size="4">
-            <Flex align="center" gap="2" justify="center">
-              <Text mt="1" size="6" trim="both">
-                <PiRobotBold />
-              </Text>
-
-              <Text
-                style={{
-                  textTransform: 'uppercase',
-                }}
-                weight="bold"
-              >
-                {buttonText}
-              </Text>
-            </Flex>
-          </Button>
-        </Flex>
-      )}
-
+    <Box id={props.id.toString()}>
       <CollapsiblePanel open={state.type === 'success'} title="Episode summary">
         <MockAIThingy />
+
+        {state.type === 'success' ? null : (
+          <Flex
+            align="center"
+            height="100%"
+            justify="center"
+            left="0"
+            position="absolute"
+            style={{ backdropFilter: 'blur(3px)', borderRadius: 10, zIndex: 1 }}
+            top="0"
+            width="100%"
+          >
+            <Button highContrast onClick={doTheThingy} size="4">
+              <Flex align="center" gap="2" justify="center">
+                <Text mt="1" size="6" trim="both">
+                  <PiRobotBold />
+                </Text>
+
+                <Text
+                  style={{
+                    textTransform: 'uppercase',
+                  }}
+                  weight="bold"
+                >
+                  {buttonText}
+                </Text>
+              </Flex>
+            </Button>
+          </Flex>
+        )}
       </CollapsiblePanel>
     </Box>
   );
