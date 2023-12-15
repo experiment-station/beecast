@@ -28,7 +28,7 @@ export async function EpisodeAIThingy(props: Props) {
     throw new DatabaseError(error);
   }
 
-  if (data.length === 0) {
+  if (data.length === 0 || data[0].text_summary === null) {
     if (credits < 1) {
       return (
         <EpisodeAIThingyPlaceholder>
