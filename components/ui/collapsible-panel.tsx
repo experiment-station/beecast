@@ -1,6 +1,6 @@
 'use client';
 
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 import { Box, Card, Flex, Heading, IconButton, Text } from '@radix-ui/themes';
 import { useEffect, useRef, useState } from 'react';
@@ -12,7 +12,7 @@ import styles from './collapsible-panel.module.css';
 type Props = PropsWithChildren<{
   height?: number;
   open?: boolean;
-  title: string;
+  title: ReactNode;
 }>;
 
 function _CollapsiblePanel({ children, height = 60, ...props }: Props) {
