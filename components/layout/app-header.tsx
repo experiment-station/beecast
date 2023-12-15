@@ -75,8 +75,9 @@ function AppHeaderActionsAuthenticated(
       <DropdownMenuContent
         align="end"
         highContrast
+        size="2"
         style={{
-          minWidth: 200,
+          minWidth: 120,
         }}
       >
         <DropdownMenuLabel asChild>
