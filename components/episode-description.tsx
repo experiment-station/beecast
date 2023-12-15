@@ -5,7 +5,7 @@ import styles from './episode-description.module.css';
 
 export function EpisodeDescription({ children }: { children: string }) {
   return (
-    <Text className={styles.Container} trim="both">
+    <Text className={styles.Container} trim="start">
       {parseHTML(children)}
     </Text>
   );
