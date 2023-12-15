@@ -15,7 +15,7 @@ type Props = PropsWithChildren<{
   title: string;
 }>;
 
-function _CollapsiblePanel({ height = 60, ...props }: Props) {
+function _CollapsiblePanel({ children, height = 60, ...props }: Props) {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const controlledRef = useRef(typeof props.open === 'boolean');
   const [isHeightCalculated, setIsHeightCalculated] = useState(false);
@@ -32,7 +32,7 @@ function _CollapsiblePanel({ height = 60, ...props }: Props) {
 
       setIsHeightCalculated(true);
     }
-  }, [height]);
+  }, [height, children]);
 
   useEffect(() => {
     if (typeof props.open === 'boolean') {
@@ -70,7 +70,7 @@ function _CollapsiblePanel({ height = 60, ...props }: Props) {
         }}
       >
         <Text color="gray" size="2">
-          {props.children}
+          {children}
         </Text>
       </Box>
     </Card>
