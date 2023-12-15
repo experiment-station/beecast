@@ -5,12 +5,15 @@ import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Avatar, Box, Flex, Heading, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
+import { EpisodeAIThingy } from './episode-ai-thingy/episode-ai-thingy';
+import { EpisodeDescription } from './episode-description';
+import { CollapsiblePanel } from './ui/collapsible-panel';
 import { DecorativeBox } from './ui/decorative-box';
 
 function EpisodeDetailContent(
   props: Pick<
     Tables<'episode'>,
-    'description' | 'duration' | 'image' | 'published_date' | 'title'
+    'description' | 'duration' | 'id' | 'image' | 'published_date' | 'title'
   > & {
     show: {
       id: Tables<'show'>['id'];
@@ -41,13 +44,13 @@ function EpisodeDetailContent(
         </Flex>
       </Flex>
 
-      <Box height="9" width="100%">
-        <DecorativeBox />
-      </Box>
+      {props.description ? (
+        <CollapsiblePanel title="Episode description">
+          <EpisodeDescription>{props.description}</EpisodeDescription>
+        </CollapsiblePanel>
+      ) : null}
 
-      <Box height="9" width="100%">
-        <DecorativeBox />
-      </Box>
+      <EpisodeAIThingy id={props.id} />
     </Flex>
   );
 }
@@ -69,6 +72,7 @@ async function EpisodeDetailPage(props: { id: Tables<'episode'>['id'] }) {
     <EpisodeDetailContent
       description={data.description}
       duration={data.duration}
+      id={data.id}
       image={data.image}
       published_date={data.published_date}
       show={data.show}
