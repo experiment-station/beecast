@@ -6,6 +6,7 @@ import { Box, Card, Flex, Heading, IconButton, Text } from '@radix-ui/themes';
 import { useEffect, useRef, useState } from 'react';
 import { CgClose, CgExpand } from 'react-icons/cg';
 
+import { withClientOnly } from './client-only';
 import styles from './collapsible-panel.module.css';
 
 type Props = PropsWithChildren<{
@@ -14,7 +15,7 @@ type Props = PropsWithChildren<{
   title: string;
 }>;
 
-export function CollapsiblePanel({ height = 100, ...props }: Props) {
+function _CollapsiblePanel({ height = 60, ...props }: Props) {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const controlledRef = useRef(typeof props.open === 'boolean');
   const [isHeightCalculated, setIsHeightCalculated] = useState(false);
@@ -75,3 +76,5 @@ export function CollapsiblePanel({ height = 100, ...props }: Props) {
     </Card>
   );
 }
+
+export const CollapsiblePanel = withClientOnly(_CollapsiblePanel);
