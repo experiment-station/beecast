@@ -33,23 +33,23 @@ export function AppFooter() {
     <AppContent>
       <Flex align="end" justify="between" py="4">
         <Flex align="start" direction="column">
-          <Text size="2" weight="bold">
+          <Text size="2" weight="medium">
             Built with ☕️ by your folks at the{' '}
             <Link color="gray" href="https://experiment.st" target="_blank">
-              Experiment Station
+              experiment.st
             </Link>
           </Text>
 
           <Flex align="center" gap="1">
             {FOOTER_SERVICE_LINKS.map((link) => (
               <React.Fragment key={link.href}>
-                <Link color="gray" href={link.href} size="2" target="_blank">
+                <Link color="gray" href={link.href} size="1" target="_blank">
                   {link.label}
                 </Link>
 
                 {link !==
                 FOOTER_SERVICE_LINKS[FOOTER_SERVICE_LINKS.length - 1] ? (
-                  <Text size="2">·</Text>
+                  <Text size="1">·</Text>
                 ) : null}
               </React.Fragment>
             ))}
