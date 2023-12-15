@@ -154,34 +154,41 @@ export interface Database {
       };
       episode_content: {
         Row: {
+          account: number;
           created_at: string;
           episode: number;
           id: number;
           text_summary: string | null;
           transcription: string | null;
-          user: number;
         };
         Insert: {
+          account: number;
           created_at?: string;
           episode: number;
           id?: number;
           text_summary?: string | null;
           transcription?: string | null;
-          user: number;
         };
         Update: {
+          account?: number;
           created_at?: string;
           episode?: number;
           id?: number;
           text_summary?: string | null;
           transcription?: string | null;
-          user?: number;
         };
         Relationships: [
           {
+            foreignKeyName: 'episode_content_account_fkey';
+            columns: ['account'];
+            isOneToOne: false;
+            referencedRelation: 'account';
+            referencedColumns: ['id'];
+          },
+          {
             foreignKeyName: 'episode_content_episode_fkey';
             columns: ['episode'];
-            isOneToOne: false;
+            isOneToOne: true;
             referencedRelation: 'episode';
             referencedColumns: ['id'];
           },
