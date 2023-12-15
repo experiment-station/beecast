@@ -9,7 +9,7 @@ export default function Page() {
         direction="column"
         gap="2"
         style={{
-          width: 580,
+          width: 'var(--container-1)',
         }}
       >
         <Flex align="center" direction="row" gap="2">

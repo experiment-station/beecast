@@ -72,5 +72,5 @@ export const saveUserInfo = async ({
     await notifySlack(`🐝 New sign-up for *beecast*: ${data.display_name}`);
   }
 
-  return true;
+  return { isNewAccount };
 };

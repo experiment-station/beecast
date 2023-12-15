@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const isNewAccount = await saveUserInfo({ session, user });
+    const { isNewAccount } = await saveUserInfo({ session, user });
     if (isNewAccount) {
       return NextResponse.redirect(
         new URL('/onboarding/start', request.url).toString(),
