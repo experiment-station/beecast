@@ -5,7 +5,7 @@ import { Flex } from '@radix-ui/themes';
 
 import { CollapsiblePanel } from '../ui/collapsible-panel';
 
-export function EpisodeAIThingyPlaceholder(props: PropsWithChildren) {
+export function EpisodeAISummaryPlaceholder(props: PropsWithChildren) {
   return (
     <CollapsiblePanel open={false} title="Episode summary">
       {FAKE_EPISODE_SUMMARY}

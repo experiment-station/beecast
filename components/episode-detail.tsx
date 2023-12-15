@@ -1,25 +1,28 @@
 import type { Tables } from '@/types/supabase/database';
+import type { PropsWithChildren } from 'react';
 
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Avatar, Box, Flex, Heading, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
-import { EpisodeAIThingy } from './episode-ai-thingy/episode-ai-thingy';
+import { EpisodeAISummary } from './episode-ai-summary/episode-ai-summary';
 import { EpisodeDescription } from './episode-description';
 import { CollapsiblePanel } from './ui/collapsible-panel';
 import { DecorativeBox } from './ui/decorative-box';
 
 function EpisodeDetailContent(
-  props: Pick<
-    Tables<'episode'>,
-    'description' | 'duration' | 'id' | 'image' | 'published_date' | 'title'
-  > & {
-    show: {
-      id: Tables<'show'>['id'];
-      title: Tables<'show'>['title'];
-    };
-  },
+  props: PropsWithChildren<
+    Pick<
+      Tables<'episode'>,
+      'description' | 'duration' | 'id' | 'image' | 'published_date' | 'title'
+    > & {
+      show: {
+        id: Tables<'show'>['id'];
+        title: Tables<'show'>['title'];
+      };
+    }
+  >,
 ) {
   return (
     <Flex direction="column" gap="4">
@@ -50,7 +53,7 @@ function EpisodeDetailContent(
         </CollapsiblePanel>
       ) : null}
 
-      <EpisodeAIThingy id={props.id} title={props.title} />
+      {props.children}
     </Flex>
   );
 }
@@ -77,7 +80,9 @@ async function EpisodeDetailPage(props: { id: Tables<'episode'>['id'] }) {
       published_date={data.published_date}
       show={data.show}
       title={data.title}
-    />
+    >
+      <EpisodeAISummary id={data.id} title={data.title} />
+    </EpisodeDetailContent>
   );
 }
 

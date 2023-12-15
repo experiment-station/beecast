@@ -3,21 +3,21 @@ import type { Tables } from '@/types/supabase/database';
 import { DatabaseError } from '@/lib/errors';
 import { fetchAccountAICredits } from '@/lib/services/account';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
-import { Avatar, Box, Button, Flex, Text } from '@radix-ui/themes';
+import { Avatar, Button, Flex, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { CgDollar, CgProfile } from 'react-icons/cg';
 
-import { CollapsiblePanel } from '../ui/collapsible-panel';
-import { EpisodeAIThingyGenerator } from './episode-ai-thingy-generator';
-import { EpisodeAIThingyPlaceholder } from './episode-ai-thingy-placeholder';
+import { EpisodeAISummaryGenerator } from './episode-ai-summary-generator';
+import { EpisodeAISummaryPanel } from './episode-ai-summary-panel';
+import { EpisodeAISummaryPlaceholder } from './episode-ai-summary-placeholder';
 
 type Props = {
   id: Tables<'episode'>['id'];
   title: Tables<'episode'>['title'];
 };
 
-export async function EpisodeAIThingy(props: Props) {
+export async function EpisodeAISummary(props: Props) {
   const supabase = createSupabaseServerClient(cookies());
   const credits = await fetchAccountAICredits();
   const { data, error } = await supabase
@@ -32,32 +32,26 @@ export async function EpisodeAIThingy(props: Props) {
   if (data.length === 0 || data[0].text_summary === null) {
     if (credits < 1) {
       return (
-        <EpisodeAIThingyPlaceholder>
+        <EpisodeAISummaryPlaceholder>
           <Button asChild highContrast>
             <Link href="/credits">
               <CgDollar /> Buy credits to summarize this episode
             </Link>
           </Button>
-        </EpisodeAIThingyPlaceholder>
+        </EpisodeAISummaryPlaceholder>
       );
     }
 
-    return <EpisodeAIThingyGenerator id={props.id} title={props.title} />;
+    return <EpisodeAISummaryGenerator id={props.id} title={props.title} />;
   }
 
   const [episodeContent] = data;
 
   return (
     <Flex direction="column" gap="2">
-      <CollapsiblePanel title="Episode summary">
-        <Box
-          style={{
-            whiteSpace: 'pre-wrap',
-          }}
-        >
-          {episodeContent.text_summary}
-        </Box>
-      </CollapsiblePanel>
+      <EpisodeAISummaryPanel variant="collapsible">
+        {episodeContent.text_summary}
+      </EpisodeAISummaryPanel>
 
       {episodeContent.user ? (
         <Flex align="center" gap="1">
