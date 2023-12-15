@@ -19,21 +19,21 @@ export const Controlled: StoryObj<typeof CollapsiblePanel> = {
           <Button
             highContrast
             onClick={() => {
-              setContent((c) => c + FAKE_EPISODE_SUMMARY);
-            }}
-            size="1"
-          >
-            Add more content
-          </Button>
-
-          <Button
-            highContrast
-            onClick={() => {
               setOpen((o) => !o);
             }}
             size="1"
           >
             {open ? 'Shrink' : 'Expand'} content
+          </Button>
+
+          <Button
+            highContrast
+            onClick={() => {
+              setContent((c) => c + FAKE_EPISODE_SUMMARY);
+            }}
+            size="1"
+          >
+            Add more content
           </Button>
         </Flex>
 
@@ -59,7 +59,7 @@ const meta: Meta<typeof CollapsiblePanel> = {
     (Story) => (
       <div
         style={{
-          width: 'var(--container-1)',
+          width: 'var(--container-2)',
         }}
       >
         <Story />
