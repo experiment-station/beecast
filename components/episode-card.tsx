@@ -1,10 +1,19 @@
 import type { Tables } from '@/types/supabase/database';
 
-import { Button, Card, Flex, Heading, Link, Text } from '@radix-ui/themes';
+import {
+  Button,
+  Card,
+  Flex,
+  Heading,
+  Link,
+  Text,
+  Tooltip,
+} from '@radix-ui/themes';
 import { format } from 'date-fns';
 import formatDuration from 'format-duration';
 import NextLink from 'next/link';
 import { FaPlay } from 'react-icons/fa6';
+import { PiRobotBold } from 'react-icons/pi';
 
 import styles from './episode-card.module.css';
 import { EpisodeDescription } from './episode-description';
@@ -13,7 +22,9 @@ import { LineClamp } from './ui/line-clamp';
 type Props = Pick<
   Tables<'episode'>,
   'description' | 'duration' | 'id' | 'published_date' | 'title'
->;
+> & {
+  hasContent?: boolean;
+};
 
 export function EpisodeCard(props: Props) {
   return (
@@ -52,11 +63,22 @@ export function EpisodeCard(props: Props) {
                 </Text>
               ) : null}
 
-              <Flex align="center" direction="row" gap="4">
-                <Button highContrast size="1">
-                  <FaPlay />
-                  Play
-                </Button>
+              <Flex align="center" gap="4">
+                <Flex gap="1">
+                  {props.hasContent ? (
+                    <Tooltip content="This episode has AI generated summary">
+                      <Button color="mint" size="1">
+                        <PiRobotBold />
+                        AI
+                      </Button>
+                    </Tooltip>
+                  ) : null}
+
+                  <Button highContrast size="1">
+                    <FaPlay />
+                    Play
+                  </Button>
+                </Flex>
 
                 <Flex gap="1">
                   <Text size="2">{formatDuration(props.duration * 1000)}</Text>
