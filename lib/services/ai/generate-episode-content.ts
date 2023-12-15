@@ -45,10 +45,10 @@ export const generateEpisodeContent = async ({
       .from('episode_content')
       .upsert(
         {
+          account: await getAccountId(),
           episode: episodeId,
           text_summary: summary,
           transcription: transcript,
-          user: await getAccountId(),
         },
         {
           onConflict: 'episode',
