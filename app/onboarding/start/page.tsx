@@ -28,7 +28,9 @@ export default function Page() {
               Maybe later
             </Button>
           </Link>
-          <Button highContrast>Absolutely!</Button>
+          <Link href="/onboarding/select-shows">
+            <Button highContrast>Absolutely!</Button>
+          </Link>
         </Flex>
       </Flex>
     </Flex>
