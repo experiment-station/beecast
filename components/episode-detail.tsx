@@ -46,9 +46,7 @@ function EpisodeDetailContent(
 
       {props.description ? (
         <CollapsiblePanel title="Episode description">
-          <Text size="2">
-            <EpisodeDescription>{props.description}</EpisodeDescription>
-          </Text>
+          <EpisodeDescription>{props.description}</EpisodeDescription>
         </CollapsiblePanel>
       ) : null}
 
