@@ -97,15 +97,13 @@ function ShowCardToggle(
 
       <Text className={styles.Title} highContrast size="2" weight="medium">
         {props.title}
-      </Text>
-
-      {props.selected ? (
-        <Box m="-2" position="absolute" right="0" top="0">
-          <Text color="grass" size="2">
+        {props.selected ? (
+          <Text color="grass" size="1">
+            {' '}
             <FaCircleCheck />
           </Text>
-        </Box>
-      ) : null}
+        ) : null}
+      </Text>
     </ShowCardRoot>
   );
 }
