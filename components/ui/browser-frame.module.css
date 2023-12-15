@@ -1,9 +1,6 @@
 .BrowserFrame {
   width: 100%;
-}
-
-@media (prefers-color-scheme: dark) {
-  .BrowserFrame {
-    composes: dark from global;
-  }
+  border-width: 0 !important;
+  margin: 0 !important;
+  background-color: transparent !important;
 }

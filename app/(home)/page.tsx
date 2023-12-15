@@ -42,12 +42,14 @@ async function EpisodeDemo() {
 
 export default function Page() {
   return (
-    <Flex align="center" direction="column" gap="3" mx="auto">
-      <Heading size="8">A more efficient way to listen podcasts</Heading>
+    <Flex align="center" direction="column" gap="6" mx="auto">
+      <Flex align="center" direction="column" gap="2">
+        <Heading size="8">A more efficient way to listen podcasts</Heading>
 
-      <Text color="gray" size="4">
-        Meet <Em>beecast</Em>, your hard-working AI podcast companion.
-      </Text>
+        <Text color="gray" size="4">
+          Meet <Em>beecast</Em>, your hard-working AI podcast companion.
+        </Text>
+      </Flex>
 
       <BrowserFrame data-url="beecast.ai">
         <EpisodeDemo />
