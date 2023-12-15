@@ -1,10 +1,12 @@
 import { EpisodeAISummaryPanel } from '@/components/episode-ai-summary/episode-ai-summary-panel';
 import { EpisodeDetail } from '@/components/episode-detail';
+import BrowserFrame from '@/components/ui/browser-frame';
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServiceClient } from '@/lib/services/supabase/service';
 import { Box, Em, Flex, Heading, Text } from '@radix-ui/themes';
-import 'css-device-frames/dist/device-frames.min.css';
 import { ErrorBoundary } from 'react-error-boundary';
+
+const DEMO_EPISODE_ID = 166;
 
 async function EpisodeDemo() {
   const supabase = createSupabaseServiceClient();
@@ -12,7 +14,7 @@ async function EpisodeDemo() {
   const { data, error } = await supabase
     .from('episode')
     .select('*, show(id, title), episode_content(text_summary)')
-    .eq('id', 166)
+    .eq('id', DEMO_EPISODE_ID)
     .single();
 
   if (error) {
@@ -48,11 +50,10 @@ export default function Page() {
         Meet <Em>beecast</Em>, your hard-working AI podcast companion.
       </Text>
 
-      <Box
-        className="app-frame mac dark scrolling"
+      <BrowserFrame
         data-url="beecast.ai"
         style={{
-          width: 'var(--container-2)',
+          maxWidth: 'var(--container-2)',
         }}
       >
         <Box style={{ height: 480 }}>
@@ -60,7 +61,7 @@ export default function Page() {
             <EpisodeDemo />
           </ErrorBoundary>
         </Box>
-      </Box>
+      </BrowserFrame>
     </Flex>
   );
 }
