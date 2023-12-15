@@ -65,18 +65,16 @@ function ShowCardLink(props: Props & { href: string }) {
         </NextLink>
       </Box>
 
-      <Flex align="start" direction="column" position="relative">
-        <Link
-          asChild
-          className={styles.LinkTitle}
-          highContrast
-          size="2"
-          tabIndex={-1}
-          weight="medium"
-        >
-          <NextLink href={props.href}>{props.title}</NextLink>
-        </Link>
-      </Flex>
+      <Link
+        asChild
+        className={styles.Title}
+        highContrast
+        size="2"
+        tabIndex={-1}
+        weight="medium"
+      >
+        <NextLink href={props.href}>{props.title}</NextLink>
+      </Link>
     </ShowCardRoot>
   );
 }
@@ -86,7 +84,7 @@ function ShowCardToggle(
 ) {
   return (
     <ShowCardRoot>
-      <Box mb="2" position="relative">
+      <Box mb="1" position="relative">
         <Card
           aria-selected={props.selected}
           className={styles.ToggleCard}
@@ -97,19 +95,17 @@ function ShowCardToggle(
         </Card>
       </Box>
 
-      <Flex align="start" direction="column" position="relative">
-        <Flex align="center" gap="1">
-          <Text highContrast size="2" weight="medium">
-            {props.title}
-          </Text>
+      <Text className={styles.Title} highContrast size="2" weight="medium">
+        {props.title}
+      </Text>
 
-          {props.selected ? (
-            <Text className={styles.ToggleCheckIcon} color="grass" size="1">
-              <FaCircleCheck />
-            </Text>
-          ) : null}
-        </Flex>
-      </Flex>
+      {props.selected ? (
+        <Box m="-2" position="absolute" right="0" top="0">
+          <Text color="grass" size="2">
+            <FaCircleCheck />
+          </Text>
+        </Box>
+      ) : null}
     </ShowCardRoot>
   );
 }
