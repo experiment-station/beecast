@@ -50,7 +50,7 @@ function EpisodeDetailContent(
         </CollapsiblePanel>
       ) : null}
 
-      <EpisodeAIThingy id={props.id} />
+      <EpisodeAIThingy id={props.id} title={props.title} />
     </Flex>
   );
 }

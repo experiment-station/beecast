@@ -14,6 +14,7 @@ import { EpisodeAIThingyPlaceholder } from './episode-ai-thingy-placeholder';
 
 type Props = {
   id: Tables<'episode'>['id'];
+  title: Tables<'episode'>['title'];
 };
 
 export async function EpisodeAIThingy(props: Props) {
@@ -41,7 +42,7 @@ export async function EpisodeAIThingy(props: Props) {
       );
     }
 
-    return <EpisodeAIThingyGenerator id={props.id} />;
+    return <EpisodeAIThingyGenerator id={props.id} title={props.title} />;
   }
 
   const [episodeContent] = data;
