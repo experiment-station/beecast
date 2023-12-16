@@ -1,4 +1,7 @@
-import { spotifyFetchClient } from './client';
+import { FetchError } from 'ofetch';
+
+import { fetchAccount } from '../account';
+import { refreshToken, spotifyFetchClient } from './client';
 
 type Image = {
   height: number;
@@ -29,12 +32,27 @@ type SpotifyItems = {
 
 export const getUserShows = async (
   spotifyToken: string,
-): Promise<SpotifyShow[]> => {
-  const response = await spotifyFetchClient<SpotifyItems>('/me/shows', {
-    headers: {
-      Authorization: `Bearer ${spotifyToken}`,
-    },
-  });
-
-  return response.items;
+): Promise<[] | SpotifyShow[]> => {
+  try {
+    const response = await spotifyFetchClient<SpotifyItems>('/me/shows', {
+      headers: {
+        Authorization: `Bearer ${spotifyToken}`,
+      },
+      retry: 2,
+      retryDelay: 1000,
+    });
+    return response.items;
+  } catch (error) {
+    if (error instanceof FetchError) {
+      if (error.status === 401) {
+        const account = await fetchAccount();
+        if (account.provider_refresh_token) {
+          await refreshToken(account.provider_refresh_token);
+          return [];
+        }
+        throw new Error('Authorization error');
+      }
+    }
+    throw new Error('Spotify server error');
+  }
 };
