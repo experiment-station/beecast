@@ -1,0 +1,11 @@
+.Share {
+  color: var(--gray-a11);
+}
+
+.Share:hover {
+  color: var(--gray-a12);
+}
+
+.ShareIcon {
+  margin-bottom: -2px;
+}
