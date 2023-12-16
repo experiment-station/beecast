@@ -3,6 +3,7 @@
 import type { Tables } from '@/types/supabase/database';
 
 import { DatabaseError } from '@/lib/errors';
+import { getFinalRedirectURL } from '@/lib/utils/get-final-redirect-url';
 import { cookies } from 'next/headers';
 
 import { getAccountId } from '../account';
@@ -35,9 +36,8 @@ export const transcribeEpisode = async (id: Tables<'episode'>['id']) => {
     throw new DatabaseError(episodeQuery.error);
   }
 
-  const transcription = await transcribeAudio({
-    fileURL: episodeQuery.data.audio_url,
-  });
+  const fileURL = await getFinalRedirectURL(episodeQuery.data.audio_url);
+  const transcription = await transcribeAudio({ fileURL });
 
   const updateEpisodeContentQuery = await supabase
     .from('episode_content')
