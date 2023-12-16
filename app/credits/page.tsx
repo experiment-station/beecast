@@ -64,12 +64,12 @@ export default async function Page(props: Props) {
             <Flex direction="column" gap="4">
               {prices.map((price, index) => (
                 <CreditListItem
-                  amount={price.unit_amount!}
+                  amount={price.amount}
                   currency={price.currency}
                   id={price.id}
                   key={price.id}
                   popular={index === 1}
-                  quantity={price.transform_quantity!.divide_by}
+                  quantity={price.credits}
                 />
               ))}
             </Flex>
