@@ -39,7 +39,10 @@ export async function POST(req: NextRequest) {
           },
         );
 
-        await fulfillOrder(session);
+        if (session.payment_status === 'paid') {
+          await fulfillOrder(session);
+        }
+
         break;
       }
 
