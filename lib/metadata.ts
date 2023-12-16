@@ -4,7 +4,9 @@ export const SITE_NAME = 'beecast.ai';
 export const SITE_DESCRIPTION = 'Your hard-working AI podcast companion';
 export const SITE_TITLE = 'beecast';
 
-const SITE_URL = process.env.VERCEL_URL || 'http://localhost:3000';
+const SITE_URL = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : 'https://beecast.ai';
 
 export const getDefaultMetadata = (): Metadata => ({
   description: SITE_DESCRIPTION,
