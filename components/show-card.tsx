@@ -1,5 +1,4 @@
 import type { Tables } from '@/types/supabase/database';
-import type { PropsWithChildren } from 'react';
 
 import {
   AspectRatio,
@@ -9,51 +8,76 @@ import {
   Flex,
   IconButton,
   Inset,
-  Link,
   Text,
 } from '@radix-ui/themes';
-import NextLink from 'next/link';
-import { FaCircleCheck, FaPlay } from 'react-icons/fa6';
+import { FaPlay } from 'react-icons/fa6';
 
 import styles from './show-card.module.css';
 import { Hover } from './ui/hover';
+import { LineClamp } from './ui/line-clamp';
 
-type Props = Pick<Tables<'show'>, 'description' | 'images' | 'title'>;
+type ShowCardProps = Pick<Tables<'show'>, 'images' | 'publisher' | 'title'>;
 
-function ShowCardImage(props: Pick<Props, 'images' | 'title'>) {
+function ShowCardRoot(props: React.ComponentPropsWithoutRef<'div'>) {
   return (
-    <Inset>
-      <AspectRatio ratio={1}>
-        {/* @TODO: SUPA-37 */}
-        <Avatar
-          alt={`Cover for ${props.title}`}
-          className={styles.Image}
-          fallback="/images/placeholder.png"
-          src={props.images?.[0]}
-        />
-      </AspectRatio>
-    </Inset>
-  );
-}
-
-function ShowCardRoot(props: PropsWithChildren) {
-  return (
-    <Hover.Root>
-      <Box m="-3" p="3">
+    <Hover.Root
+      style={{
+        height: '100%',
+      }}
+    >
+      <Card
+        {...props}
+        size="2"
+        style={{
+          height: '100%',
+        }}
+      >
         {props.children}
-      </Box>
+      </Card>
     </Hover.Root>
   );
 }
 
-function ShowCardLink(props: Props & { href: string }) {
+function ShowCardImage(props: Pick<ShowCardProps, 'images' | 'title'>) {
+  return (
+    <Box p="3">
+      <Card variant="ghost">
+        <Inset>
+          <AspectRatio ratio={1}>
+            {/* @TODO: SUPA-37 */}
+            <Avatar
+              alt={`Cover for ${props.title}`}
+              className={styles.Image}
+              fallback="/images/placeholder.png"
+              src={props.images?.[0]}
+            />
+          </AspectRatio>
+        </Inset>
+      </Card>
+    </Box>
+  );
+}
+
+function ShowCardText(props: Pick<ShowCardProps, 'publisher' | 'title'>) {
+  return (
+    <Flex direction="column">
+      <Text highContrast size="2" weight="medium">
+        {props.title}
+      </Text>
+
+      <Text color="gray" size="2">
+        <LineClamp>{props.publisher}</LineClamp>
+      </Text>
+    </Flex>
+  );
+}
+
+export function ShowCard(props: ShowCardProps) {
   return (
     <ShowCardRoot>
-      <Box mb="1" position="relative">
-        <NextLink href={props.href}>
-          <Card>
-            <ShowCardImage images={props.images} title={props.title} />
-          </Card>
+      <Flex direction="column" gap="2">
+        <Box position="relative">
+          <ShowCardImage images={props.images} title={props.title} />
 
           <Hover.Show>
             <Flex bottom="0" gap="2" m="2" position="absolute" right="0">
@@ -62,53 +86,28 @@ function ShowCardLink(props: Props & { href: string }) {
               </IconButton>
             </Flex>
           </Hover.Show>
-        </NextLink>
-      </Box>
+        </Box>
 
-      <Link
-        asChild
-        className={styles.Title}
-        highContrast
-        size="2"
-        tabIndex={-1}
-        weight="medium"
-      >
-        <NextLink href={props.href}>{props.title}</NextLink>
-      </Link>
+        <ShowCardText publisher={props.publisher} title={props.title} />
+      </Flex>
     </ShowCardRoot>
   );
 }
 
-function ShowCardToggle(
-  props: Props & { onClick: () => void; selected: boolean },
+export function ShowCardToggle(
+  props: ShowCardProps & { onClick: () => void; selected: boolean },
 ) {
   return (
-    <ShowCardRoot>
-      <Box mb="1" position="relative">
-        <Card
-          aria-selected={props.selected}
-          className={styles.ToggleCard}
-          data-accent-color="grass"
-          onClick={props.onClick}
-        >
-          <ShowCardImage images={props.images} title={props.title} />
-        </Card>
-      </Box>
-
-      <Text className={styles.Title} highContrast size="2" weight="medium">
-        {props.title}
-        {props.selected ? (
-          <Text color="grass" size="1">
-            {' '}
-            <FaCircleCheck />
-          </Text>
-        ) : null}
-      </Text>
+    <ShowCardRoot
+      aria-selected={props.selected}
+      className={styles.ToggleCard}
+      data-accent-color="grass"
+      onClick={props.onClick}
+    >
+      <Flex direction="column" gap="2">
+        <ShowCardImage images={props.images} title={props.title} />
+        <ShowCardText publisher={props.publisher} title={props.title} />
+      </Flex>
     </ShowCardRoot>
   );
 }
-
-export const ShowCard = {
-  Link: ShowCardLink,
-  Toggle: ShowCardToggle,
-};

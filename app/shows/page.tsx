@@ -6,12 +6,13 @@ import { getAccountId } from '@/lib/services/account';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Flex, Grid, Heading, Separator } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 
 const fetchAllShows = async () => {
   const supabase = createSupabaseServerClient(cookies());
   const response = await supabase
     .from('show')
-    .select('id, title, description, images');
+    .select('id, title, images, publisher');
 
   return response;
 };
@@ -21,7 +22,7 @@ const fetchMyShows = async () => {
   const accountId = await getAccountId();
   const response = await supabase
     .from('account_show_relation')
-    .select('show (id, title, description, images)')
+    .select('show (id, title, images, publisher)')
     .eq('account', accountId)
     .not('show', 'is', null);
 
@@ -58,6 +59,7 @@ export default async function Page() {
           <Heading as="h2" size="6">
             Your shows
           </Heading>
+
           <Grid
             columns={{
               initial: '2',
@@ -70,25 +72,33 @@ export default async function Page() {
             }}
           >
             {myShows.map(({ show }) => (
-              <ShowCard.Link
-                description={show.description}
+              <Link
                 href={`/shows/${show.id}`}
-                images={show.images}
                 key={show.id}
-                title={show.title}
-              />
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                <ShowCard
+                  images={show.images}
+                  publisher={show.publisher}
+                  title={show.title}
+                />
+              </Link>
             ))}
           </Grid>
+
           <Separator
             orientation="horizontal"
             size="4"
             style={{
-              color: 'var(--gray-12)',
               margin: '1em 0',
             }}
           />
         </>
       )}
+
       <Heading as="h2" size="6">
         If you want to give a shot
       </Heading>
@@ -105,13 +115,20 @@ export default async function Page() {
         }}
       >
         {showsData?.map((show) => (
-          <ShowCard.Link
-            description={show.description}
+          <Link
             href={`/shows/${show.id}`}
-            images={show.images}
             key={show.id}
-            title={show.title}
-          />
+            style={{
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            <ShowCard
+              images={show.images}
+              publisher={show.publisher}
+              title={show.title}
+            />
+          </Link>
         ))}
       </Grid>
     </Flex>
