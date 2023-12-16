@@ -31,7 +31,7 @@ export async function createEpisodeSummaryStream({
       content: `
         Summarize the following transcription of the podcast episode "${episode.title}" by following these guidelines:
           - Skip the ads and intro.
-          - Use paragraphs or bullet point lists separated by a blank line.
+          - Use paragraphs or bullet point lists.
           - Prefer short, clean sentences.
       `,
       role: 'system',
