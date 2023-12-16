@@ -27,7 +27,11 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  return NextResponse.redirect(new URL('/sign-in', request.url));
+  const nextURL = new URL(request.url);
+  nextURL.pathname = '/sign-in';
+  nextURL.searchParams.set('redirect', pathname);
+
+  return NextResponse.redirect(nextURL);
 }
 
 export const config = {

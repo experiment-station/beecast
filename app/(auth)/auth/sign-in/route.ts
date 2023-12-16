@@ -7,7 +7,12 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const supabase = createSupabaseServerClient(cookies());
+
+  const formData = await request.formData();
+  const redirect = String(formData.get('redirect'));
+
   const redirectURL = new URL('/auth/callback', request.url);
+  redirectURL.searchParams.set('redirect', redirect);
 
   const scopes =
     'user-read-email user-read-playback-position user-library-read';

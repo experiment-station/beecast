@@ -14,6 +14,7 @@ import { ZodError } from 'zod';
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
+  const redirect = requestUrl.searchParams.get('redirect');
 
   if (!code) {
     return new HttpBadRequestError({
@@ -35,6 +36,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const { isNewAccount } = await saveUserInfo({ session, user });
+
     if (isNewAccount) {
       return NextResponse.redirect(
         new URL('/onboarding/start', request.url).toString(),
@@ -43,7 +45,8 @@ export async function GET(request: NextRequest) {
         },
       );
     }
-    return NextResponse.redirect(requestUrl.origin);
+
+    return NextResponse.redirect(new URL(redirect || '/shows', request.url));
   } catch (error) {
     switch (true) {
       case error instanceof DatabaseError:

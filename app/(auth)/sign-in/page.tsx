@@ -1,7 +1,13 @@
 import { Button, Flex, Heading, Link, Text } from '@radix-ui/themes';
 import { FaSpotify } from 'react-icons/fa';
 
-export default function Page() {
+type Props = {
+  searchParams: {
+    redirect?: string;
+  };
+};
+
+export default function Page(props: Props) {
   return (
     <Flex direction="column" gap="4">
       <Heading trim="both">Welcome to beecast</Heading>
@@ -11,6 +17,12 @@ export default function Page() {
       </Text>
 
       <form action="/auth/sign-in" method="POST">
+        <input
+          name="redirect"
+          type="hidden"
+          value={props.searchParams.redirect}
+        />
+
         <Flex direction="column">
           <Button highContrast size="3" type="submit">
             <FaSpotify />
