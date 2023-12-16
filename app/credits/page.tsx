@@ -1,5 +1,7 @@
+import { DatabaseError } from '@/lib/errors';
 import { fetchAccountAICredits } from '@/lib/services/account';
 import { getPrices } from '@/lib/services/stripe/prices';
+import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import {
   CalloutIcon,
   CalloutRoot,
@@ -11,6 +13,7 @@ import {
   Text,
 } from '@radix-ui/themes';
 import { Provider } from 'jotai';
+import { cookies } from 'next/headers';
 import { FaCircleCheck } from 'react-icons/fa6';
 
 import { CreditListItem } from './components/credit-list-item';
@@ -22,16 +25,17 @@ type Props = {
 };
 
 export default async function Page(props: Props) {
+  const supabase = createSupabaseServerClient(cookies());
   const credits = await fetchAccountAICredits();
   const prices = await getPrices();
+  const ordersQuery = await supabase.from('order').select('*');
+
+  if (ordersQuery.error) {
+    throw new DatabaseError(ordersQuery.error);
+  }
 
   return (
-    <Flex
-      direction="column"
-      gap="4"
-      mx="auto"
-      style={{ maxWidth: 'var(--container-1)' }}
-    >
+    <Flex direction="column" gap="5">
       {props.searchParams.status === 'success' ? (
         <CalloutRoot color="green">
           <CalloutIcon>
@@ -72,6 +76,31 @@ export default async function Page(props: Props) {
           </Provider>
         </Flex>
       </Card>
+
+      {ordersQuery.data.length > 0 ? (
+        <Card size="3">
+          <Flex direction="column" gap="4">
+            <Flex direction="column" gap="2">
+              <Heading as="h3" size="4" trim="both">
+                Orders
+              </Heading>
+
+              <Text color="gray" size="2">
+                You have <Text weight="medium">{ordersQuery.data.length}</Text>{' '}
+                orders.
+              </Text>
+            </Flex>
+
+            <Separator orientation="horizontal" size="4" />
+
+            <Flex direction="column" gap="4">
+              {ordersQuery.data.map((order) => (
+                <div key={order.id}>{JSON.stringify(order)}</div>
+              ))}
+            </Flex>
+          </Flex>
+        </Card>
+      ) : null}
     </Flex>
   );
 }

@@ -240,18 +240,21 @@ export interface Database {
         Row: {
           created_at: string;
           id: number;
+          podcast_index_guid: string;
           show: number;
           spotify_id: string;
         };
         Insert: {
           created_at?: string;
           id?: number;
+          podcast_index_guid: string;
           show: number;
           spotify_id: string;
         };
         Update: {
           created_at?: string;
           id?: number;
+          podcast_index_guid?: string;
           show?: number;
           spotify_id?: string;
         };
@@ -261,6 +264,47 @@ export interface Database {
             columns: ['show'];
             isOneToOne: false;
             referencedRelation: 'show';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      order: {
+        Row: {
+          account: number;
+          amount: number;
+          created_at: string;
+          credits: number;
+          currency: string;
+          id: number;
+          reference_id: string;
+          status: string;
+        };
+        Insert: {
+          account: number;
+          amount: number;
+          created_at?: string;
+          credits: number;
+          currency: string;
+          id?: number;
+          reference_id: string;
+          status: string;
+        };
+        Update: {
+          account?: number;
+          amount?: number;
+          created_at?: string;
+          credits?: number;
+          currency?: string;
+          id?: number;
+          reference_id?: string;
+          status?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'order_account_fkey';
+            columns: ['account'];
+            isOneToOne: false;
+            referencedRelation: 'account';
             referencedColumns: ['id'];
           },
         ];
