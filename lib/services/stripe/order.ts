@@ -19,8 +19,8 @@ const checkoutSessionSchema = z.object({
     ),
   }),
   metadata: z.object({
-    accountId: z.number(),
-    userId: z.string(),
+    accountId: z.string().min(1).transform(Number),
+    userId: z.string().min(1),
   }),
 });
 

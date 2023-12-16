@@ -1,16 +1,48 @@
 import { fetchAccountAICredits } from '@/lib/services/account';
 import { getPrices } from '@/lib/services/stripe/prices';
-import { Box, Card, Flex, Heading, Separator, Text } from '@radix-ui/themes';
+import {
+  CalloutIcon,
+  CalloutRoot,
+  CalloutText,
+  Card,
+  Flex,
+  Heading,
+  Separator,
+  Text,
+} from '@radix-ui/themes';
 import { Provider } from 'jotai';
+import { FaCircleCheck } from 'react-icons/fa6';
 
 import { CreditListItem } from './components/credit-list-item';
 
-export default async function Page() {
+type Props = {
+  searchParams: {
+    status?: string;
+  };
+};
+
+export default async function Page(props: Props) {
   const credits = await fetchAccountAICredits();
   const prices = await getPrices();
 
   return (
-    <Box mx="auto" style={{ maxWidth: 'var(--container-1)' }}>
+    <Flex
+      direction="column"
+      gap="4"
+      mx="auto"
+      style={{ maxWidth: 'var(--container-1)' }}
+    >
+      {props.searchParams.status === 'success' ? (
+        <CalloutRoot color="green">
+          <CalloutIcon>
+            <FaCircleCheck />
+          </CalloutIcon>
+          <CalloutText>
+            Your payment was successful! We added the credits to your account.
+          </CalloutText>
+        </CalloutRoot>
+      ) : null}
+
       <Card size="3">
         <Flex direction="column" gap="4">
           <Flex direction="column" gap="2">
@@ -40,6 +72,6 @@ export default async function Page() {
           </Provider>
         </Flex>
       </Card>
-    </Box>
+    </Flex>
   );
 }
