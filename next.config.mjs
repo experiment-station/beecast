@@ -1,3 +1,5 @@
+import { withSentryConfig } from '@sentry/nextjs';
+
 import './env.mjs';
 
 /** @type {import('next').NextConfig} */
@@ -18,4 +20,19 @@ const nextConfig = {
   ],
 };
 
-export default nextConfig;
+export default withSentryConfig(
+  nextConfig,
+  {
+    org: 'experiment-station',
+    project: 'beecast',
+    silent: true,
+  },
+  {
+    automaticVercelMonitors: true,
+    disableLogger: true,
+    hideSourceMaps: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monitoring',
+    widenClientFileUpload: true,
+  },
+);
