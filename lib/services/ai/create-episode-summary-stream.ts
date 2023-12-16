@@ -33,6 +33,7 @@ export async function createEpisodeSummaryStream({
           - Skip the ads and intro.
           - Use paragraphs or bullet point lists.
           - Prefer short, clean sentences.
+          - Write the summary in the same language as the transcription.
       `,
       role: 'system',
     },
