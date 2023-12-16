@@ -1,3 +1,4 @@
+'use server';
 import type { Tables } from '@/types/supabase/database';
 
 import { z } from 'zod';
@@ -64,4 +65,18 @@ export const saveEpisodes = async (
   }
 
   return data;
+};
+
+export type BulkEpisodes = {
+  episodes: PodcastIndexEpisodeType[];
+  showId: number;
+};
+
+export const bulkSaveEpisodes = async (bulkEpisodes: BulkEpisodes[]) => {
+  const savedEpisodes = await Promise.all(
+    bulkEpisodes.map(async (item: BulkEpisodes) => {
+      await saveEpisodes(item.episodes, item.showId);
+    }),
+  );
+  return savedEpisodes;
 };
