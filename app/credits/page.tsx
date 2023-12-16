@@ -81,7 +81,7 @@ export default async function Page(props: Props) {
         <Card size="3">
           <Flex direction="column" gap="4">
             <Heading as="h3" size="4" trim="both">
-              Orders
+              Your orders
             </Heading>
 
             <Separator orientation="horizontal" size="4" />
