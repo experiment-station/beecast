@@ -5,7 +5,7 @@ import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServiceClient } from '@/lib/services/supabase/service';
 import { Em, Flex, Heading, Text } from '@radix-ui/themes';
 
-async function _EpisodeDemo() {
+async function EpisodeDemo() {
   const DEMO_EPISODE_ID = 166;
 
   const supabase = createSupabaseServiceClient();
@@ -52,8 +52,7 @@ export default function Page() {
       </Flex>
 
       <BrowserFrame data-url="beecast.ai">
-        {/* <EpisodeDemo /> */}
-        hi
+        <EpisodeDemo />
       </BrowserFrame>
     </Flex>
   );
