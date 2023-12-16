@@ -5,7 +5,7 @@ import { z } from 'zod';
 const deepgram = createDeepgramClient(env.DEEPGRAM_API_KEY);
 
 export const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
-  const { result } = await deepgram.listen.prerecorded.transcribeUrl(
+  const { error, result } = await deepgram.listen.prerecorded.transcribeUrl(
     {
       url: fileURL,
     },
@@ -15,6 +15,10 @@ export const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
       smart_format: true,
     },
   );
+
+  if (error) {
+    throw error;
+  }
 
   const transcriptSchema = z.object({
     results: z.object({
