@@ -17,19 +17,8 @@ import { FaCircleCheck, FaPlay } from 'react-icons/fa6';
 
 import styles from './show-card.module.css';
 import { Hover } from './ui/hover';
-import { LineClamp } from './ui/line-clamp';
 
 type Props = Pick<Tables<'show'>, 'description' | 'images' | 'title'>;
-
-function ShowCardDescription(props: Pick<Props, 'description'>) {
-  if (!props.description) return null;
-
-  return (
-    <Text color="gray" size="2">
-      <LineClamp>{props.description}</LineClamp>
-    </Text>
-  );
-}
 
 function ShowCardImage(props: Pick<Props, 'images' | 'title'>) {
   return (
@@ -60,7 +49,7 @@ function ShowCardRoot(props: PropsWithChildren) {
 function ShowCardLink(props: Props & { href: string }) {
   return (
     <ShowCardRoot>
-      <Box mb="2" position="relative">
+      <Box mb="1" position="relative">
         <NextLink href={props.href}>
           <Card>
             <ShowCardImage images={props.images} title={props.title} />
@@ -76,20 +65,16 @@ function ShowCardLink(props: Props & { href: string }) {
         </NextLink>
       </Box>
 
-      <Flex align="start" direction="column" position="relative">
-        <Link
-          asChild
-          className={styles.LinkTitle}
-          highContrast
-          size="2"
-          tabIndex={-1}
-          weight="medium"
-        >
-          <NextLink href={props.href}>{props.title}</NextLink>
-        </Link>
-
-        <ShowCardDescription description={props.description} />
-      </Flex>
+      <Link
+        asChild
+        className={styles.Title}
+        highContrast
+        size="2"
+        tabIndex={-1}
+        weight="medium"
+      >
+        <NextLink href={props.href}>{props.title}</NextLink>
+      </Link>
     </ShowCardRoot>
   );
 }
@@ -99,7 +84,7 @@ function ShowCardToggle(
 ) {
   return (
     <ShowCardRoot>
-      <Box mb="2" position="relative">
+      <Box mb="1" position="relative">
         <Card
           aria-selected={props.selected}
           className={styles.ToggleCard}
@@ -110,21 +95,15 @@ function ShowCardToggle(
         </Card>
       </Box>
 
-      <Flex align="start" direction="column" position="relative">
-        <Flex align="center" gap="1">
-          <Text highContrast size="2" weight="medium">
-            {props.title}
+      <Text className={styles.Title} highContrast size="2" weight="medium">
+        {props.title}
+        {props.selected ? (
+          <Text color="grass" size="1">
+            {' '}
+            <FaCircleCheck />
           </Text>
-
-          {props.selected ? (
-            <Text className={styles.ToggleCheckIcon} color="grass" size="1">
-              <FaCircleCheck />
-            </Text>
-          ) : null}
-        </Flex>
-
-        <ShowCardDescription description={props.description} />
-      </Flex>
+        ) : null}
+      </Text>
     </ShowCardRoot>
   );
 }

@@ -1,4 +1,4 @@
-.LinkTitle {
+.Title {
   text-decoration: none;
 }
 
@@ -8,10 +8,6 @@
 
 .ToggleCard[aria-selected='true'] {
   box-shadow: 0 0 0 2px var(--accent-10);
-}
-
-.ToggleCheckIcon {
-  line-height: 1;
 }
 
 .Image {
