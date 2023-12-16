@@ -73,8 +73,7 @@ export async function fulfillOrder(session: Stripe.Checkout.Session) {
   const updateAccountQuery = await supabase
     .from('account')
     .update({
-      ai_credit:
-        (currentAccountCreditsQuery.data.ai_credit ?? 0) + purchasedCredits,
+      ai_credit: currentAccountCreditsQuery.data.ai_credit + purchasedCredits,
     })
     .eq('id', validatedSession.data.metadata.accountId);
 

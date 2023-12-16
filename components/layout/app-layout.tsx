@@ -17,9 +17,9 @@ export async function AppLayout({ children }: PropsWithChildren) {
     appHeader = (
       <AppHeader
         user={{
-          avatarURL: account.avatar_url || '',
-          credits: account.ai_credit || 0,
-          username: account.display_name || '',
+          avatarURL: account.avatar_url ?? '',
+          credits: account.ai_credit,
+          username: account.display_name ?? '',
         }}
         variant="authenticated"
       />
