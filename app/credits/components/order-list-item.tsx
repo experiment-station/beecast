@@ -26,7 +26,7 @@ export function OrderListItem(props: Props) {
         </Flex>
 
         <Text color="gray" size="2">
-          {format(new Date(props.created_at), 'MMM d, yyyy')}
+          {format(new Date(props.created_at), 'HH:mm - MMM d, yyyy')}
         </Text>
       </Flex>
 

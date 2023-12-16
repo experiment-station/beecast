@@ -28,7 +28,10 @@ export default async function Page(props: Props) {
   const supabase = createSupabaseServerClient(cookies());
   const credits = await fetchAccountAICredits();
   const prices = await getPrices();
-  const ordersQuery = await supabase.from('order').select('*');
+  const ordersQuery = await supabase
+    .from('order')
+    .select('*')
+    .order('created_at', { ascending: false });
 
   return (
     <Flex direction="column" gap="5">
