@@ -276,6 +276,7 @@ export interface Database {
           credits: number;
           currency: string;
           id: number;
+          invoice_url: string;
           reference_id: string;
           status: string;
         };
@@ -286,6 +287,7 @@ export interface Database {
           credits: number;
           currency: string;
           id?: number;
+          invoice_url?: string;
           reference_id: string;
           status: string;
         };
@@ -296,6 +298,7 @@ export interface Database {
           credits?: number;
           currency?: string;
           id?: number;
+          invoice_url?: string;
           reference_id?: string;
           status?: string;
         };

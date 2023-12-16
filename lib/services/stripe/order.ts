@@ -4,6 +4,7 @@ import { DatabaseError } from '@/lib/errors';
 import { z } from 'zod';
 
 import { createSupabaseServiceClient } from '../supabase/service';
+import { stripe } from './client';
 
 const checkoutSessionSchema = z.object({
   amount_total: z.number(),
@@ -24,6 +25,7 @@ const checkoutSessionSchema = z.object({
     accountId: z.string().min(1).transform(Number),
     userId: z.string().min(1),
   }),
+  payment_intent: z.string(),
 });
 
 export const fulfillOrder = async (session: Stripe.Checkout.Session) => {
@@ -48,11 +50,18 @@ export const fulfillOrder = async (session: Stripe.Checkout.Session) => {
   const purchasedCredits =
     validatedSession.data.line_items.data[0].price.transform_quantity.divide_by;
 
+  const { data: charges } = await stripe.charges.list({
+    payment_intent: validatedSession.data.payment_intent,
+  });
+
+  const charge = charges[0];
+
   const createOrderQuery = await supabase.from('order').insert({
     account: validatedSession.data.metadata.accountId,
     amount: validatedSession.data.amount_total,
     credits: purchasedCredits,
     currency: validatedSession.data.currency,
+    invoice_url: charge.receipt_url ?? '',
     reference_id: validatedSession.data.id,
     status: 'paid',
   });

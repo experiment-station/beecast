@@ -1,4 +1,3 @@
-import { DatabaseError } from '@/lib/errors';
 import { fetchAccountAICredits } from '@/lib/services/account';
 import { getPrices } from '@/lib/services/stripe/prices';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
@@ -17,6 +16,7 @@ import { cookies } from 'next/headers';
 import { FaCircleCheck } from 'react-icons/fa6';
 
 import { CreditListItem } from './components/credit-list-item';
+import { OrderListItem } from './components/order-list-item';
 
 type Props = {
   searchParams: {
@@ -29,10 +29,6 @@ export default async function Page(props: Props) {
   const credits = await fetchAccountAICredits();
   const prices = await getPrices();
   const ordersQuery = await supabase.from('order').select('*');
-
-  if (ordersQuery.error) {
-    throw new DatabaseError(ordersQuery.error);
-  }
 
   return (
     <Flex direction="column" gap="5">
@@ -65,7 +61,8 @@ export default async function Page(props: Props) {
             <Flex direction="column" gap="4">
               {prices.map((price, index) => (
                 <CreditListItem
-                  amount={price.unit_amount! / 100}
+                  amount={price.unit_amount!}
+                  currency={price.currency}
                   id={price.id}
                   key={price.id}
                   popular={index === 1}
@@ -77,25 +74,18 @@ export default async function Page(props: Props) {
         </Flex>
       </Card>
 
-      {ordersQuery.data.length > 0 ? (
+      {(ordersQuery.data || []).length > 0 ? (
         <Card size="3">
           <Flex direction="column" gap="4">
-            <Flex direction="column" gap="2">
-              <Heading as="h3" size="4" trim="both">
-                Orders
-              </Heading>
-
-              <Text color="gray" size="2">
-                You have <Text weight="medium">{ordersQuery.data.length}</Text>{' '}
-                orders.
-              </Text>
-            </Flex>
+            <Heading as="h3" size="4" trim="both">
+              Orders
+            </Heading>
 
             <Separator orientation="horizontal" size="4" />
 
             <Flex direction="column" gap="4">
-              {ordersQuery.data.map((order) => (
-                <div key={order.id}>{JSON.stringify(order)}</div>
+              {(ordersQuery.data || []).map((order) => (
+                <OrderListItem key={order.id} {...order} />
               ))}
             </Flex>
           </Flex>
