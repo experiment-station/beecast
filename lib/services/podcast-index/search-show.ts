@@ -1,3 +1,6 @@
+'use server';
+import type { Tables } from '@/types/supabase/database';
+
 import { podcastIndexFetchClient } from './client';
 
 export type PodcastIndexShowType = {
@@ -7,6 +10,7 @@ export type PodcastIndexShowType = {
   image: string;
   language: string;
   podcastGuid: string;
+  spotifyId: Tables<'show'>['spotify_id'];
   title: string;
 };
 
@@ -19,7 +23,12 @@ export const searchShow = async (
   title: string,
 ): Promise<PodcastIndexShowType> => {
   const response = await podcastIndexFetchClient<PodcastIndexResponse>(
-    `/search/bytitle?q=${title}`,
+    `/search/bytitle`,
+    {
+      params: {
+        q: title,
+      },
+    },
   );
 
   const { feeds } = response;

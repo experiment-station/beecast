@@ -1,3 +1,4 @@
+'use server';
 import { podcastIndexFetchClient } from './client';
 
 export type PodcastIndexEpisodeType = {

@@ -1,13 +1,22 @@
 'use client';
 import type { SpotifyShow } from '@/lib/services/spotify/get-user-shows';
 
+import { bulkSaveEpisodes } from '@/lib/services/episode';
+import { bulkEpisodeSearch, bulkShowSearch } from '@/lib/services/importer-job';
+import { bulkSaveShow, followShow } from '@/lib/services/show';
 import { Button, Flex, Grid, Heading, Text } from '@radix-ui/themes';
+import Link from 'next/link';
 import { useState } from 'react';
 import { FaArrowDown } from 'react-icons/fa';
 
 import { ShowCard } from './show-card';
 
-type SelectedShow = Pick<SpotifyShow['show'], 'id' | 'name'>;
+export type SelectedShow = Pick<SpotifyShow['show'], 'id' | 'name'>;
+
+type State =
+  | { status: 'import_completed' }
+  | { status: 'import_in_progress' }
+  | { status: 'stale' };
 
 export default function SelectShows({
   spotifyShows,
@@ -15,6 +24,9 @@ export default function SelectShows({
   spotifyShows: SpotifyShow[];
 }) {
   const [selectedShows, setSelectedShows] = useState<SelectedShow[]>([]);
+  const [importStatus, setImportStatus] = useState<State>({
+    status: 'stale',
+  });
 
   const isSelected = (show: SpotifyShow['show']) =>
     Boolean(selectedShows.find((item: SelectedShow) => item.id === show.id));
@@ -31,6 +43,17 @@ export default function SelectShows({
         },
       ]);
     }
+  };
+
+  const handleImport = async () => {
+    setImportStatus({ status: 'import_in_progress' });
+    const podcastIndexShows = await bulkShowSearch(selectedShows);
+    const savedShows = await bulkSaveShow(podcastIndexShows);
+    const episodes = await bulkEpisodeSearch(savedShows);
+    await bulkSaveEpisodes(episodes);
+    const showIds = podcastIndexShows.map((s) => s.podcastGuid);
+    await followShow(showIds);
+    setImportStatus({ status: 'import_completed' });
   };
 
   return (
@@ -62,12 +85,13 @@ export default function SelectShows({
         >
           Choose from your Spotify shows!
         </Heading>
-
         {selectedShows.length > 0 && (
           <Flex align="center" direction="row" gap="3">
             <Text size="2">{selectedShows.length} shows selected.</Text>
             <Button
+              disabled={importStatus.status === 'import_in_progress'}
               highContrast
+              onClick={() => handleImport()}
               size={{
                 initial: '1',
                 lg: '2',
@@ -77,6 +101,20 @@ export default function SelectShows({
               <FaArrowDown />
               Import
             </Button>
+            {importStatus.status === 'import_completed' && (
+              <Link href="/shows">
+                <Button
+                  color="grass"
+                  highContrast
+                  size={{
+                    initial: '1',
+                    lg: '2',
+                  }}
+                >
+                  Continue
+                </Button>
+              </Link>
+            )}
           </Flex>
         )}
       </Flex>
@@ -97,6 +135,7 @@ export default function SelectShows({
             images={[show.images[1].url]}
             key={show.id}
             onClick={() => {
+              setImportStatus({ status: 'stale' });
               handleOnClick(show);
             }}
             selected={isSelected(show)}
