@@ -4,19 +4,8 @@ import { cookies } from 'next/headers';
 import { z } from 'zod';
 
 import { DatabaseError } from '../errors';
+import { getUser } from './supabase/auth';
 import { createSupabaseServerClient } from './supabase/server';
-
-const getUserId = async () => {
-  const supabase = createSupabaseServerClient(cookies());
-
-  const userQuery = await supabase.auth.getUser();
-
-  if (userQuery.error) {
-    throw userQuery.error;
-  }
-
-  return userQuery.data.user.id;
-};
 
 export const getAccountId = async () => {
   const supabase = createSupabaseServerClient(cookies());
@@ -24,7 +13,7 @@ export const getAccountId = async () => {
   const accountQuery = await supabase
     .from('account')
     .select('id')
-    .eq('user_id', await getUserId())
+    .eq('user_id', (await getUser()).id)
     .single();
 
   if (accountQuery.error) {
@@ -40,7 +29,7 @@ export const fetchAccount = async () => {
   const accountQuery = await supabase
     .from('account')
     .select('*')
-    .eq('user_id', await getUserId())
+    .eq('user_id', (await getUser()).id)
     .single();
 
   if (accountQuery.error) {
@@ -56,7 +45,7 @@ export const fetchAccountAICredits = async () => {
   const accountQuery = await supabase
     .from('account')
     .select('ai_credit')
-    .eq('user_id', await getUserId())
+    .eq('user_id', (await getUser()).id)
     .single();
 
   if (accountQuery.error) {
@@ -85,7 +74,7 @@ export const updateAccountAICredits = async (amount: number) => {
   const accountQuery = await supabase
     .from('account')
     .update({ ai_credit: amount })
-    .eq('user_id', await getUserId())
+    .eq('user_id', (await getUser()).id)
     .select('ai_credit')
     .single();
 

@@ -74,3 +74,15 @@ export const getIsAuthenticated = async () => {
 
   return session !== null;
 };
+
+export const getUser = async () => {
+  const supabase = createSupabaseServerClient(cookies());
+
+  const userQuery = await supabase.auth.getUser();
+
+  if (userQuery.error) {
+    throw userQuery.error;
+  }
+
+  return userQuery.data.user;
+};
