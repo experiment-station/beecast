@@ -18,7 +18,7 @@ import { FaCircleCheck, FaPlay } from 'react-icons/fa6';
 import styles from './show-card.module.css';
 import { Hover } from './ui/hover';
 
-type Props = Pick<Tables<'show'>, 'description' | 'images' | 'title'>;
+type Props = Pick<Tables<'show'>, 'images' | 'title'>;
 
 function ShowCardImage(props: Pick<Props, 'images' | 'title'>) {
   return (

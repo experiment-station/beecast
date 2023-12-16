@@ -9,9 +9,7 @@ import { cookies } from 'next/headers';
 
 const fetchAllShows = async () => {
   const supabase = createSupabaseServerClient(cookies());
-  const response = await supabase
-    .from('show')
-    .select('id, title, description, images');
+  const response = await supabase.from('show').select('id, title, images');
 
   return response;
 };
@@ -21,7 +19,7 @@ const fetchMyShows = async () => {
   const accountId = await getAccountId();
   const response = await supabase
     .from('account_show_relation')
-    .select('show (id, title, description, images)')
+    .select('show (id, title, images)')
     .eq('account', accountId)
     .not('show', 'is', null);
 
@@ -71,7 +69,6 @@ export default async function Page() {
           >
             {myShows.map(({ show }) => (
               <ShowCard.Link
-                description={show.description}
                 href={`/shows/${show.id}`}
                 images={show.images}
                 key={show.id}
@@ -106,7 +103,6 @@ export default async function Page() {
       >
         {showsData?.map((show) => (
           <ShowCard.Link
-            description={show.description}
             href={`/shows/${show.id}`}
             images={show.images}
             key={show.id}
