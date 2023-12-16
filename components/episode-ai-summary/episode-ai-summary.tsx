@@ -22,7 +22,7 @@ export async function EpisodeAISummary(props: Props) {
   const credits = await fetchAccountAICredits();
   const { data, error } = await supabase
     .from('episode_content')
-    .select('*, user:account(id, display_name, avatar_url)')
+    .select('id, text_summary')
     .eq('episode', props.id);
 
   if (error) {
