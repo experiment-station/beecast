@@ -7,11 +7,9 @@ import React, { useEffect, useRef } from 'react';
 
 type Props = {
   id: Tables<'episode'>['id'];
-  title: Tables<'episode'>['title'];
-  transcription: string;
 };
 
-export function EpisodeAISummaryStreamer({ id, title, transcription }: Props) {
+export function EpisodeAISummaryStreamer({ id }: Props) {
   const startedRef = useRef(false);
 
   const { messages, reload, setMessages } = useChat({
@@ -34,7 +32,7 @@ export function EpisodeAISummaryStreamer({ id, title, transcription }: Props) {
     ]);
 
     void reload();
-  }, [reload, setMessages, title, transcription]);
+  }, [reload, setMessages]);
 
   const assistantMessages = messages.filter((m) => m.role === 'assistant');
 

@@ -14,7 +14,6 @@ import { EpisodeAISummaryPlaceholder } from './episode-ai-summary-placeholder';
 
 type Props = {
   id: Tables<'episode'>['id'];
-  title: Tables<'episode'>['title'];
 };
 
 export async function EpisodeAISummary(props: Props) {
@@ -42,7 +41,7 @@ export async function EpisodeAISummary(props: Props) {
       );
     }
 
-    return <EpisodeAISummaryGenerator id={props.id} title={props.title} />;
+    return <EpisodeAISummaryGenerator id={props.id} />;
   }
 
   const [episodeContent] = data;
