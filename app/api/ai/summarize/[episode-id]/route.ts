@@ -3,10 +3,9 @@ import {
   HttpBadRequestError,
   HttpInternalServerError,
 } from '@/lib/errors';
-import { openai } from '@/lib/services/ai/openai';
-import { saveEpisodeContentSummary } from '@/lib/services/episode-content';
+import { createEpisodeSummaryStream } from '@/lib/services/ai/create-episode-summary-stream';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { StreamingTextResponse } from 'ai';
 import { cookies } from 'next/headers';
 
 export const runtime = 'edge';
@@ -17,9 +16,7 @@ export async function POST(
 ) {
   const episodeId = parseInt(params['episode-id'], 10);
 
-  const supabase = createSupabaseServerClient(cookies());
-
-  const { data, error } = await supabase
+  const { data, error } = await createSupabaseServerClient(cookies())
     .from('episode_content')
     .select('transcription, episode(title)')
     .eq('episode', episodeId)
@@ -37,25 +34,12 @@ export async function POST(
     }).toNextResponse();
   }
 
-  const response = await openai.chat.completions.create({
-    messages: [
-      {
-        content: `Summarize the following transcription from ${data.episode?.title} episode of the podcast`,
-        role: 'system',
-      },
-      {
-        content: data.transcription,
-        role: 'system',
-      },
-    ],
-    model: 'gpt-4-1106-preview',
-    stream: true,
-  });
-
-  const stream = OpenAIStream(response, {
-    onCompletion: async (completion) => {
-      await saveEpisodeContentSummary(episodeId, completion);
+  const stream = await createEpisodeSummaryStream({
+    episode: {
+      id: episodeId,
+      title: data.episode?.title ?? '',
     },
+    transcription: data.transcription,
   });
 
   return new StreamingTextResponse(stream);

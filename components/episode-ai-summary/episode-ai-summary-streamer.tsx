@@ -22,15 +22,7 @@ export function EpisodeAISummaryStreamer({ id }: Props) {
     }
 
     startedRef.current = true;
-
-    setMessages([
-      {
-        content: '',
-        id: 'user',
-        role: 'user',
-      },
-    ]);
-
+    setMessages([{ content: '', id: 'user', role: 'user' }]);
     void reload();
   }, [reload, setMessages]);
 
