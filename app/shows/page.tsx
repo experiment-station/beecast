@@ -6,10 +6,13 @@ import { getAccountId } from '@/lib/services/account';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Flex, Grid, Heading, Separator } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
+import Link from 'next/link';
 
 const fetchAllShows = async () => {
   const supabase = createSupabaseServerClient(cookies());
-  const response = await supabase.from('show').select('id, title, images');
+  const response = await supabase
+    .from('show')
+    .select('id, title, images, publisher');
 
   return response;
 };
@@ -19,7 +22,7 @@ const fetchMyShows = async () => {
   const accountId = await getAccountId();
   const response = await supabase
     .from('account_show_relation')
-    .select('show (id, title, images)')
+    .select('show (id, title, images, publisher)')
     .eq('account', accountId)
     .not('show', 'is', null);
 
@@ -68,14 +71,23 @@ export default async function Page() {
             }}
           >
             {myShows.map(({ show }) => (
-              <ShowCard.Link
+              <Link
                 href={`/shows/${show.id}`}
-                images={show.images}
                 key={show.id}
-                title={show.title}
-              />
+                style={{
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                <ShowCard
+                  images={show.images}
+                  publisher={show.publisher}
+                  title={show.title}
+                />
+              </Link>
             ))}
           </Grid>
+
           <Separator
             orientation="horizontal"
             size="4"
@@ -102,12 +114,20 @@ export default async function Page() {
         }}
       >
         {showsData?.map((show) => (
-          <ShowCard.Link
+          <Link
             href={`/shows/${show.id}`}
-            images={show.images}
             key={show.id}
-            title={show.title}
-          />
+            style={{
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            <ShowCard
+              images={show.images}
+              publisher={show.publisher}
+              title={show.title}
+            />
+          </Link>
         ))}
       </Grid>
     </Flex>

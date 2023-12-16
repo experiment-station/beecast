@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FaArrowDown } from 'react-icons/fa';
 
-import { ShowCard } from './show-card';
+import { ShowCardToggle } from './show-card';
 
 export type SelectedShow = Pick<SpotifyShow['show'], 'id' | 'name'>;
 
@@ -130,14 +130,14 @@ export default function SelectShows({
         }}
       >
         {spotifyShows.map(({ show }) => (
-          <ShowCard.Toggle
-            description={show.description}
+          <ShowCardToggle
             images={[show.images[1].url]}
             key={show.id}
             onClick={() => {
               setImportStatus({ status: 'stale' });
               handleOnClick(show);
             }}
+            publisher={show.publisher}
             selected={isSelected(show)}
             title={show.name}
           />
