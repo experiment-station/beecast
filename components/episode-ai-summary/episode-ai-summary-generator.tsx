@@ -68,11 +68,7 @@ export function EpisodeAISummaryGenerator({
       );
 
     case 'summarizing':
-      return (
-        <EpisodeAISummaryPanel>
-          <EpisodeAISummaryStreamer id={id} />
-        </EpisodeAISummaryPanel>
-      );
+      return <EpisodeAISummaryStreamer id={id} />;
 
     case 'error':
       return (
