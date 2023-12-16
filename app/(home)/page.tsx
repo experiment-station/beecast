@@ -4,12 +4,13 @@ import BrowserFrame from '@/components/ui/browser-frame';
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServiceClient } from '@/lib/services/supabase/service';
 import { Em, Flex, Heading, Text } from '@radix-ui/themes';
+import { cookies } from 'next/headers';
 
 const DEMO_EPISODE_ID = 166;
 
-export const dynamic = 'force-dynamic';
-
 async function EpisodeDemo() {
+  cookies();
+
   const supabase = createSupabaseServiceClient();
 
   const { data, error } = await supabase
