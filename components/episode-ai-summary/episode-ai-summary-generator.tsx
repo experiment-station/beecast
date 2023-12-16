@@ -22,7 +22,6 @@ type State =
     }
   | {
       status: 'summarizing';
-      transcription: string;
     }
   | {
       status: 'transcribing';
@@ -30,18 +29,16 @@ type State =
 
 export function EpisodeAISummaryGenerator({
   id,
-  title,
 }: {
   id: Tables<'episode'>['id'];
-  title: Tables<'episode'>['title'];
 }) {
   const [state, setState] = useState<State>({ status: 'idle' });
 
   const generate = useCallback(async () => {
     try {
       setState({ status: 'transcribing' });
-      const transcription = await transcribeEpisode(id);
-      setState({ status: 'summarizing', transcription });
+      await transcribeEpisode(id);
+      setState({ status: 'summarizing' });
     } catch (error) {
       setState({ message: 'Failed to transcribe episode', status: 'error' });
     }
@@ -73,11 +70,7 @@ export function EpisodeAISummaryGenerator({
     case 'summarizing':
       return (
         <EpisodeAISummaryPanel>
-          <EpisodeAISummaryStreamer
-            id={id}
-            title={title}
-            transcription={state.transcription}
-          />
+          <EpisodeAISummaryStreamer id={id} />
         </EpisodeAISummaryPanel>
       );
 

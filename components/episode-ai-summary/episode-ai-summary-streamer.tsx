@@ -1,27 +1,19 @@
+'use client';
+
 import type { Tables } from '@/types/supabase/database';
 
-import { saveEpisodeContentSummary } from '@/lib/services/episode-content';
 import { useChat } from 'ai/react';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 type Props = {
   id: Tables<'episode'>['id'];
-  title: Tables<'episode'>['title'];
-  transcription: string;
 };
 
-export function EpisodeAISummaryStreamer({ id, title, transcription }: Props) {
+export function EpisodeAISummaryStreamer({ id }: Props) {
   const startedRef = useRef(false);
 
   const { messages, reload, setMessages } = useChat({
-    api: '/api/ai/summarize',
-    onFinish: (message) => {
-      if (message.role === 'system') {
-        return;
-      }
-
-      void saveEpisodeContentSummary(id, message.content);
-    },
+    api: `/api/ai/summarize/${id}`,
   });
 
   useEffect(() => {
@@ -33,21 +25,26 @@ export function EpisodeAISummaryStreamer({ id, title, transcription }: Props) {
 
     setMessages([
       {
-        content: `Summarize the podcast episode titled '${title}' in a short paragraph.`,
-        id: 'system-0',
-        role: 'system',
-      },
-      {
-        content: transcription,
-        id: 'system-1',
-        role: 'system',
+        content: '',
+        id: 'user',
+        role: 'user',
       },
     ]);
 
     void reload();
-  }, [reload, setMessages, title, transcription]);
+  }, [reload, setMessages]);
 
-  const summaryMessage = messages.find((message) => message.role !== 'system');
+  const assistantMessages = messages.filter((m) => m.role === 'assistant');
 
-  return summaryMessage ? summaryMessage.content : 'Summarizing episode...';
+  if (assistantMessages.length === 0) {
+    return 'Summarizing episode...';
+  }
+
+  return (
+    <>
+      {assistantMessages.map((message) => (
+        <React.Fragment key={message.id}>{message.content}</React.Fragment>
+      ))}
+    </>
+  );
 }

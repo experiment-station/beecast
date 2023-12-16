@@ -81,7 +81,7 @@ async function EpisodeDetailPage(props: { id: Tables<'episode'>['id'] }) {
       show={data.show}
       title={data.title}
     >
-      <EpisodeAISummary id={data.id} title={data.title} />
+      <EpisodeAISummary id={data.id} />
     </EpisodeDetailContent>
   );
 }
