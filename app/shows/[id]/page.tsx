@@ -4,6 +4,7 @@ import { EpisodeCard } from '@/components/episode-card';
 import { DatabaseError } from '@/lib/errors';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import {
+  AspectRatio,
   Avatar,
   Box,
   Flex,
@@ -36,23 +37,31 @@ export default async function Page(props: { params: { id: ShowId } }) {
   }
 
   return (
-    <Flex direction="row" gap="6">
+    <Flex
+      direction={{
+        initial: 'column',
+        xs: 'row',
+      }}
+      gap="6"
+    >
       <Box
         style={{
-          width: 200,
+          width: 240,
         }}
       >
         <Flex direction="column" gap="4">
-          <Avatar
-            alt={data.title}
-            fallback="/images/placeholder.png"
-            radius="small"
-            src={data.images?.[0]}
-            style={{
-              height: 200,
-              width: 200,
-            }}
-          />
+          <AspectRatio ratio={1}>
+            <Avatar
+              alt={data.title}
+              fallback="/images/placeholder.png"
+              radius="small"
+              src={data.images?.[0]}
+              style={{
+                height: 'auto',
+                width: '100%',
+              }}
+            />
+          </AspectRatio>
 
           <Text color="gray" size="2">
             {data.total_episode} episodes.
@@ -60,7 +69,7 @@ export default async function Page(props: { params: { id: ShowId } }) {
         </Flex>
       </Box>
 
-      <Flex direction="column" gap="6">
+      <Flex direction="column" gap="6" width="100%">
         <Flex direction="column" gap="2">
           <Heading as="h2" size="6">
             {data.title}
