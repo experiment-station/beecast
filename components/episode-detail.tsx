@@ -6,16 +6,22 @@ import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { Avatar, Box, Flex, Heading, Text } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 
+import AudioPlayer from './audio-player';
 import { EpisodeAISummary } from './episode-ai-summary/episode-ai-summary';
 import { EpisodeDescription } from './episode-description';
 import { CollapsiblePanel } from './ui/collapsible-panel';
-import { DecorativeBox } from './ui/decorative-box';
 
 function EpisodeDetailContent(
   props: PropsWithChildren<
     Pick<
       Tables<'episode'>,
-      'description' | 'duration' | 'id' | 'image' | 'published_date' | 'title'
+      | 'audio_url'
+      | 'description'
+      | 'duration'
+      | 'id'
+      | 'image'
+      | 'published_date'
+      | 'title'
     > & {
       show: {
         id: Tables<'show'>['id'];
@@ -25,24 +31,47 @@ function EpisodeDetailContent(
   >,
 ) {
   return (
-    <Flex direction="column" gap="4">
-      <Flex align="start" direction="row" gap="5">
+    <Flex direction="column" gap="6">
+      <Flex
+        align="center"
+        direction="row"
+        gap={{
+          initial: '3',
+          xs: '5',
+        }}
+      >
         <Avatar
           fallback="/images/placeholder.png"
           radius="small"
-          size="9"
+          size={{
+            initial: '6',
+            xs: '9',
+          }}
           src={props.image ?? ''}
         />
 
-        <Flex direction="column" gap="1">
-          <Heading size="3">{props.title}</Heading>
+        <Flex direction="column" gap="2" justify="end">
+          <Heading
+            size={{
+              initial: '2',
+              xs: '3',
+            }}
+          >
+            {props.title}
+          </Heading>
 
-          <Text color="gray" size="2">
+          <Text
+            color="gray"
+            size={{
+              initial: '1',
+              xs: '2',
+            }}
+          >
             {props.show.title}
           </Text>
 
-          <Box height="9" width="100%">
-            <DecorativeBox />
+          <Box height="5">
+            <AudioPlayer audioUrl={props.audio_url} duration={props.duration} />
           </Box>
         </Flex>
       </Flex>
@@ -73,6 +102,7 @@ async function EpisodeDetailPage(props: { id: Tables<'episode'>['id'] }) {
 
   return (
     <EpisodeDetailContent
+      audio_url={data.audio_url}
       description={data.description}
       duration={data.duration}
       id={data.id}
