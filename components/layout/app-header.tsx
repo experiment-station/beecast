@@ -14,12 +14,11 @@ import {
 import Link from 'next/link';
 import {
   CgArrowRight,
-  CgDollar,
   CgLogOut,
   CgMediaPodcast,
-  CgOptions,
   CgProfile,
 } from 'react-icons/cg';
+import { PiRobotBold } from 'react-icons/pi';
 
 import { Logo } from '../ui/logo';
 import { UnstyledButton } from '../ui/unstyled-button';
@@ -41,18 +40,13 @@ type Props =
 const USER_MENU_LINKS = [
   {
     href: '/credits',
-    icon: <CgDollar />,
-    label: 'Buy Credits',
+    icon: <PiRobotBold />,
+    label: 'Buy credits',
   },
   {
     href: '/shows',
     icon: <CgMediaPodcast />,
-    label: 'Your Shows',
-  },
-  {
-    href: '/settings',
-    icon: <CgOptions />,
-    label: 'Settings',
+    label: 'Your shows',
   },
 ];
 
