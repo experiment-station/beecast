@@ -52,7 +52,7 @@ export const fetchAccountAICredits = async () => {
     throw new DatabaseError(accountQuery.error);
   }
 
-  return accountQuery.data.ai_credit || 0;
+  return accountQuery.data.ai_credit;
 };
 
 export const validateAccountAICredits = async () => {
@@ -82,5 +82,5 @@ export const updateAccountAICredits = async (amount: number) => {
     throw new DatabaseError(accountQuery.error);
   }
 
-  return accountQuery.data.ai_credit || 0;
+  return accountQuery.data.ai_credit;
 };

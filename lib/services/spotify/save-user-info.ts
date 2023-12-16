@@ -15,8 +15,8 @@ type UserMetadata = {
 };
 
 const spotifyUserInfoResponseSchema = z.object({
-  avatar_url: z.string().min(1),
-  full_name: z.string().min(1),
+  avatar_url: z.string().default(''),
+  full_name: z.string().default(''),
   provider_id: z.string().min(1),
   provider_token: z.string().min(1),
 });
