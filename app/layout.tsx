@@ -1,13 +1,10 @@
-import type { Metadata } from 'next';
 import type { PropsWithChildren } from 'react';
 
 import { ThemeProvider } from '@/components/theme-provider';
 import '@/components/theme-provider/styles.css';
+import { getDefaultMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  description: 'Your hard-working AI podcast companion.',
-  title: 'beecast',
-};
+export const metadata = getDefaultMetadata();
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
