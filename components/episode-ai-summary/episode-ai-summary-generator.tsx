@@ -3,14 +3,14 @@
 import type { Tables } from '@/types/supabase/database';
 
 import { transcribeEpisode } from '@/lib/services/ai/transcribe-episode';
-import { Box, Button, Callout, Flex, Text } from '@radix-ui/themes';
+import { Button, Callout, Flex, Text } from '@radix-ui/themes';
 import { useCallback, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { PiRobotBold } from 'react-icons/pi';
 
-import { Panel } from '../ui/panel';
+import { EpisodeAISummaryPanel } from './episode-ai-summary-panel';
+import { EpisodeAISummaryPlaceholder } from './episode-ai-summary-placeholder';
 import { EpisodeAISummaryStreamer } from './episode-ai-summary-streamer';
-import { EpisodeAIThingyPlaceholder } from './episode-ai-thingy-placeholder';
 
 type State =
   | {
@@ -28,7 +28,7 @@ type State =
       status: 'transcribing';
     };
 
-export function EpisodeAIThingyGenerator({
+export function EpisodeAISummaryGenerator({
   id,
   title,
 }: {
@@ -50,7 +50,7 @@ export function EpisodeAIThingyGenerator({
   switch (state.status) {
     case 'idle':
       return (
-        <EpisodeAIThingyPlaceholder>
+        <EpisodeAISummaryPlaceholder>
           <Button highContrast onClick={generate} size="2">
             <Flex align="center" gap="2" justify="center">
               <Text mt="1" size="4" trim="both">
@@ -62,28 +62,28 @@ export function EpisodeAIThingyGenerator({
               </Text>
             </Flex>
           </Button>
-        </EpisodeAIThingyPlaceholder>
+        </EpisodeAISummaryPlaceholder>
       );
 
     case 'transcribing':
-      return <Panel title="Episode summary">Transcribing episode...</Panel>;
+      return (
+        <EpisodeAISummaryPanel>Transcribing episode...</EpisodeAISummaryPanel>
+      );
 
     case 'summarizing':
       return (
-        <Panel title="Episode summary">
-          <Box style={{ whiteSpace: 'pre-wrap' }}>
-            <EpisodeAISummaryStreamer
-              id={id}
-              title={title}
-              transcription={state.transcription}
-            />
-          </Box>
-        </Panel>
+        <EpisodeAISummaryPanel>
+          <EpisodeAISummaryStreamer
+            id={id}
+            title={title}
+            transcription={state.transcription}
+          />
+        </EpisodeAISummaryPanel>
       );
 
     case 'error':
       return (
-        <EpisodeAIThingyPlaceholder>
+        <EpisodeAISummaryPlaceholder>
           <Callout.Root color="red" role="alert" size="1">
             <Callout.Icon>
               <FaExclamationTriangle />
@@ -91,7 +91,7 @@ export function EpisodeAIThingyGenerator({
 
             <Callout.Text>{state.message}</Callout.Text>
           </Callout.Root>
-        </EpisodeAIThingyPlaceholder>
+        </EpisodeAISummaryPlaceholder>
       );
   }
 }

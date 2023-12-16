@@ -49,9 +49,5 @@ export function EpisodeAISummaryStreamer({ id, title, transcription }: Props) {
 
   const summaryMessage = messages.find((message) => message.role !== 'system');
 
-  return (
-    <div>
-      {summaryMessage ? summaryMessage.content : 'Summarizing episode...'}
-    </div>
-  );
+  return summaryMessage ? summaryMessage.content : 'Summarizing episode...';
 }
