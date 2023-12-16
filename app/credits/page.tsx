@@ -1,5 +1,6 @@
 import { fetchAccountAICredits } from '@/lib/services/account';
 import { getPrices } from '@/lib/services/stripe/prices';
+import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import {
   CalloutIcon,
   CalloutRoot,
@@ -11,9 +12,11 @@ import {
   Text,
 } from '@radix-ui/themes';
 import { Provider } from 'jotai';
+import { cookies } from 'next/headers';
 import { FaCircleCheck } from 'react-icons/fa6';
 
 import { CreditListItem } from './components/credit-list-item';
+import { OrderListItem } from './components/order-list-item';
 
 type Props = {
   searchParams: {
@@ -22,16 +25,16 @@ type Props = {
 };
 
 export default async function Page(props: Props) {
+  const supabase = createSupabaseServerClient(cookies());
   const credits = await fetchAccountAICredits();
   const prices = await getPrices();
+  const ordersQuery = await supabase
+    .from('order')
+    .select('*')
+    .order('created_at', { ascending: false });
 
   return (
-    <Flex
-      direction="column"
-      gap="4"
-      mx="auto"
-      style={{ maxWidth: 'var(--container-1)' }}
-    >
+    <Flex direction="column" gap="5">
       {props.searchParams.status === 'success' ? (
         <CalloutRoot color="green">
           <CalloutIcon>
@@ -61,7 +64,8 @@ export default async function Page(props: Props) {
             <Flex direction="column" gap="4">
               {prices.map((price, index) => (
                 <CreditListItem
-                  amount={price.unit_amount! / 100}
+                  amount={price.unit_amount!}
+                  currency={price.currency}
                   id={price.id}
                   key={price.id}
                   popular={index === 1}
@@ -72,6 +76,24 @@ export default async function Page(props: Props) {
           </Provider>
         </Flex>
       </Card>
+
+      {(ordersQuery.data || []).length > 0 ? (
+        <Card size="3">
+          <Flex direction="column" gap="4">
+            <Heading as="h3" size="4" trim="both">
+              Orders
+            </Heading>
+
+            <Separator orientation="horizontal" size="4" />
+
+            <Flex direction="column" gap="4">
+              {(ordersQuery.data || []).map((order) => (
+                <OrderListItem key={order.id} {...order} />
+              ))}
+            </Flex>
+          </Flex>
+        </Card>
+      ) : null}
     </Flex>
   );
 }

@@ -4,7 +4,7 @@ import type Stripe from 'stripe';
 import { env } from '@/env.mjs';
 import { HttpBadRequestError, HttpInternalServerError } from '@/lib/errors';
 import { stripe } from '@/lib/services/stripe/client';
-import { fulfillOrder } from '@/lib/services/stripe/order';
+import { fulfillOrder } from '@/lib/services/stripe/orders';
 
 export async function POST(req: NextRequest) {
   const signature = req.headers.get('stripe-signature');

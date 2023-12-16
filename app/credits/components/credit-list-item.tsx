@@ -4,8 +4,11 @@ import { createCheckoutSession } from '@/lib/services/stripe/checkout';
 import { Badge, Button, Flex, Text } from '@radix-ui/themes';
 import { atom, useAtom } from 'jotai';
 
+import { getCurrencySymbol } from '../utils/get-currency-symbol';
+
 type Props = {
   amount: number;
+  currency: string;
   id: string;
   popular?: boolean;
   quantity: number;
@@ -17,7 +20,16 @@ const checkoutStatusAtom = atom<
   type: 'idle',
 });
 
-export function CreditListItem({ amount, id, popular, quantity }: Props) {
+export function CreditListItem({
+  amount,
+  currency,
+  id,
+  popular,
+  quantity,
+}: Props) {
+  const fixedAmount = amount / 100;
+  const symbolizedCurrency = getCurrencySymbol(currency);
+
   const [checkoutStatus, setCheckoutStatus] = useAtom(checkoutStatusAtom);
 
   const handleClick = async () => {
@@ -52,7 +64,8 @@ export function CreditListItem({ amount, id, popular, quantity }: Props) {
         </Flex>
 
         <Text color="gray" size="2">
-          ${(amount / quantity).toFixed(2)} per episode summarization.
+          {symbolizedCurrency}
+          {(fixedAmount / quantity).toFixed(2)} per episode summarization.
         </Text>
       </Flex>
 
@@ -66,7 +79,7 @@ export function CreditListItem({ amount, id, popular, quantity }: Props) {
       >
         {checkoutStatus.type === 'loading' && checkoutStatus.id === id
           ? 'Loading...'
-          : `$${amount}`}
+          : `${symbolizedCurrency}${fixedAmount}`}
       </Button>
     </Flex>
   );
