@@ -2,7 +2,7 @@ import { Button, Flex, Heading, Link, Text } from '@radix-ui/themes';
 import { FaSpotify } from 'react-icons/fa';
 
 type Props = {
-  searchParams: {
+  searchParams?: {
     redirect?: string;
   };
 };
@@ -20,7 +20,7 @@ export default function Page(props: Props) {
         <input
           name="redirect"
           type="hidden"
-          value={props.searchParams.redirect}
+          value={props.searchParams?.redirect}
         />
 
         <Flex direction="column">
