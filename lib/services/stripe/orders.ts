@@ -28,7 +28,7 @@ const checkoutSessionSchema = z.object({
   payment_intent: z.string(),
 });
 
-export const fulfillOrder = async (session: Stripe.Checkout.Session) => {
+export async function fulfillOrder(session: Stripe.Checkout.Session) {
   const validatedSession = checkoutSessionSchema.safeParse(session);
 
   if (!validatedSession.success) {
@@ -81,4 +81,4 @@ export const fulfillOrder = async (session: Stripe.Checkout.Session) => {
   if (updateAccountQuery.error) {
     throw new DatabaseError(updateAccountQuery.error);
   }
-};
+}
