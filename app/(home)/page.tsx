@@ -7,6 +7,8 @@ import { Em, Flex, Heading, Text } from '@radix-ui/themes';
 
 const DEMO_EPISODE_ID = 166;
 
+export const dynamic = 'force-dynamic';
+
 async function EpisodeDemo() {
   const supabase = createSupabaseServiceClient();
 
