@@ -28,7 +28,7 @@ export const transcribeEpisode = async (id: Tables<'episode'>['id']) => {
 
   const episodeQuery = await supabase
     .from('episode')
-    .select('audio_url')
+    .select('audio_url, show(language)')
     .eq('id', id)
     .single();
 
@@ -36,8 +36,11 @@ export const transcribeEpisode = async (id: Tables<'episode'>['id']) => {
     throw new DatabaseError(episodeQuery.error);
   }
 
-  const fileURL = await getFinalRedirectURL(episodeQuery.data.audio_url);
-  const transcription = await transcribeAudio({ fileURL });
+  const url = await getFinalRedirectURL(episodeQuery.data.audio_url);
+  const transcription = await transcribeAudio({
+    language: episodeQuery.data.show?.language ?? undefined,
+    url,
+  });
 
   const updateEpisodeContentQuery = await supabase
     .from('episode_content')

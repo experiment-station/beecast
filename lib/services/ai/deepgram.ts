@@ -4,13 +4,20 @@ import { z } from 'zod';
 
 const deepgram = createDeepgramClient(env.DEEPGRAM_API_KEY);
 
-export const transcribeAudio = async ({ fileURL }: { fileURL: string }) => {
+export const transcribeAudio = async ({
+  language = 'en',
+  url,
+}: {
+  language?: string;
+  url: string;
+}) => {
   const { error, result } = await deepgram.listen.prerecorded.transcribeUrl(
     {
-      url: fileURL,
+      url,
     },
     {
-      model: 'nova-2',
+      language,
+      model: language === 'en' ? 'nova-2' : 'base',
       paragraphs: true,
       smart_format: true,
     },
