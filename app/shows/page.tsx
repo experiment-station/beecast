@@ -59,6 +59,7 @@ export default async function Page() {
           <Heading as="h2" size="6">
             Your shows
           </Heading>
+
           <Grid
             columns={{
               initial: '2',
@@ -92,12 +93,12 @@ export default async function Page() {
             orientation="horizontal"
             size="4"
             style={{
-              color: 'var(--gray-12)',
               margin: '1em 0',
             }}
           />
         </>
       )}
+
       <Heading as="h2" size="6">
         If you want to give a shot
       </Heading>
