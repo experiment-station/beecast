@@ -48,7 +48,7 @@ function AudioPlayerControls({
         onClick={onRewind}
         variant="ghost"
       >
-        <MdReplay30 style={{ height: 28, width: 28 }} />
+        <MdReplay30 style={{ height: 24, width: 24 }} />
       </IconButton>
       <IconButton
         className={styles.IconButton}
@@ -57,9 +57,9 @@ function AudioPlayerControls({
         variant="ghost"
       >
         {playing ? (
-          <FaPauseCircle style={{ height: 28, width: 28 }} />
+          <FaPauseCircle style={{ height: 24, width: 24 }} />
         ) : (
-          <FaCirclePlay style={{ height: 28, width: 28 }} />
+          <FaCirclePlay style={{ height: 24, width: 24 }} />
         )}
       </IconButton>
       <IconButton
@@ -68,7 +68,7 @@ function AudioPlayerControls({
         onClick={onFastForward}
         variant="ghost"
       >
-        <MdForward30 style={{ height: 28, width: 28 }} />
+        <MdForward30 style={{ height: 24, width: 24 }} />
       </IconButton>
     </Flex>
   );
@@ -94,7 +94,7 @@ function PlayerBar({
       }}
       gap={{
         initial: '1',
-        sm: '4',
+        sm: '2',
       }}
     >
       <Box
@@ -193,7 +193,7 @@ export default function AudioPlayer({ audioUrl, duration }: Props) {
       }}
       gap={{
         initial: '2',
-        sm: '4',
+        sm: '3',
       }}
       justify={{
         initial: 'center',
