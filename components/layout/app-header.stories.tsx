@@ -11,7 +11,7 @@ export const Authenticated: StoryObj<typeof AppHeader> = {
     <AppHeader
       user={{
         credits: 10,
-        username: 'Mr. Bee',
+        name: 'Mr. Bee',
       }}
       variant="authenticated"
     />
