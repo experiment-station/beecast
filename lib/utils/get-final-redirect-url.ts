@@ -5,7 +5,12 @@ export async function getFinalRedirectURL(url: string) {
       redirect: 'manual',
     });
 
-    if (response.status === 301 || response.status === 302) {
+    if (
+      response.status === 301 ||
+      response.status === 302 ||
+      response.status === 307 ||
+      response.status === 308
+    ) {
       const location = response.headers.get('location');
 
       if (!location) {
@@ -25,6 +30,7 @@ export async function getFinalRedirectURL(url: string) {
 
     return url;
   } catch (e) {
+    console.error(e);
     throw new Error(`Error getting final redirect URL`);
   }
 }
