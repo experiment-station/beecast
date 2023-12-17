@@ -1,14 +1,3 @@
-.RatingsSelect {
-  appearance: none;
-  border: 0;
-  text-align: center;
-  font-size: 0.8rem;
+.IconButton:hover {
   background-color: transparent;
-  cursor: pointer;
-  width: 32px;
-}
-
-.RatingsSelect:focus-visible {
-  border: 0;
-  outline: 0;
 }

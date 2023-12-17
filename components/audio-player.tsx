@@ -1,14 +1,12 @@
 /* eslint-disable jsx-a11y/media-has-caption -- we don't have any captions for our audio. */
 'use client';
-import type { ChangeEvent } from 'react';
 
-import { Flex, IconButton, Slider, Text } from '@radix-ui/themes';
+import { Box, Button, Flex, IconButton, Slider, Text } from '@radix-ui/themes';
 import formatDuration from 'format-duration';
 import { useRef, useState } from 'react';
-import { FaPauseCircle } from 'react-icons/fa';
+import { FaPauseCircle, FaPlay } from 'react-icons/fa';
 import { FaCirclePlay } from 'react-icons/fa6';
-import { IoVolumeMuteOutline } from 'react-icons/io5';
-import { RiForward15Line, RiReplay15Fill } from 'react-icons/ri';
+import { MdForward30, MdReplay30 } from 'react-icons/md';
 
 import styles from './audio-player.module.css';
 
@@ -18,68 +16,60 @@ type Props = {
 };
 
 function AudioPlayerControls({
-  muted,
   onFastForward,
   onPlayPause,
   onRewind,
-  onSetPlaybackRate,
-  playbackRate,
+  playerRef,
   playing,
-  setMuted,
-  setPlaybackRate,
 }: {
-  muted: boolean;
   onFastForward: () => void;
   onPlayPause: () => void;
   onRewind: () => void;
-  onSetPlaybackRate: (rate: number) => void;
   playbackRate: number;
+  playerRef: { current: HTMLAudioElement | null };
   playing: boolean;
-  setMuted: (muted: boolean) => void;
-  setPlaybackRate: (rate: number) => void;
 }) {
+  if (!playerRef.current) {
+    return (
+      <Flex align="center" direction="row" gap="3">
+        <Button highContrast onClick={onPlayPause} size="1">
+          <FaPlay />
+          Play
+        </Button>
+      </Flex>
+    );
+  }
+
   return (
-    <Flex align="center" direction="row" gap="4">
+    <Flex align="center" direction="row" gap="3">
       <IconButton
+        className={styles.IconButton}
         highContrast
-        onClick={() => {
-          setMuted(!muted);
-        }}
+        onClick={onRewind}
         variant="ghost"
       >
-        <IoVolumeMuteOutline style={{ height: 30, width: 30 }} />
+        <MdReplay30 style={{ height: 28, width: 28 }} />
       </IconButton>
-      <IconButton highContrast onClick={onRewind} variant="ghost">
-        <RiReplay15Fill style={{ height: 30, width: 30 }} />
-      </IconButton>
-      <IconButton highContrast onClick={onPlayPause} variant="ghost">
+      <IconButton
+        className={styles.IconButton}
+        highContrast
+        onClick={onPlayPause}
+        variant="ghost"
+      >
         {playing ? (
-          <FaPauseCircle style={{ height: 30, width: 30 }} />
+          <FaPauseCircle style={{ height: 28, width: 28 }} />
         ) : (
-          <FaCirclePlay style={{ height: 30, width: 30 }} />
+          <FaCirclePlay style={{ height: 28, width: 28 }} />
         )}
       </IconButton>
-      <IconButton highContrast onClick={onFastForward} variant="ghost">
-        <RiForward15Line style={{ height: 30, width: 30 }} />
-      </IconButton>
-
-      <select
-        className={styles.RatingsSelect}
-        id="rating-select"
-        name="ratings"
-        onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-          onSetPlaybackRate(Number(e.target.value));
-          setPlaybackRate(Number(e.target.value));
-        }}
-        value={playbackRate}
+      <IconButton
+        className={styles.IconButton}
+        highContrast
+        onClick={onFastForward}
+        variant="ghost"
       >
-        <option value="0.5">0.5x</option>
-        <option value="0.75">0.75x</option>
-        <option value="1">1x</option>
-        <option value="1.25">1.25x</option>
-        <option value="1.5">1.50x</option>
-        <option value="2">2x</option>
-      </select>
+        <MdForward30 style={{ height: 28, width: 28 }} />
+      </IconButton>
     </Flex>
   );
 }
@@ -107,33 +97,63 @@ function PlayerBar({
         sm: '4',
       }}
     >
-      <Slider
-        defaultValue={[sliderPosition]}
-        max={duration}
-        onValueChange={(value) => {
-          if (typeof value[0] !== 'number' || !playerRef.current) {
-            return;
-          }
-          const position = Math.floor(value[0]);
-          setSliderPosition(position);
-          playerRef.current.currentTime = position;
-        }}
-        size="2"
+      <Box
         style={{
-          width: 300,
-        }}
-        value={[sliderPosition]}
-      />
-      <Text
-        color="gray"
-        highContrast
-        size={{
-          initial: '1',
-          xs: '2',
+          minWidth: 50,
+          textAlign: 'center',
         }}
       >
-        {formatDuration((duration - sliderPosition) * 1000)} left
-      </Text>
+        <Text
+          color="gray"
+          highContrast
+          size={{
+            initial: '1',
+            xs: '2',
+          }}
+        >
+          {formatDuration((playerRef.current?.currentTime ?? 0) * 1000)}
+        </Text>
+      </Box>
+      <Box
+        style={{
+          maxWidth: 240,
+        }}
+      >
+        <Slider
+          defaultValue={[sliderPosition]}
+          max={duration}
+          onValueChange={(value) => {
+            if (typeof value[0] !== 'number' || !playerRef.current) {
+              return;
+            }
+            const position = Math.floor(value[0]);
+            setSliderPosition(position);
+            playerRef.current.currentTime = position;
+          }}
+          size="1"
+          style={{
+            width: 240,
+          }}
+          value={[sliderPosition]}
+        />
+      </Box>
+      <Box
+        style={{
+          minWidth: 50,
+          textAlign: 'center',
+        }}
+      >
+        <Text
+          color="gray"
+          highContrast
+          size={{
+            initial: '1',
+            xs: '2',
+          }}
+        >
+          -{formatDuration((duration - sliderPosition) * 1000)}
+        </Text>
+      </Box>
     </Flex>
   );
 }
@@ -143,15 +163,14 @@ export default function AudioPlayer({ audioUrl, duration }: Props) {
   const playerRef = useRef<HTMLAudioElement | null>(null);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [playbackRate, setPlaybackRate] = useState<number>(1);
-  const [muted, setMuted] = useState(false);
 
   const onRewind = () => {
     if (!playerRef.current) return;
-    playerRef.current.currentTime = playerRef.current.currentTime - 15;
+    playerRef.current.currentTime = playerRef.current.currentTime - 30;
   };
   const onFastForward = () => {
     if (!playerRef.current) return;
-    playerRef.current.currentTime = playerRef.current.currentTime + 15;
+    playerRef.current.currentTime = playerRef.current.currentTime + 30;
   };
   const onPlayPause = async () => {
     if (!playerRef.current) return;
@@ -160,11 +179,6 @@ export default function AudioPlayer({ audioUrl, duration }: Props) {
     } else {
       playerRef.current.pause();
     }
-  };
-
-  const onSetPlaybackRate = (value: number) => {
-    if (!playerRef.current) return;
-    playerRef.current.playbackRate = value;
   };
 
   return (
@@ -187,7 +201,6 @@ export default function AudioPlayer({ audioUrl, duration }: Props) {
       }}
     >
       <audio
-        muted={muted}
         onEnded={() => {
           setPlaying(false);
         }}
@@ -215,22 +228,21 @@ export default function AudioPlayer({ audioUrl, duration }: Props) {
         src={audioUrl}
       />
       <AudioPlayerControls
-        muted={muted}
         onFastForward={onFastForward}
         onPlayPause={onPlayPause}
         onRewind={onRewind}
-        onSetPlaybackRate={onSetPlaybackRate}
         playbackRate={playbackRate}
-        playing={playing}
-        setMuted={setMuted}
-        setPlaybackRate={setPlaybackRate}
-      />
-      <PlayerBar
-        duration={duration}
         playerRef={playerRef}
-        setSliderPosition={setSliderPosition}
-        sliderPosition={sliderPosition}
+        playing={playing}
       />
+      {playerRef.current ? (
+        <PlayerBar
+          duration={playerRef.current.duration}
+          playerRef={playerRef}
+          setSliderPosition={setSliderPosition}
+          sliderPosition={sliderPosition}
+        />
+      ) : null}
     </Flex>
   );
 }

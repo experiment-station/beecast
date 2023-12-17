@@ -45,8 +45,8 @@ function EpisodeDetailContent(
           sm: 'row',
         }}
         gap={{
-          initial: '4',
-          xs: '5',
+          initial: '6',
+          sm: '6',
         }}
       >
         <Avatar
@@ -59,10 +59,19 @@ function EpisodeDetailContent(
           src={props.image ?? ''}
         />
 
-        <Flex direction="column" gap="3" justify="end">
+        <Flex
+          align={{
+            initial: 'center',
+            sm: 'start',
+          }}
+          direction="column"
+          gap="3"
+          justify="end"
+          width="100%"
+        >
           <Heading
             size={{
-              initial: '2',
+              initial: '1',
               xs: '3',
             }}
           >
@@ -83,6 +92,9 @@ function EpisodeDetailContent(
             height={{
               initial: '9',
               sm: '5',
+            }}
+            style={{
+              marginBottom: 10,
             }}
           >
             <AudioPlayer audioUrl={props.audio_url} duration={props.duration} />
