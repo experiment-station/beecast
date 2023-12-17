@@ -1,3 +1,4 @@
+'use server';
 import { FetchError } from 'ofetch';
 
 import { fetchAccount } from '../account';

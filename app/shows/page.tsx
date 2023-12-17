@@ -1,6 +1,7 @@
 import type { Tables } from '@/types/supabase/database';
 
 import { ShowCard } from '@/components/show-card';
+import SearchField from '@/components/ui/search-field';
 import { DatabaseError } from '@/lib/errors';
 import { getAccountId } from '@/lib/services/account';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
@@ -54,6 +55,9 @@ export default async function Page() {
 
   return (
     <Flex direction="column" gap="4">
+      <Flex direction="row" gap="2">
+        <SearchField />
+      </Flex>
       {myShows.length > 0 && (
         <>
           <Heading as="h2" size="6">

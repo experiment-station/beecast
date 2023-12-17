@@ -321,7 +321,7 @@ export interface Database {
           language: string | null;
           podcast_index_guid: string;
           publisher: string;
-          spotify_id: string;
+          spotify_id: string | null;
           title: string;
           total_episode: number | null;
         };
@@ -333,7 +333,7 @@ export interface Database {
           language?: string | null;
           podcast_index_guid: string;
           publisher: string;
-          spotify_id: string;
+          spotify_id?: string | null;
           title: string;
           total_episode?: number | null;
         };
@@ -345,7 +345,7 @@ export interface Database {
           language?: string | null;
           podcast_index_guid?: string;
           publisher?: string;
-          spotify_id?: string;
+          spotify_id?: string | null;
           title?: string;
           total_episode?: number | null;
         };

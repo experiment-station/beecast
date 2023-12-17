@@ -55,7 +55,6 @@ export const saveShow = async (show: PodcastIndexShowType) => {
       language: show.language,
       podcast_index_guid: show.podcastGuid,
       publisher: show.author,
-      spotify_id: show.spotifyId,
       title: show.title,
       total_episode: show.episodeCount,
     })
@@ -66,7 +65,8 @@ export const saveShow = async (show: PodcastIndexShowType) => {
     throw new DatabaseError(error);
   }
 
-  await saveShowToImported(data.id, show.spotifyId, show.podcastGuid);
+  // maybe we can keep it for now?
+  // await saveShowToImported(data.id, show.spotifyId, show.podcastGuid);
 
   return data;
 };
@@ -84,32 +84,32 @@ export const bulkSaveShow = async (shows: PodcastIndexShowType[]) => {
     throw new DatabaseError(error);
   }
 
-  data.map(async (item) => {
-    await saveShowToImported(item.id, item.spotify_id, item.podcast_index_guid);
-  });
+  // data.map(async (item) => {
+  //   await saveShowToImported(item.id, item.spotify_id, item.podcast_index_guid);
+  // });
 
   return data;
 };
 
-const saveShowToImported = async (
-  showId: Tables<'show'>['id'],
-  spotifyId: Tables<'show'>['spotify_id'],
-  podcastIndexGuid: string,
-) => {
-  const supabase = createSupabaseServiceClient();
+// const saveShowToImported = async (
+//   showId: Tables<'show'>['id'],
+//   spotifyId: Tables<'show'>['spotify_id'],
+//   podcastIndexGuid: string,
+// ) => {
+//   const supabase = createSupabaseServiceClient();
 
-  const { data, error } = await supabase.from('imported_show').insert({
-    podcast_index_guid: podcastIndexGuid,
-    show: showId,
-    spotify_id: spotifyId,
-  });
+//   const { data, error } = await supabase.from('imported_show').insert({
+//     podcast_index_guid: podcastIndexGuid,
+//     show: showId,
+//     spotify_id: spotifyId,
+//   });
 
-  if (error) {
-    throw new DatabaseError(error);
-  }
+//   if (error) {
+//     throw new DatabaseError(error);
+//   }
 
-  return data;
-};
+//   return data;
+// };
 
 export const getShowWithGuid = async (
   guid: Tables<'show'>['podcast_index_guid'],

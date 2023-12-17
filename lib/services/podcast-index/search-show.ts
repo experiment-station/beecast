@@ -21,7 +21,7 @@ type PodcastIndexResponse = {
 
 export const searchShow = async (
   title: string,
-): Promise<PodcastIndexShowType> => {
+): Promise<PodcastIndexShowType | undefined> => {
   const response = await podcastIndexFetchClient<PodcastIndexResponse>(
     `/search/bytitle`,
     {

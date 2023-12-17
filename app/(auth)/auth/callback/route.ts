@@ -35,16 +35,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { isNewAccount } = await saveUserInfo({ session, user });
-
-    if (isNewAccount) {
-      return NextResponse.redirect(
-        new URL('/onboarding/start', request.url).toString(),
-        {
-          status: 301,
-        },
-      );
-    }
+    await saveUserInfo({ session, user });
 
     return NextResponse.redirect(new URL(redirect || '/shows', request.url));
   } catch (error) {
