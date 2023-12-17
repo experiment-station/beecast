@@ -17,6 +17,7 @@ export function CollapsiblePanel({ children, height = 60, ...props }: Props) {
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [maxHeight, setMaxHeight] = useState(height);
 
   useEffect(() => {
     setMounted(true);
@@ -30,23 +31,27 @@ export function CollapsiblePanel({ children, height = 60, ...props }: Props) {
         '--max-height',
         `${contentRef.current.scrollHeight}px`,
       );
+
+      setMaxHeight(contentRef.current.scrollHeight);
     }
   }, [height, children]);
 
   return (
     <Card className={styles.Container}>
-      <Flex m="2" position="absolute" right="0" top="0">
-        <IconButton
-          onClick={() => {
-            setOpen((o) => !o);
-          }}
-          size="1"
-          tabIndex={-1}
-          variant="ghost"
-        >
-          {open ? <CgClose /> : <CgExpand />}
-        </IconButton>
-      </Flex>
+      {maxHeight > height ? (
+        <Flex m="2" position="absolute" right="0" top="0">
+          <IconButton
+            onClick={() => {
+              setOpen((o) => !o);
+            }}
+            size="1"
+            tabIndex={-1}
+            variant="ghost"
+          >
+            {open ? <CgClose /> : <CgExpand />}
+          </IconButton>
+        </Flex>
+      ) : null}
 
       <Heading mb="2" size="2">
         {props.title}
