@@ -29,7 +29,7 @@ type Props =
       user: {
         avatarURL?: string;
         credits: number;
-        username: string;
+        name: string;
       };
       variant: 'authenticated';
     }
@@ -39,14 +39,14 @@ type Props =
 
 const USER_MENU_LINKS = [
   {
-    href: '/credits',
-    icon: <PiRobotBold />,
-    label: 'Buy credits',
-  },
-  {
     href: '/shows',
     icon: <CgMediaPodcast />,
     label: 'Your shows',
+  },
+  {
+    href: '/credits',
+    icon: <PiRobotBold />,
+    label: 'Buy credits',
   },
 ];
 
@@ -77,7 +77,7 @@ function AppHeaderActionsAuthenticated(
         <DropdownMenuLabel asChild>
           <Flex align="start" direction="column" height="auto">
             <Text color="gray" highContrast weight="medium">
-              {props.user.username}
+              {props.user.name}
             </Text>
 
             <Text color="gray" size="1">

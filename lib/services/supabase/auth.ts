@@ -1,5 +1,6 @@
 import type { Database } from '@/types/supabase/database';
 import type { CookieOptions } from '@supabase/ssr';
+import type { SignInWithOAuthCredentials } from '@supabase/supabase-js';
 import type { NextRequest } from 'next/server';
 
 import { env } from '@/env.mjs';
@@ -86,3 +87,6 @@ export const getUser = async () => {
 
   return userQuery.data.user;
 };
+
+export const ENABLED_OAUTH_PROVIDERS: SignInWithOAuthCredentials['provider'][] =
+  ['github', 'spotify'];
