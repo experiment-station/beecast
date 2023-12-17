@@ -5,7 +5,6 @@ import type { Session, User } from '@supabase/supabase-js';
 import { DatabaseError } from '@/lib/errors';
 import { differenceInMinutes } from 'date-fns';
 import { cookies } from 'next/headers';
-import { z } from 'zod';
 
 import { notifySlack } from './notify/slack';
 import { getUser } from './supabase/auth';
@@ -98,45 +97,57 @@ export const fetchAccount = async () => {
 export const fetchAccountAICredits = async () => {
   const supabase = createSupabaseServerClient(cookies());
 
-  const accountQuery = await supabase
+  const { data, error } = await supabase
     .from('account')
-    .select('ai_credit')
+    .select('ai_credit, ai_credit_remaining_usage')
     .eq('user_id', (await getUser()).id)
     .single();
 
-  if (accountQuery.error) {
-    throw new DatabaseError(accountQuery.error);
+  if (error) {
+    throw new DatabaseError(error);
   }
 
-  return accountQuery.data.ai_credit;
+  return data;
 };
 
-export const validateAccountAICredits = async () => {
-  const aiCredits = await fetchAccountAICredits();
-
-  const accountCreditsSchema = z.number().int().positive();
-  const validatedCredits = accountCreditsSchema.safeParse(aiCredits);
-
-  if (!validatedCredits.success) {
-    throw validatedCredits.error;
-  }
-
-  return validatedCredits.data;
-};
-
-export const updateAccountAICredits = async (amount: number) => {
+export const decrementAccountAICredits = async () => {
   const supabase = createSupabaseServerClient(cookies());
+  const credits = await fetchAccountAICredits();
 
-  const accountQuery = await supabase
+  const { data, error } = await supabase
     .from('account')
-    .update({ ai_credit: amount })
+    .update({
+      ai_credit: credits.ai_credit - 1,
+      ai_credit_remaining_usage: credits.ai_credit_remaining_usage - 1,
+    })
     .eq('user_id', (await getUser()).id)
-    .select('ai_credit')
+    .select('ai_credit, ai_credit_remaining_usage')
     .single();
 
-  if (accountQuery.error) {
-    throw new DatabaseError(accountQuery.error);
+  if (error) {
+    throw new DatabaseError(error);
   }
 
-  return accountQuery.data.ai_credit;
+  return data;
+};
+
+export const incrementAccountAICredits = async () => {
+  const supabase = createSupabaseServerClient(cookies());
+  const credits = await fetchAccountAICredits();
+
+  const { data, error } = await supabase
+    .from('account')
+    .update({
+      ai_credit: credits.ai_credit + 1,
+      ai_credit_remaining_usage: credits.ai_credit_remaining_usage + 1,
+    })
+    .eq('user_id', (await getUser()).id)
+    .select('ai_credit, ai_credit_remaining_usage')
+    .single();
+
+  if (error) {
+    throw new DatabaseError(error);
+  }
+
+  return data;
 };
