@@ -8,11 +8,14 @@ import {
   Card,
   Flex,
   Heading,
+  Link,
   Separator,
+  Strong,
   Text,
 } from '@radix-ui/themes';
 import { Provider } from 'jotai';
 import { cookies } from 'next/headers';
+import { FaInfoCircle } from 'react-icons/fa';
 import { FaCircleCheck } from 'react-icons/fa6';
 
 import { CreditListItem } from './components/credit-list-item';
@@ -46,6 +49,25 @@ export default async function Page(props: Props) {
         </CalloutRoot>
       ) : null}
 
+      <CalloutRoot color="gray">
+        <CalloutIcon>
+          <FaInfoCircle />
+        </CalloutIcon>
+
+        <CalloutText>
+          Our payment system is currently running on test mode. You can buy
+          credits for free by using{' '}
+          <Link href="https://stripe.com/docs/testing#cards" target="_blank">
+            these credit card numbers
+          </Link>
+          .{' '}
+          <Strong>
+            However, you have a remaining limit of{' '}
+            {credits.ai_credit_remaining_usage} credit(s) to run the AI thingy.
+          </Strong>
+        </CalloutText>
+      </CalloutRoot>
+
       <Card size="3">
         <Flex direction="column" gap="4">
           <Flex direction="column" gap="2">
@@ -54,8 +76,7 @@ export default async function Page(props: Props) {
             </Heading>
 
             <Text color="gray" size="2">
-              You currently have{' '}
-              <Text weight="medium">{credits.ai_credit}</Text> credits.
+              You have <Text weight="medium">{credits.ai_credit}</Text> credits.
             </Text>
           </Flex>
 
