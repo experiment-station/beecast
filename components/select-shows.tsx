@@ -7,7 +7,7 @@ import { bulkSaveShow, followShow } from '@/lib/services/show';
 import { Button, Flex, Grid, Heading, Text } from '@radix-ui/themes';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaArrowDown } from 'react-icons/fa';
+import { FaArrowDown, FaArrowRight } from 'react-icons/fa';
 
 import { ShowCardToggle } from './show-card';
 
@@ -67,57 +67,55 @@ export default function SelectShows({
           initial: 'column',
           xs: 'row',
         }}
-        gap={{
-          initial: '3',
-        }}
-        justify={{
-          initial: 'between',
-          xs: 'between',
-        }}
+        gap="3"
+        justify="between"
       >
         <Heading
           as="h2"
           size={{
             initial: '4',
             lg: '6',
-            xs: '4',
           }}
         >
           Choose from your Spotify shows!
         </Heading>
+
         {selectedShows.length > 0 && (
           <Flex align="center" direction="row" gap="3">
-            <Text size="2">{selectedShows.length} shows selected.</Text>
+            <Text size="2">{selectedShows.length} show(s) selected.</Text>
+
             <Button
               disabled={importStatus.status === 'import_in_progress'}
               highContrast
-              onClick={() => handleImport()}
+              onClick={handleImport}
               size={{
                 initial: '1',
-                lg: '2',
+                md: '2',
               }}
-              variant="outline"
+              variant="soft"
             >
               <FaArrowDown />
               Import
             </Button>
+
             {importStatus.status === 'import_completed' && (
               <Link href="/shows">
                 <Button
-                  color="grass"
                   highContrast
                   size={{
                     initial: '1',
-                    lg: '2',
+                    md: '2',
                   }}
                 >
                   Continue
+                  <FaArrowRight />
                 </Button>
               </Link>
             )}
           </Flex>
         )}
       </Flex>
+
       <Grid
         columns={{
           initial: '2',
