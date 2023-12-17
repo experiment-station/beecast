@@ -3,7 +3,7 @@ import type { Tables } from '@/types/supabase/database';
 import { DatabaseError } from '@/lib/errors';
 import { fetchAccountAICredits } from '@/lib/services/account';
 import { createSupabaseServerClient } from '@/lib/services/supabase/server';
-import { Button, Flex } from '@radix-ui/themes';
+import { Button, CalloutRoot, CalloutText, Flex } from '@radix-ui/themes';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { CgDollar } from 'react-icons/cg';
@@ -30,7 +30,20 @@ export async function EpisodeAISummary(props: Props) {
   }
 
   if (data.length === 0 || data[0].text_summary === null) {
-    if (credits < 1) {
+    if (credits.ai_credit_remaining_usage < 1) {
+      return (
+        <EpisodeAISummaryPlaceholder>
+          <CalloutRoot color="amber" size="1">
+            <CalloutText>
+              You have used all your spendable credits. Thanks for using
+              beecast!
+            </CalloutText>
+          </CalloutRoot>
+        </EpisodeAISummaryPlaceholder>
+      );
+    }
+
+    if (credits.ai_credit < 1) {
       return (
         <EpisodeAISummaryPlaceholder>
           <Button asChild highContrast>

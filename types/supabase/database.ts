@@ -12,6 +12,7 @@ export interface Database {
       account: {
         Row: {
           ai_credit: number;
+          ai_credit_remaining_usage: number;
           avatar_url: string | null;
           created_at: string;
           id: number;
@@ -22,6 +23,7 @@ export interface Database {
         };
         Insert: {
           ai_credit?: number;
+          ai_credit_remaining_usage?: number;
           avatar_url?: string | null;
           created_at?: string;
           id?: number;
@@ -32,6 +34,7 @@ export interface Database {
         };
         Update: {
           ai_credit?: number;
+          ai_credit_remaining_usage?: number;
           avatar_url?: string | null;
           created_at?: string;
           id?: number;

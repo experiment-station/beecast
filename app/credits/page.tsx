@@ -54,7 +54,8 @@ export default async function Page(props: Props) {
             </Heading>
 
             <Text color="gray" size="2">
-              You currently have <Text weight="medium">{credits}</Text> credits.
+              You currently have{' '}
+              <Text weight="medium">{credits.ai_credit}</Text> credits.
             </Text>
           </Flex>
 
