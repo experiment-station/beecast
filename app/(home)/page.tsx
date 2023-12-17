@@ -22,6 +22,7 @@ async function EpisodeDemo() {
 
   return (
     <EpisodeDetail.Content
+      audio_url={data.audio_url}
       description={data.description}
       duration={data.duration}
       id={data.id}
