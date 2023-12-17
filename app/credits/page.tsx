@@ -56,9 +56,9 @@ export default async function Page(props: Props) {
 
         <CalloutText>
           Our payment system is currently running on test mode. You can buy
-          credits for free by using the{' '}
+          credits for free by using{' '}
           <Link href="https://stripe.com/docs/testing#cards" target="_blank">
-            mock credit card numbers
+            these credit card numbers
           </Link>
           .{' '}
           <Strong>
