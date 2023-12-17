@@ -50,7 +50,7 @@ function EpisodeDetailContent(
         }}
       >
         <Avatar
-          fallback="/images/placeholder.png"
+          fallback="/images/logo.png"
           radius="small"
           size={{
             initial: '6',
