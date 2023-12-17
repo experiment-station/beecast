@@ -197,27 +197,24 @@ export interface Database {
       episode_progress: {
         Row: {
           account: number;
-          at: number;
           created_at: string;
           episode: number;
-          finished: boolean;
           id: number;
+          progress_time: number;
         };
         Insert: {
           account: number;
-          at: number;
           created_at?: string;
           episode: number;
-          finished?: boolean;
           id?: number;
+          progress_time: number;
         };
         Update: {
           account?: number;
-          at?: number;
           created_at?: string;
           episode?: number;
-          finished?: boolean;
           id?: number;
+          progress_time?: number;
         };
         Relationships: [
           {
@@ -270,7 +267,7 @@ export interface Database {
       };
       order: {
         Row: {
-          account: number;
+          account: number | null;
           amount: number;
           created_at: string;
           credits: number;
@@ -281,7 +278,7 @@ export interface Database {
           status: string;
         };
         Insert: {
-          account: number;
+          account?: number | null;
           amount: number;
           created_at?: string;
           credits: number;
@@ -292,7 +289,7 @@ export interface Database {
           status: string;
         };
         Update: {
-          account?: number;
+          account?: number | null;
           amount?: number;
           created_at?: string;
           credits?: number;
