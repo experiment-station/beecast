@@ -34,7 +34,7 @@ function EpisodeDetailContent(
     <Flex
       direction="column"
       gap={{
-        initial: '6',
+        initial: '5',
         sm: '6',
       }}
     >
@@ -45,7 +45,7 @@ function EpisodeDetailContent(
           sm: 'row',
         }}
         gap={{
-          initial: '6',
+          initial: '4',
           sm: '6',
         }}
       >
@@ -53,50 +53,40 @@ function EpisodeDetailContent(
           fallback="/images/logo.png"
           radius="small"
           size={{
-            initial: '6',
+            initial: '8',
             xs: '9',
           }}
           src={props.image ?? ''}
         />
 
-        <Flex
-          align={{
-            initial: 'center',
-            sm: 'start',
-          }}
-          direction="column"
-          gap="3"
-          justify="end"
-          width="100%"
-        >
-          <Heading
-            size={{
-              initial: '1',
-              xs: '3',
-            }}
-          >
-            {props.title}
-          </Heading>
+        <Flex direction="column" gap="4" justify="end" width="100%">
+          <Flex direction="column" gap="1">
+            <Heading
+              align={{
+                initial: 'center',
+                sm: 'left',
+              }}
+              size={{
+                initial: '2',
+                xs: '3',
+              }}
+            >
+              {props.title}
+            </Heading>
 
-          <Text
-            color="gray"
-            size={{
-              initial: '1',
-              xs: '2',
-            }}
-          >
-            {props.show.title}
-          </Text>
+            <Text
+              align={{
+                initial: 'center',
+                sm: 'left',
+              }}
+              color="gray"
+              size="2"
+            >
+              {props.show.title}
+            </Text>
+          </Flex>
 
-          <Box
-            height={{
-              initial: '9',
-              sm: '5',
-            }}
-            style={{
-              marginBottom: 10,
-            }}
-          >
+          <Box>
             <AudioPlayer audioUrl={props.audio_url} duration={props.duration} />
           </Box>
         </Flex>

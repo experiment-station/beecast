@@ -11,6 +11,11 @@ export default function AuthLayout(props: PropsWithChildren) {
         direction="column"
         gap="4"
         mx="auto"
+        px={{
+          initial: '5',
+          lg: '0',
+          md: '3',
+        }}
         style={{
           alignItems: 'start',
           justifyContent: 'center',

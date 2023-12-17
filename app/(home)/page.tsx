@@ -45,9 +45,25 @@ export default function Page() {
   return (
     <Flex align="center" direction="column" gap="6" mx="auto">
       <Flex align="center" direction="column" gap="2">
-        <Heading size="8">A more efficient way to listen podcasts</Heading>
+        <Heading
+          align="center"
+          size={{
+            initial: '6',
+            md: '8',
+            sm: '7',
+          }}
+        >
+          A more efficient way to listen podcasts
+        </Heading>
 
-        <Text color="gray" size="4">
+        <Text
+          align="center"
+          color="gray"
+          size={{
+            initial: '3',
+            md: '4',
+          }}
+        >
           Meet <Em>beecast</Em>, your hard-working AI podcast companion.
         </Text>
       </Flex>

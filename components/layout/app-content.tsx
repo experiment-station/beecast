@@ -6,7 +6,7 @@ export function AppContent(props: PropsWithChildren) {
   return (
     <Container
       px={{
-        initial: '6',
+        initial: '5',
         lg: '0',
         md: '3',
       }}

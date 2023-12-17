@@ -31,7 +31,19 @@ const FOOTER_SOCIAL_LINKS = [
 export function AppFooter() {
   return (
     <AppContent>
-      <Flex align="end" justify="between" py="4">
+      <Flex
+        align={{
+          initial: 'start',
+          sm: 'center',
+        }}
+        direction={{
+          initial: 'column',
+          sm: 'row',
+        }}
+        gap="4"
+        justify="between"
+        py="4"
+      >
         <Flex align="start" direction="column">
           <Text size="2" weight="medium">
             Built with ☕️ by your folks at the{' '}

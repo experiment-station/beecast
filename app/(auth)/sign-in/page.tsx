@@ -51,7 +51,7 @@ export default function Page(props: Props) {
         A more efficient way to listen podcasts.
       </Text>
 
-      <Flex direction="column" gap="2">
+      <Flex direction="column" gap="3">
         {ENABLED_OAUTH_PROVIDERS.map((provider) => (
           <div key={provider}>
             <form action={`/auth/sign-in/${provider}`} method="POST">

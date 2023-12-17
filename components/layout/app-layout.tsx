@@ -37,7 +37,14 @@ export async function AppLayout({ children }: PropsWithChildren) {
 
       <main>
         <AppContent>
-          <Box my="6">{children}</Box>
+          <Box
+            my={{
+              initial: '4',
+              md: '6',
+            }}
+          >
+            {children}
+          </Box>
         </AppContent>
       </main>
 

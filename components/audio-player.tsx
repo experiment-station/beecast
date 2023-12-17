@@ -89,7 +89,6 @@ function PlayerBar({
     <Flex
       align="center"
       direction={{
-        initial: 'column',
         sm: 'row',
       }}
       gap={{
@@ -99,7 +98,7 @@ function PlayerBar({
     >
       <Box
         style={{
-          minWidth: 50,
+          minWidth: 48,
           textAlign: 'center',
         }}
       >
@@ -139,7 +138,7 @@ function PlayerBar({
       </Box>
       <Box
         style={{
-          minWidth: 50,
+          minWidth: 48,
           textAlign: 'center',
         }}
       >
