@@ -35,7 +35,11 @@ export const updateAccount = async ({
       {
         avatar_url: metadata.avatar_url || '',
         name:
-          metadata.preferred_username || metadata.user_name || user.email || '',
+          metadata.preferred_username ||
+          metadata.user_name ||
+          metadata.name ||
+          user.email ||
+          '',
         provider_refresh_token: session.provider_refresh_token || '',
         provider_token: session.provider_token || '',
         user_id: user.id,

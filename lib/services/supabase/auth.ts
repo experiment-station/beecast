@@ -88,5 +88,12 @@ export const getUser = async () => {
   return userQuery.data.user;
 };
 
+const CONFIGURED_OAUTH_PROVIDERS: SignInWithOAuthCredentials['provider'][] = [
+  'github',
+  'spotify',
+];
+
 export const ENABLED_OAUTH_PROVIDERS: SignInWithOAuthCredentials['provider'][] =
-  ['github', 'spotify'];
+  process.env.NODE_ENV === 'development'
+    ? CONFIGURED_OAUTH_PROVIDERS
+    : ['github'];
