@@ -1,6 +1,6 @@
 <div align="center">
   <p>
-    <img src="./public/logo.png" width="72">
+    <img src="./public/images/logo.png" width="72">
   </p>
 
   <h1>beecast</h1>
@@ -10,7 +10,9 @@
   </p>
 
   <p>
-    <a href="https://conventionalcommits.org" target="_blank"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196" ></a>
+    <a href="https://conventionalcommits.org" target="_blank">
+      <img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196" >
+    </a>
     <img src="https://img.shields.io/github/license/experiment-station/beecast">
   </p>
 </div>

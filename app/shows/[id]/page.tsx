@@ -53,7 +53,7 @@ export default async function Page(props: { params: { id: ShowId } }) {
           <AspectRatio ratio={1}>
             <Avatar
               alt={data.title}
-              fallback="/images/placeholder.png"
+              fallback="/images/logo.png"
               radius="small"
               src={data.images?.[0]}
               style={{

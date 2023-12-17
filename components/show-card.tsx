@@ -48,7 +48,7 @@ function ShowCardImage(props: Pick<ShowCardProps, 'images' | 'title'>) {
             <Avatar
               alt={`Cover for ${props.title}`}
               className={styles.Image}
-              fallback="/images/placeholder.png"
+              fallback="/images/logo.png"
               src={props.images?.[0]}
             />
           </AspectRatio>
