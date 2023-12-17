@@ -19,7 +19,7 @@ export async function AppLayout({ children }: PropsWithChildren) {
         user={{
           avatarURL: account.avatar_url ?? '',
           credits: account.ai_credit,
-          username: account.display_name ?? '',
+          name: account.name,
         }}
         variant="authenticated"
       />

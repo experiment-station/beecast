@@ -14,47 +14,44 @@ export interface Database {
           ai_credit: number;
           avatar_url: string | null;
           created_at: string;
-          display_name: string | null;
           id: number;
+          name: string;
           provider_refresh_token: string | null;
           provider_token: string;
-          spotify_id: string;
           user_id: string;
         };
         Insert: {
           ai_credit?: number;
           avatar_url?: string | null;
           created_at?: string;
-          display_name?: string | null;
           id?: number;
+          name: string;
           provider_refresh_token?: string | null;
           provider_token: string;
-          spotify_id: string;
           user_id: string;
         };
         Update: {
           ai_credit?: number;
           avatar_url?: string | null;
           created_at?: string;
-          display_name?: string | null;
           id?: number;
+          name?: string;
           provider_refresh_token?: string | null;
           provider_token?: string;
-          spotify_id?: string;
           user_id?: string;
         };
         Relationships: [
           {
             foreignKeyName: 'account_user_fkey';
             columns: ['user_id'];
-            isOneToOne: false;
+            isOneToOne: true;
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },
           {
             foreignKeyName: 'account_user_id_fkey';
             columns: ['user_id'];
-            isOneToOne: false;
+            isOneToOne: true;
             referencedRelation: 'users';
             referencedColumns: ['id'];
           },
@@ -321,7 +318,7 @@ export interface Database {
           language: string | null;
           podcast_index_guid: string;
           publisher: string;
-          spotify_id: string;
+          spotify_id: string | null;
           title: string;
           total_episode: number | null;
         };
@@ -333,7 +330,7 @@ export interface Database {
           language?: string | null;
           podcast_index_guid: string;
           publisher: string;
-          spotify_id: string;
+          spotify_id?: string | null;
           title: string;
           total_episode?: number | null;
         };
@@ -345,7 +342,7 @@ export interface Database {
           language?: string | null;
           podcast_index_guid?: string;
           publisher?: string;
-          spotify_id?: string;
+          spotify_id?: string | null;
           title?: string;
           total_episode?: number | null;
         };

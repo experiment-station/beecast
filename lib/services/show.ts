@@ -101,7 +101,7 @@ const saveShowToImported = async (
   const { data, error } = await supabase.from('imported_show').insert({
     podcast_index_guid: podcastIndexGuid,
     show: showId,
-    spotify_id: spotifyId,
+    spotify_id: spotifyId || '',
   });
 
   if (error) {
