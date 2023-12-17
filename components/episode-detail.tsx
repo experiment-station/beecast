@@ -31,13 +31,22 @@ function EpisodeDetailContent(
   >,
 ) {
   return (
-    <Flex direction="column" gap="6">
+    <Flex
+      direction="column"
+      gap={{
+        initial: '6',
+        sm: '6',
+      }}
+    >
       <Flex
         align="center"
-        direction="row"
+        direction={{
+          initial: 'column',
+          sm: 'row',
+        }}
         gap={{
-          initial: '3',
-          xs: '5',
+          initial: '6',
+          sm: '6',
         }}
       >
         <Avatar
@@ -50,10 +59,19 @@ function EpisodeDetailContent(
           src={props.image ?? ''}
         />
 
-        <Flex direction="column" gap="2" justify="end">
+        <Flex
+          align={{
+            initial: 'center',
+            sm: 'start',
+          }}
+          direction="column"
+          gap="3"
+          justify="end"
+          width="100%"
+        >
           <Heading
             size={{
-              initial: '2',
+              initial: '1',
               xs: '3',
             }}
           >
@@ -70,7 +88,15 @@ function EpisodeDetailContent(
             {props.show.title}
           </Text>
 
-          <Box height="5">
+          <Box
+            height={{
+              initial: '9',
+              sm: '5',
+            }}
+            style={{
+              marginBottom: 10,
+            }}
+          >
             <AudioPlayer audioUrl={props.audio_url} duration={props.duration} />
           </Box>
         </Flex>
