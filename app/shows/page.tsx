@@ -12,7 +12,8 @@ const fetchAllShows = async () => {
   const supabase = createSupabaseServerClient(cookies());
   const response = await supabase
     .from('show')
-    .select('id, title, images, publisher');
+    .select('id, title, images, publisher')
+    .order('created_at', { ascending: false });
 
   return response;
 };
@@ -24,7 +25,8 @@ const fetchMyShows = async () => {
     .from('account_show_relation')
     .select('show (id, title, images, publisher)')
     .eq('account', accountId)
-    .not('show', 'is', null);
+    .not('show', 'is', null)
+    .order('created_at', { ascending: false });
 
   return response;
 };

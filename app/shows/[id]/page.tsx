@@ -83,13 +83,15 @@ export default async function Page(props: { params: { id: ShowId } }) {
         <Separator orientation="horizontal" size="4" />
 
         <Grid gap="6">
-          {data.episodes.map((episode) => (
-            <EpisodeCard
-              hasContent={Boolean(episode.episode_content?.text_summary)}
-              key={episode.id}
-              {...episode}
-            />
-          ))}
+          {data.episodes
+            .sort((a, b) => (b.published_date ?? 0) - (a.published_date ?? 0))
+            .map((episode) => (
+              <EpisodeCard
+                hasContent={Boolean(episode.episode_content?.text_summary)}
+                key={episode.id}
+                {...episode}
+              />
+            ))}
         </Grid>
       </Flex>
     </Flex>
