@@ -27,7 +27,7 @@
     "@vercel/analytics": "^1.1.1",
     "ai": "^2.2.29",
     "css-device-frames": "^1.0.5",
-    "date-fns": "^3.0.0",
+    "date-fns": "^2.30.0",
     "es6-error": "^4.1.1",
     "format-duration": "^3.0.2",
     "html-react-parser": "^5.0.10",
