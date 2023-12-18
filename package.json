@@ -53,7 +53,7 @@
     "@storybook/addon-themes": "^7.6.4",
     "@storybook/blocks": "^7.6.4",
     "@storybook/nextjs": "^7.6.4",
-    "@storybook/react": "^7.6.4",
+    "@storybook/react": "^7.6.5",
     "@storybook/test": "^7.6.4",
     "@types/node": "^20",
     "@types/react": "^18",
