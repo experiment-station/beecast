@@ -8,9 +8,9 @@ import { useCallback, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import { PiRobotBold } from 'react-icons/pi';
 
-import { EpisodeAISummaryPanel } from './episode-ai-summary-panel';
 import { EpisodeAISummaryPlaceholder } from './episode-ai-summary-placeholder';
 import { EpisodeAISummaryStreamer } from './episode-ai-summary-streamer';
+import { EpisodeAISummaryTranscriber } from './episode-ai-summary-transcriber';
 
 type State =
   | {
@@ -63,9 +63,7 @@ export function EpisodeAISummaryGenerator({
       );
 
     case 'transcribing':
-      return (
-        <EpisodeAISummaryPanel>Transcribing episode...</EpisodeAISummaryPanel>
-      );
+      return <EpisodeAISummaryTranscriber />;
 
     case 'summarizing':
       return <EpisodeAISummaryStreamer id={id} />;
