@@ -17,7 +17,7 @@ const episodeSchema = z.object({
   episode: z.number().nullable(),
   feedImage: z.string().nullable(),
   guid: z.string().min(1),
-  image: z.string().min(1),
+  image: z.string().nullable(),
   title: z.string().min(1),
 });
 
