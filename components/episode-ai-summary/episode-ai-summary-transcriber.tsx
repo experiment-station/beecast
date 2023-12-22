@@ -20,8 +20,6 @@ export function EpisodeAISummaryTranscriber() {
     };
   }, []);
 
-  console.log(timeElapsed);
-
   return (
     <EpisodeAISummaryPlaceholder>
       <Callout.Root color="gray" size="1">
@@ -31,10 +29,12 @@ export function EpisodeAISummaryTranscriber() {
 
         <Callout.Text>
           <Text weight="medium">
-            Transcribing episode (this takes approximately 15 seconds)
+            Transcribing episode (takes approximately 15 seconds)
           </Text>
           <br />
-          <Text size="2">{formatDuration(timeElapsed * 1000)}</Text>
+          <Text size="2">
+            {formatDuration(timeElapsed * 1000, { leading: true })}
+          </Text>
         </Callout.Text>
       </Callout.Root>
     </EpisodeAISummaryPlaceholder>
