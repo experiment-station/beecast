@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 import formatDuration from 'format-duration';
 import NextLink from 'next/link';
 import { FaPlay } from 'react-icons/fa6';
-import { PiRobotBold } from 'react-icons/pi';
+import { VscSparkle } from 'react-icons/vsc';
 
 import styles from './episode-card.module.css';
 import { EpisodeDescription } from './episode-description';
@@ -68,7 +68,7 @@ export function EpisodeCard(props: Props) {
                   {props.hasContent ? (
                     <Tooltip content="This episode has AI generated summary">
                       <Button color="mint" size="1">
-                        <PiRobotBold />
+                        <VscSparkle />
                         AI
                       </Button>
                     </Tooltip>

@@ -6,7 +6,7 @@ import { transcribeEpisode } from '@/lib/services/ai/transcribe-episode';
 import { Button, Callout, Flex, Text } from '@radix-ui/themes';
 import { useCallback, useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
-import { PiRobotBold } from 'react-icons/pi';
+import { VscSparkle } from 'react-icons/vsc';
 
 import { EpisodeAISummaryPlaceholder } from './episode-ai-summary-placeholder';
 import { EpisodeAISummaryStreamer } from './episode-ai-summary-streamer';
@@ -51,7 +51,7 @@ export function EpisodeAISummaryGenerator({
           <Button highContrast onClick={generate} size="2">
             <Flex align="center" gap="2" justify="center">
               <Text mt="1" size="4" trim="both">
-                <PiRobotBold />
+                <VscSparkle />
               </Text>
 
               <Text style={{ textTransform: 'uppercase' }} weight="medium">

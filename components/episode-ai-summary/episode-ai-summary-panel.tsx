@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react';
 
 import { Badge, Flex } from '@radix-ui/themes';
-import { PiRobotBold } from 'react-icons/pi';
+import { VscSparkle } from 'react-icons/vsc';
 
 import { CollapsiblePanel } from '../ui/collapsible-panel';
 import { Panel } from '../ui/panel';
@@ -21,7 +21,7 @@ function Title() {
           marginBottom: '-1px',
         }}
       >
-        <PiRobotBold />
+        <VscSparkle />
         AI
       </Badge>
 

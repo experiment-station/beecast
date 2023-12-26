@@ -18,7 +18,7 @@ import {
   CgMediaPodcast,
   CgProfile,
 } from 'react-icons/cg';
-import { PiRobotBold } from 'react-icons/pi';
+import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 
 import { Logo } from '../ui/logo';
 import { UnstyledButton } from '../ui/unstyled-button';
@@ -45,7 +45,7 @@ const USER_MENU_LINKS = [
   },
   {
     href: '/credits',
-    icon: <PiRobotBold />,
+    icon: <RiMoneyDollarCircleLine />,
     label: 'Buy credits',
   },
 ];
