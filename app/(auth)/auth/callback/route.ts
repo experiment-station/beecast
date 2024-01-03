@@ -34,7 +34,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    await updateAccount({ session, user });
+    const { isNewAccount } = await updateAccount({ session, user });
+
+    if (isNewAccount && process.env.SPOTIFY_STAGING === 'enabled') {
+      return NextResponse.redirect(
+        new URL('/onboarding/start', request.url).toString(),
+        {
+          status: 301,
+        },
+      );
+    }
+
     const redirect = requestUrl.searchParams.get('redirect');
     const redirectURL = new URL(redirect || '/shows', request.url);
     return NextResponse.redirect(redirectURL);

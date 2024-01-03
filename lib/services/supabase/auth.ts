@@ -94,6 +94,7 @@ const CONFIGURED_OAUTH_PROVIDERS: SignInWithOAuthCredentials['provider'][] = [
 ];
 
 export const ENABLED_OAUTH_PROVIDERS: SignInWithOAuthCredentials['provider'][] =
-  process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'development' ||
+  process.env.SPOTIFY_STAGING === 'enabled'
     ? CONFIGURED_OAUTH_PROVIDERS
     : ['github'];
