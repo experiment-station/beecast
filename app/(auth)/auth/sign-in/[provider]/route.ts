@@ -16,7 +16,7 @@ const getOAuthConfig = (
     case 'spotify':
       return {
         provider,
-        scopes: 'user-read-email user-read-playback-position user-library-read',
+        scopes: 'user-read-email user-library-read',
       };
 
     default:
