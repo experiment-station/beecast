@@ -155,8 +155,8 @@ devDependencies:
     specifier: ^7.6.6
     version: 7.6.6
   supabase:
-    specifier: ^1.123.4
-    version: 1.123.4
+    specifier: ^1.131.3
+    version: 1.131.3
   typescript:
     specifier: ^5
     version: 5.3.3
@@ -12784,8 +12784,8 @@ packages:
       client-only: 0.0.1
       react: 18.2.0
 
-  /supabase@1.123.4:
-    resolution: {integrity: sha512-HFQOU+n73Ah9sYbja7tdjuqT6QNDzkKXfLCCIbD9GdggbTvGZa3D+0hJPADL4y0vAfsoB5tlx3WBXswnbWIXiw==}
+  /supabase@1.131.3:
+    resolution: {integrity: sha512-C+d7OtqiGIpsmwD+XmGfnwcPIG2uI8wvHiQHv4tBQMmuEfb9oBMc5XDe8S4DsBh7gEPPUG69WDKoAne5MVf3/Q==}
     engines: {npm: '>=8'}
     hasBin: true
     requiresBuild: true
