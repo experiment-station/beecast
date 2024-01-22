@@ -50,7 +50,7 @@
     "@storybook/addon-essentials": "^7.6.6",
     "@storybook/addon-interactions": "^7.6.6",
     "@storybook/addon-links": "^7.6.6",
-    "@storybook/addon-themes": "^7.6.6",
+    "@storybook/addon-themes": "^7.6.10",
     "@storybook/blocks": "^7.6.6",
     "@storybook/nextjs": "^7.6.6",
     "@storybook/react": "^7.6.6",
