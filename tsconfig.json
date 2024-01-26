@@ -15,13 +15,13 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
     },
-    "baseUrl": "."
+    "baseUrl": ".",
   },
   "include": [
     ".eslintrc.cjs",
@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     "env.mjs",
-    "next-env.d.ts"
+    "next-env.d.ts",
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }
