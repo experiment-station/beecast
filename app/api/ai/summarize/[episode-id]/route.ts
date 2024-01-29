@@ -8,7 +8,7 @@ import { createSupabaseServerClient } from '@/lib/services/supabase/server';
 import { StreamingTextResponse } from 'ai';
 import { cookies } from 'next/headers';
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 export async function POST(
   req: Request,
